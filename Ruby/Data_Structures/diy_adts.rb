@@ -20,3 +20,26 @@ class Stack
 
 end 
 
+
+class Queue
+
+    attr_accessor :people 
+
+    def initialize 
+        @people = []
+    end 
+
+    def enqueue(el)
+        people << el 
+    end 
+
+    def dequeue 
+        people.shift  
+    end 
+
+    def peek 
+        people[0]
+    end 
+
+end 
+

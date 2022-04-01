@@ -43,3 +43,38 @@ class Queue
 
 end 
 
+
+class Map 
+
+    attr_accessor :nfc_east_teams
+
+    def initialize
+        @nfc_east_teams = []
+    end 
+
+    def city_exists?(city)
+        nfc_east_teams.any? { |team| team[0] == city } 
+    end 
+
+    def set(city, team_name)
+        if city_exists?(city)
+            nfc_east_teams.each { |team| team[1] = team_name if team[0] == city } 
+        else 
+            nfc_east_teams << [city, team_name]
+        end 
+    end 
+
+    def get(city)
+        nfc_east_teams.each { |team| return team[1] if team[0] == city } 
+    end 
+
+    def delete(city)
+        nfc_east_teams.each_with_index { |team, idx| nfc_east_teams.delete_at(idx) if team[0] == city } 
+    end 
+
+    def show_nfc_east_teams
+        nfc_east_teams
+    end 
+
+end 
+

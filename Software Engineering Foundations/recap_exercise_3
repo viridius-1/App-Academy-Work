@@ -1,0 +1,366 @@
+require "byebug"
+
+#method that returns elements in array that are not duplicated 
+def no_dupes?(arr)
+    count = Hash.new(0)
+    arr.each { |el| count[el] += 1 } 
+    count.keys.select { |el| count[el] == 1 } 
+end 
+
+# Examples
+p no_dupes?([1, 1, 2, 1, 3, 2, 4])         # => [3, 4]
+p no_dupes?(['x', 'x', 'y', 'z', 'z'])     # => ['y']
+p no_dupes?([true, true, true])            # => []
+p '----------------'
+
+
+
+#method returns true if element never appears consecutively in the array. returns false otherwise.
+def no_consecutive_repeats?(arr)
+    idx1 = 0 
+    while idx1 < arr.length - 1 
+        idx2 = idx1 + 1 
+        return false if arr[idx1] == arr[idx2]
+        idx1 += 1 
+    end 
+    true 
+end   
+
+
+p no_consecutive_repeats?(['cat', 'dog', 'mouse', 'dog'])     # => true
+p no_consecutive_repeats?(['cat', 'dog', 'dog', 'mouse'])     # => false
+p no_consecutive_repeats?([10, 42, 3, 7, 10, 3])              # => true
+p no_consecutive_repeats?([10, 42, 3, 3, 10, 3])              # => false
+p no_consecutive_repeats?(['x'])                              # => true
+p '----------------'
+
+
+#method that returns a hash of the characters in a string and the indices where they appear 
+def char_indices(string)
+
+    indices_hash = {}
+
+    string.each_char do |char1| 
+        indices = []
+        string.each_char.with_index { |char2, idx| indices << idx if char1 == char2 } 
+        indices_hash[char1] = indices 
+    end 
+
+    indices_hash 
+end 
+
+# Examples
+p char_indices('mississippi')   # => {"m"=>[0], "i"=>[1, 4, 7, 10], "s"=>[2, 3, 5, 6], "p"=>[8, 9]}
+p char_indices('classroom')     # => {"c"=>[0], "l"=>[1], "a"=>[2], "s"=>[3, 4], "r"=>[5], "o"=>[6, 7], "m"=>[8]}
+p '----------------'
+
+
+
+#method that returns the longest streak of characters in a string. if tie(s), returns last set of characters that tied. 
+def longest_streak(string)
+
+    longest = string[0]
+
+    string.each_char.with_index do |start_char, idx1| 
+        current_streak = get_current_streak(string, start_char, idx1)
+        longest = current_streak if current_streak.length >= longest.length 
+    end 
+
+    longest 
+end 
+
+#method that return the current streak of consecutive letters in a string based on a start index 
+def get_current_streak(string, start_char, idx1)
+
+    current_streak = start_char 
+
+    idx2 = idx1 + 1 
+    while idx2 < string.length 
+        if string[idx1] == string[idx2] 
+            current_streak = string[idx1..idx2] 
+        else      
+            break  
+        end 
+
+        idx2 += 1 
+    end 
+
+    current_streak 
+end 
+
+# Examples
+p longest_streak('a')           # => 'a'
+p longest_streak('accccbbb')    # => 'cccc'
+p longest_streak('aaaxyyyyyzz') # => 'yyyyy
+p longest_streak('aaabbb')      # => 'bbb'
+p longest_streak('abc')         # => 'c'
+p '----------------'
+
+
+#method that returns a boolean indicating whether a number has 2 factors that are prime 
+def bi_prime?(num)
+    prime_factors = []
+
+    factors = get_factors(num)
+
+    factors.each { |factor| prime_factors << factor if is_prime?(factor) } 
+
+    answer = two_prime_factors?(prime_factors, num)
+end 
+
+#method that returns the factors of a number. doesn't include 1 or itself. 
+def get_factors(num)
+    factors = []
+    (2...num).each { |i| factors << i if num % i == 0 } 
+    factors 
+end 
+
+#method that returns a boolean of whether a number is prime 
+def is_prime?(num)
+    (num - 1).downto(2) { |i| return false if num % i == 0 } 
+    true 
+end 
+
+#method that returns true if there are 2 factors in a prime factors array that equal a given number when multiplied together 
+def two_prime_factors?(prime_factors, num)
+    
+    return true if prime_factors.last * prime_factors.last == num 
+
+    if prime_factors.length > 1 
+
+        idx1 = 0 
+        while idx1 < prime_factors.length - 1 
+            return true if prime_factors[idx1] * prime_factors[idx1] == num 
+
+            idx2 = idx1 + 1 
+            while idx2 < prime_factors.length 
+                return true if prime_factors[idx1] * prime_factors[idx2] == num 
+                idx2 += 1 
+            end 
+
+            idx1 += 1 
+        end 
+
+    end 
+
+    false 
+end 
+
+# Examples
+p bi_prime?(14)   # => true
+p bi_prime?(22)   # => true
+p bi_prime?(25)   # => true
+p bi_prime?(94)   # => true
+p bi_prime?(24)   # => false
+p bi_prime?(64)   # => false
+p '----------------'
+
+
+
+#method that does a vigenere cipher. 
+def vigenere_cipher(message, keys)
+    new_msg = ""
+
+    key_idx = 0 
+    message.each_char do |ltr| 
+        shift = keys[key_idx]
+        new_ltr = do_shift(ltr, shift)
+        new_msg += new_ltr 
+        if keys[key_idx + 1] == nil 
+            key_idx = 0 
+        else 
+            key_idx += 1 
+        end 
+    end 
+
+    new_msg 
+end 
+
+#method that shifts a letter according to given information 
+def do_shift(ltr, shift)
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    alpha_idx = alphabet.index(ltr)
+    new_idx = (alpha_idx + shift) % 26 
+    alphabet[new_idx] 
+end 
+
+
+# Examples
+p vigenere_cipher("toerrishuman", [1])        # => "upfssjtivnbo"
+p vigenere_cipher("toerrishuman", [1, 2])     # => "uqftsktjvobp"
+p vigenere_cipher("toerrishuman", [1, 2, 3])  # => "uqhstltjxncq"
+p vigenere_cipher("zebra", [3, 0])            # => "ceerd"
+p vigenere_cipher("yawn", [5, 1])             # => "dbbo"
+p '----------------'
+
+
+#method that replaces each vowel with the vowel the appears before it sequentially in the original string. first vowel of the string is replaced with the last vowel of the string.
+def vowel_rotate(string)
+    rotated_vwls = ""
+    vowels = "aeiou"
+    
+    string.each_char.with_index do |char, idx1| 
+        if !(vowels.include?(char))
+            rotated_vwls += char 
+        else 
+            if is_first_vowel?(string, idx1, vowels)
+                get_idx = string.length - 1 
+            else 
+                get_idx = idx1 - 1 
+            end 
+            new_vwl = get_vowel(string, get_idx, vowels)
+            rotated_vwls += new_vwl 
+        end 
+    end 
+
+    rotated_vwls
+end 
+
+#method that returns a boolean if a character at an index is the first vowel in the string 
+def is_first_vowel?(string, idx, vowels)
+    (0...idx).each { |i| return false if vowels.include?(string[i]) } 
+    true 
+end 
+
+#method that gets the rotated vowel according to the rules of the vowel_rotate method 
+def get_vowel(string, idx, vowels)
+    while idx >= 0  
+        return string[idx] if vowels.include?(string[idx])
+        idx -= 1 
+    end 
+end 
+
+# Examples
+p vowel_rotate('computer')      # => "cempotur"
+p vowel_rotate('oranges')       # => "erongas"
+p vowel_rotate('headphones')    # => "heedphanos"
+p vowel_rotate('bootcamp')      # => "baotcomp"
+p vowel_rotate('awesome')       # => "ewasemo"
+p '----------------'
+
+
+class String 
+
+    #method that returns the letters that result in true when passed into the block. returns empty string if no block given. 
+    def select(&prc)
+        new_str = ""
+        if prc == nil 
+            return new_str
+        else 
+            self.each_char { |ch| new_str += ch if prc.call(ch) }
+            new_str
+        end 
+    end 
+
+    #replaces every character of a string with the result of the block that is passed into the method. method passes the original character and its index to the block.
+    def map!(&prc)
+        self.each_char.with_index { |char, idx| self[idx] = prc.call(char, idx) } 
+        self
+    end 
+
+end 
+
+# Examples
+p "app academy".select { |ch| !"aeiou".include?(ch) }   # => "pp cdmy"
+p "HELLOworld".select { |ch| ch == ch.upcase }          # => "HELLO"
+p "HELLOworld".select          # => ""
+p '----------------'
+
+# Examples
+word_1 = "Lovelace"
+word_1.map! do |ch| 
+    if ch == 'e'
+        '3'
+    elsif ch == 'a'
+        '4'
+    else
+        ch
+    end
+end
+p word_1        # => "Lov3l4c3"
+
+word_2 = "Dijkstra"
+word_2.map! do |ch, i|
+    if i.even?
+        ch.upcase
+    else
+        ch.downcase
+    end
+end
+p word_2        # => "DiJkStRa"
+p '----------------'
+
+
+#method that multiplies 2 numbers together by recursion
+def multiply(num1, num2)
+    
+    return 0 if num2 == 0 
+
+    if num2 < 0 
+        -num1 + multiply(num1, num2 + 1)
+    else 
+        num1 + multiply(num1, num2 - 1)
+    end 
+end 
+
+# Examples
+p multiply(3, 5)        # => 15
+p multiply(5, 3)        # => 15
+p multiply(2, 4)        # => 8
+p multiply(0, 10)       # => 0
+p multiply(-3, -6)      # => 18
+p multiply(3, -6)       # => -18
+p multiply(-3, 6)       # => -18
+p '----------------'
+
+
+
+#method that recursively generates the lucas sequence of a given length 
+def lucas_sequence(length)
+
+    if length == 0 
+        return []
+    elsif length == 1 
+        return [2]
+    elsif length == 2 
+        return [2, 1]
+    end 
+
+    seq = lucas_sequence(length - 1)
+    seq << seq[-1] + seq[-2]
+    seq 
+end 
+
+
+# Examples
+p lucas_sequence(0)   # => []
+p lucas_sequence(1)   # => [2]    
+p lucas_sequence(2)   # => [2, 1]
+p lucas_sequence(3)   # => [2, 1, 3]
+p lucas_sequence(6)   # => [2, 1, 3, 4, 7, 11]
+p lucas_sequence(8)   # => [2, 1, 3, 4, 7, 11, 18, 29]
+p '----------------'
+
+
+
+#method that returns the prime factorization of a number 
+def prime_factorization(num)
+    (2...num).each do |fact|
+        if (num % fact == 0)
+            otherFact = num / fact
+            return [ *prime_factorization(fact), *prime_factorization(otherFact) ]
+        end
+    end
+
+    [num]
+end
+
+# Examples
+p prime_factorization(12)     # => [2, 2, 3]
+p prime_factorization(24)     # => [2, 2, 2, 3]
+p prime_factorization(25)     # => [5, 5]
+p prime_factorization(60)     # => [2, 2, 3, 5]
+p prime_factorization(7)      # => [7]
+p prime_factorization(11)     # => [11]
+p prime_factorization(2017)   # => [2017]
+p '----------------'

@@ -11,9 +11,26 @@ class PolyTreeNode
         @children = []
     end 
 
-    def parent=(parent)
-        @parent = parent
-        parent.children << self if parent != nil && !parent.children.include?(self) 
+    def node_has_parent?
+        if self.parent 
+            true 
+        else 
+            false 
+        end 
+    end 
+
+    def parent_has_child?(parent, child)
+        parent.children.include?(child) 
+    end 
+
+    def delete_node_from_old_parent(node) 
+        node.parent.children.delete(node)
+    end 
+
+    def parent=(new_parent)
+        delete_node_from_old_parent(self) if node_has_parent?  
+        @parent = new_parent
+        new_parent.children << self if new_parent != nil && !parent_has_child?(new_parent, self)
     end 
 
     #method to customize rspec output 

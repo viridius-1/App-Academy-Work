@@ -1,5 +1,3 @@
-require "byebug"
-
 class PolyTreeNode 
 
     attr_accessor :children, :parent
@@ -40,6 +38,27 @@ class PolyTreeNode
     def remove_child(child)
         raise "This node is not a child." unless child.parent 
         child.parent = nil 
+    end 
+
+    #method does a depth-first search for a target node 
+    def dfs(target)
+        return self if value == target 
+        children.each do |child| 
+            search_result = child.dfs(target) 
+            return search_result unless search_result.nil? 
+        end 
+        nil 
+    end 
+
+    #method does a breadth-first search for a target node 
+    def bfs(target)
+        queue = [self]
+        until queue.empty? 
+            node = queue.shift 
+            return node if node.value == target 
+            node.children.each { |child| queue << child }
+        end 
+        nil 
     end 
 
     #method to customize rspec output 

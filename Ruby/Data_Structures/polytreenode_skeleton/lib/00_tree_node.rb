@@ -33,6 +33,15 @@ class PolyTreeNode
         new_parent.children << self if new_parent != nil && !parent_has_child?(new_parent, self)
     end 
 
+    def add_child(child)
+        child.parent = self 
+    end 
+
+    def remove_child(child)
+        raise "This node is not a child." unless child.parent 
+        child.parent = nil 
+    end 
+
     #method to customize rspec output 
     def inspect 
         value.inspect 

@@ -3,10 +3,10 @@ require_relative "tree_node.rb"
 
 class KnightPathFinder 
 
-    attr_accessor :board, :knight_possible_moves
+    attr_accessor :board, :considered_positions, :knight_possible_moves, :node 
 
     #method returns all possible moves of a knight at a position 
-    def self.knight_valid_moves(position)
+    def self.valid_moves(position)
         knight_row = position[0]
         knight_col = position[1]
         @@knight_possible_moves = []
@@ -65,8 +65,15 @@ class KnightPathFinder
 
     def initialize(position)
         @board = Board.new(8)
-        @root_node = PolyTreeNode.new(position)
+        @node = PolyTreeNode.new(position)
+        @considered_positions = [node]
         @move_tree = build_move_tree 
+    end 
+
+    def new_move_positions(position)
+        moves = KnightPathFinder.valid_moves(position)
+        new_moves = moves.select { |move| !considered_positions.include?(move) }
+        new_moves.each { |move| @considered_positions << move }
     end 
 
     def build_move_tree 

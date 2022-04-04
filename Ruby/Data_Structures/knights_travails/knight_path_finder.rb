@@ -1,5 +1,5 @@
 require_relative "tree_node.rb"
-
+  
 class KnightPathFinder 
 
     attr_accessor :considered_positions, :root_node 

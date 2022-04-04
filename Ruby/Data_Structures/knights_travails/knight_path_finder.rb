@@ -1,11 +1,9 @@
-require_relative "board.rb"
 require_relative "tree_node.rb"
-require "byebug"
 
 class KnightPathFinder 
 
     attr_reader :position 
-    attr_accessor :board, :children, :considered_positions, :knight_possible_moves, :node 
+    attr_accessor :board, :children, :considered_positions, :knight_possible_moves, :root_node 
 
     #method returns all possible moves of a knight at a position 
     def self.valid_moves(position)
@@ -66,9 +64,8 @@ class KnightPathFinder
     end 
 
     def initialize(position)
-        @board = Board.new(8)
-        @node = PolyTreeNode.new(position)
-        @considered_positions = [node.position]
+        @root_node = PolyTreeNode.new(position)
+        @considered_positions = [root_node.position]
         build_move_tree 
     end 
 
@@ -79,7 +76,7 @@ class KnightPathFinder
     end 
 
     def build_move_tree 
-        queue = [node] 
+        queue = [root_node] 
         until queue.empty? 
             first_node_in_queue = queue[0]
             child_positions_of_node = new_move_positions(first_node_in_queue.position)
@@ -94,7 +91,7 @@ class KnightPathFinder
     end 
 
     def find_path(end_position) 
-        end_node = node.bfs(end_position)
+        end_node = root_node.bfs(end_position)
         trace_path_back(end_node)
     end 
 
@@ -102,7 +99,7 @@ class KnightPathFinder
         path = [end_node]
         last_node_in_path = path[-1]  
 
-        until last_node_in_path == node 
+        until last_node_in_path == root_node 
             path << last_node_in_path.parent 
             last_node_in_path = path[-1]
         end 

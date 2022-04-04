@@ -87,9 +87,27 @@ class KnightPathFinder
                 child = PolyTreeNode.new(child_position_of_node) 
                 queue << child
                 first_node_in_queue.children << child
+                child.parent = first_node_in_queue
             end 
             queue.shift 
         end 
+    end 
+
+    def find_path(end_position) 
+        end_node = node.bfs(end_position)
+        trace_path_back(end_node)
+    end 
+
+    def trace_path_back(end_node)
+        path = [end_node]
+        last_node_in_path = path[-1]  
+
+        until last_node_in_path == node 
+            path << last_node_in_path.parent 
+            last_node_in_path = path[-1]
+        end 
+
+        path.reverse.map { |node| node.position } 
     end 
 
 end 

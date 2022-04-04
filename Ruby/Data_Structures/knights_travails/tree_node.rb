@@ -1,10 +1,10 @@
 class PolyTreeNode 
 
     attr_accessor :children, :parent
-    attr_reader :value 
+    attr_reader :position 
 
-    def initialize(value)
-        @value = value 
+    def initialize(position)
+        @position = position 
         @parent = nil 
         @children = []
     end 
@@ -42,7 +42,7 @@ class PolyTreeNode
 
     #method does a depth-first search for a target node 
     def dfs(target)
-        return self if value == target 
+        return self if position == target 
         children.each do |child| 
             search_result = child.dfs(target) 
             return search_result unless search_result.nil? 
@@ -55,7 +55,7 @@ class PolyTreeNode
         queue = [self]
         until queue.empty? 
             node = queue.shift 
-            return node if node.value == target 
+            return node if node.position == target 
             node.children.each { |child| queue << child }
         end 
         nil 
@@ -63,7 +63,7 @@ class PolyTreeNode
 
     #method to customize rspec output 
     def inspect 
-        value.inspect 
+        position.inspect 
     end 
 
 end 

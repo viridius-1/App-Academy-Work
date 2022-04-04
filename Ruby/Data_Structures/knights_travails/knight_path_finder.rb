@@ -2,8 +2,7 @@ require_relative "tree_node.rb"
 
 class KnightPathFinder 
 
-    attr_reader :position 
-    attr_accessor :board, :children, :considered_positions, :knight_possible_moves, :root_node 
+    attr_accessor :considered_positions, :root_node 
 
     #method returns all possible moves of a knight at a position 
     def self.valid_moves(position)

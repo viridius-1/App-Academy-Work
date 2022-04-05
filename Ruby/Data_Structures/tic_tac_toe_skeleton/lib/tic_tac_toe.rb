@@ -1,4 +1,5 @@
 # DON'T EDIT ME!
+require 'byebug'
 
 class Board
   attr_reader :rows

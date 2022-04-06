@@ -35,43 +35,47 @@ class TicTacToeNode
     board.over? && (board.winner == evaluator || board.winner == nil)
   end 
 
-  def any_player_children_node_loser?(evaluator)
-    children.any? { |child_node| child_node.losing_node?(evaluator) }
+  def all_player_children_nodes_losers?(evaluator)
+    children.all? { |child_node| child_node.losing_node?(evaluator) }
+  end 
+
+  def any_player_children_nodes_losers_with_opponent_move?(opponent_mark) 
+    children.any? { |child_node| child_node.losing_node?(opponent_mark) }
   end 
 
   def any_player_children_node_winner?(evaluator)
     children.any? { |child_node| child_node.winning_node?(evaluator) }
   end 
 
-  def losing_node?(evaluator)
-    opponent_mark = alternate_mark(evaluator) 
+  def all_opponent_children_nodes_winners_for_player?(evaluator)
+    children.all? { |child_node| child_node.winning_node?(evaluator) }
+  end 
 
-    if opponent_won?(opponent_mark)
+  def losing_node?(evaluator)
+    if opponent_won?(alternate_mark(evaluator))
       return true 
     elsif player_won_or_tied?(evaluator)
       return false 
     end 
 
-    any_player_children_node_loser?(evaluator)
+    all_player_children_nodes_losers?(evaluator) || any_player_children_nodes_losers_with_opponent_move?(evaluator)
   end
 
   def winning_node?(evaluator)
-    opponent_mark = alternate_mark(evaluator) 
-
-    if opponent_won_or_tied?(opponent_mark)
+    if opponent_won_or_tied?(alternate_mark(evaluator))
       return false  
     elsif player_won?(evaluator)
       return true 
     end 
 
-    any_player_children_node_winner?(evaluator)
+    any_player_children_node_winner?(evaluator) || all_opponent_children_nodes_winners_for_player?(evaluator) 
   end
-
+  
   # This method generates an array of all moves that can be made after
   # the current move.
   def children
     children = []
-
+     
     board.rows.each_with_index do |row, row_idx| 
       row.each_with_index do |col, col_idx| 
         if board.empty?([row_idx, col_idx])

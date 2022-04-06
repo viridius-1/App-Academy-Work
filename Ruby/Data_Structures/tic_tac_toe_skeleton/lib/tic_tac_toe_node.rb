@@ -82,7 +82,7 @@ class TicTacToeNode
     children
   end 
 
-  #method generates attribute of a child board - the current board state with the next move, the mark that will be used in the move after this child, and its previous move position
+  #method generates attributes of a child board - the current board state with the next move, the mark that will be used in the move after this child, and its previous move position
   def generate_child(row, col)
     duped_board = board.dup 
     duped_board.rows[row][col] = next_mover_mark

@@ -28,7 +28,7 @@ class TicTacToeNode
   end 
 
   def player_won?(evaluator) 
-    board.over? && board.winner == evaluator
+    board.winner == evaluator
   end 
 
   def player_won_or_tied?(evaluator)
@@ -62,13 +62,15 @@ class TicTacToeNode
   end
 
   def winning_node?(evaluator)
-    if opponent_won_or_tied?(alternate_mark(evaluator))
-      return false  
-    elsif player_won?(evaluator)
-      return true 
+    if board.over? 
+      return player_won?(evaluator) 
     end 
 
-    any_player_children_node_winner?(evaluator) || all_opponent_children_nodes_winners_for_player?(evaluator) 
+    if next_mover_mark == evaluator
+      any_player_children_node_winner?(evaluator)
+    else 
+      all_opponent_children_nodes_winners_for_player?(evaluator)
+    end 
   end
   
   # This method generates an array of all moves that can be made after

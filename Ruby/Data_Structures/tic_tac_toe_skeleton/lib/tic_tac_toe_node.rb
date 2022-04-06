@@ -1,5 +1,4 @@
 require_relative 'tic_tac_toe'
-require 'byebug'
 
 class TicTacToeNode
 
@@ -19,28 +18,20 @@ class TicTacToeNode
     end 
   end 
 
-  def opponent_won?(opponent_mark)
-    board.over? && board.winner == opponent_mark 
-  end 
-
-  def opponent_won_or_tied?(opponent_mark)
-    board.over? && (board.winner == opponent_mark || board.winner == nil)
-  end 
-
   def player_won?(evaluator) 
     board.winner == evaluator
   end 
 
-  def player_won_or_tied?(evaluator)
-    board.over? && (board.winner == evaluator || board.winner == nil)
+  def player_lost?(evaluator)
+    board.winner != evaluator && board.winner != nil 
   end 
 
   def all_player_children_nodes_losers?(evaluator)
     children.all? { |child_node| child_node.losing_node?(evaluator) }
   end 
 
-  def any_player_children_nodes_losers_with_opponent_move?(opponent_mark) 
-    children.any? { |child_node| child_node.losing_node?(opponent_mark) }
+  def any_player_children_nodes_losers_with_opponent_move?(evaluator) 
+    children.any? { |child_node| child_node.losing_node?(evaluator) }
   end 
 
   def any_player_children_node_winner?(evaluator)
@@ -52,13 +43,15 @@ class TicTacToeNode
   end 
 
   def losing_node?(evaluator)
-    if opponent_won?(alternate_mark(evaluator))
-      return true 
-    elsif player_won_or_tied?(evaluator)
-      return false 
+    if board.over? 
+      return player_lost?(evaluator)
     end 
 
-    all_player_children_nodes_losers?(evaluator) || any_player_children_nodes_losers_with_opponent_move?(evaluator)
+    if next_mover_mark == evaluator 
+      all_player_children_nodes_losers?(evaluator)
+    else 
+      any_player_children_nodes_losers_with_opponent_move?(evaluator)
+    end 
   end
 
   def winning_node?(evaluator)
@@ -73,8 +66,7 @@ class TicTacToeNode
     end 
   end
   
-  # This method generates an array of all moves that can be made after
-  # the current move.
+  #method generates an array of all moves that can be made after the current move.
   def children
     children = []
      

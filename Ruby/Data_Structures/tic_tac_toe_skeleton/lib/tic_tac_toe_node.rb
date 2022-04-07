@@ -90,4 +90,8 @@ class TicTacToeNode
     [duped_board, alternate_mark(next_mover_mark), prev_move_pos]
   end 
 
+  def inspect 
+    { 'board' => board.rows }.inspect
+  end 
+
 end

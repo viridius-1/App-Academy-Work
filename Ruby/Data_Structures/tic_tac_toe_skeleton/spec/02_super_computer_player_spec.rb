@@ -40,25 +40,25 @@ describe SuperComputerPlayer do
   end
 
   describe "#move" do
-    # it "chooses winning move if one is available" do
-    #   expect(subject.move(winnable_game, :x)).to eq([0, 2])
-    # end
+    it "chooses winning move if one is available" do
+      expect(subject.move(winnable_game, :x)).to eq([0, 2])
+    end
 
-    # it "can pick a winner that is two moves away" do
-    #   move = subject.move(two_moves_to_victory_game, :x)
-    #   expected_moves = [[0, 2], [1, 1]]
-    #   expect(expected_moves).to include(move)
-    # end
+    it "can pick a winner that is two moves away" do
+      move = subject.move(two_moves_to_victory_game, :x)
+      expected_moves = [[0, 2], [1, 1]]
+      expect(expected_moves).to include(move)
+    end
 
     it "blocks an opponent's winning move" do
       #remove our opportunity to win with one move
       expect(subject.move(blockable_win_game, :x)).to eq([1, 2])
     end
 
-    # it "raises an error if it cannot find a winning or draw inducing move" do
-    #   expect do
-    #     subject.move(unwinnable_game, :x)
-    #   end.to raise_error
-    # end
+    it "raises an error if it cannot find a winning or draw inducing move" do
+      expect do
+        subject.move(unwinnable_game, :x)
+      end.to raise_error
+    end
   end
 end

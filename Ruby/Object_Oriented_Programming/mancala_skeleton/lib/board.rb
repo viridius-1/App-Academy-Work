@@ -1,9 +1,13 @@
 require 'byebug'
 
 class Board
+
+  attr_reader :name1, :name2
   attr_accessor :cups
 
   def initialize(name1, name2)
+    @name1 = name1
+    @name2 = name2 
     @cups = Array.new(14) { Array.new([]) }
     place_stones
   end

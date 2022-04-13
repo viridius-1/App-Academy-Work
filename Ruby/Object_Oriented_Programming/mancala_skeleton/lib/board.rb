@@ -42,9 +42,13 @@ class Board
     cups[position] = []
   end 
 
-  def distribute_stones(stones_to_distribute, start_pos)
+  def next_position(position) 
     next_position_hash = { 0 => 1, 1 => 2, 2 => 3, 3 => 4, 4 => 5, 5 => 6, 6 => 7, 7 => 8, 8 => 9, 9 => 10, 10 => 11, 11 => 12, 12 => 13, 13 => 0}
-    starting_idx = next_position_hash[start_pos] 
+    next_position_hash[position]
+  end 
+
+  def distribute_stones(stones_to_distribute, start_pos)
+    starting_idx = next_position(start_pos)
 
     cup_idx = starting_idx
     until stones_to_distribute == 0 
@@ -52,7 +56,7 @@ class Board
         @cups[cup_idx] << :stone 
         stones_to_distribute -= 1 
       end 
-      cup_idx = next_position_hash[cup_idx] if stones_to_distribute > 0 
+      cup_idx = next_position(cup_idx) if stones_to_distribute > 0 
     end 
 
     next_turn(cup_idx)
@@ -66,8 +70,6 @@ class Board
   end
 
   def next_turn(ending_cup_idx)
-    next_turn_value = nil 
-
     if ending_cup_idx == player_points_store_idx
       next_turn_value = :prompt 
     elsif cups[ending_cup_idx].length == 1 
@@ -75,7 +77,7 @@ class Board
     elsif cups[ending_cup_idx].length > 1 
       next_turn_value = ending_cup_idx 
     end 
-
+    
     render
     next_turn_value 
   end

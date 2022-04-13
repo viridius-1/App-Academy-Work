@@ -1,8 +1,5 @@
 class Board
 
-  attr_reader :name1, :name2
-  attr_accessor :cups, :opponent_points_store_idx, :player_points_store_idx
-
   def initialize(name1, name2)
     @name1 = name1
     @name2 = name2 
@@ -12,21 +9,49 @@ class Board
     place_stones
   end
 
-  def place_stones
-    cups.each_with_index do |cup, idx| 
-      4.times { cup << :stone } unless [6, 13].include?(idx)
-    end 
-  end
-
-  def invalid_position?(position)
-    !(0..5).include?(position) && !(7..12).include?(position)
-  end 
-
   def valid_move?(start_pos)
       raise 'Invalid starting cup' if invalid_position?(start_pos)
       raise 'Starting cup is empty' if cups[start_pos].empty?  
       true 
   end
+
+  def make_move(start_pos, current_player_name)
+      update_points_store_idx(current_player_name)
+      stones_to_distribute = cups[start_pos].length 
+      remove_stones(start_pos)
+      distribute_stones(stones_to_distribute, start_pos)
+  end
+
+  def render
+    print "      #{@cups[7..12].reverse.map { |cup| cup.count }}      \n"
+    puts "#{@cups[13].count} -------------------------- #{@cups[6].count}"
+    print "      #{@cups.take(6).map { |cup| cup.count }}      \n"
+    puts ""
+    puts ""
+  end
+
+  def one_side_empty?
+    side_empty?(cups[0..5]) || side_empty?(cups[6..12])
+  end
+
+  def winner
+    if cups[6].length > cups[13].length 
+      name1 
+    elsif cups[6].length < cups[13].length 
+      name2 
+    else 
+      :draw 
+    end 
+  end
+
+  private
+  
+  attr_reader :name1, :name2
+  attr_accessor :cups, :opponent_points_store_idx, :player_points_store_idx
+
+  def invalid_position?(position)
+    !(0..5).include?(position) && !(7..12).include?(position)
+  end 
 
   def update_points_store_idx(player_name)
     if player_name == name1
@@ -62,13 +87,6 @@ class Board
     next_turn(cup_idx)
   end 
 
-  def make_move(start_pos, current_player_name)
-      update_points_store_idx(current_player_name)
-      stones_to_distribute = cups[start_pos].length 
-      remove_stones(start_pos)
-      distribute_stones(stones_to_distribute, start_pos)
-  end
-
   def next_turn(ending_cup_idx)
     if ending_cup_idx == player_points_store_idx
       next_turn_value = :prompt 
@@ -82,29 +100,13 @@ class Board
     next_turn_value 
   end
 
-  def render
-    print "      #{@cups[7..12].reverse.map { |cup| cup.count }}      \n"
-    puts "#{@cups[13].count} -------------------------- #{@cups[6].count}"
-    print "      #{@cups.take(6).map { |cup| cup.count }}      \n"
-    puts ""
-    puts ""
-  end
-
   def side_empty?(side) 
     side.all? { |cup| cup.empty? }
   end 
 
-  def one_side_empty?
-    side_empty?(cups[0..5]) || side_empty?(cups[6..12])
-  end
-
-  def winner
-    if cups[6].length > cups[13].length 
-      name1 
-    elsif cups[6].length < cups[13].length 
-      name2 
-    else 
-      :draw 
+  def place_stones
+    cups.each_with_index do |cup, idx| 
+      4.times { cup << :stone } unless [6, 13].include?(idx)
     end 
   end
 

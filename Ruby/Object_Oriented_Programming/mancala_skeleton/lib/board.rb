@@ -1,5 +1,3 @@
-require 'byebug'
-
 class Board
 
   attr_reader :name1, :name2
@@ -90,9 +88,22 @@ class Board
     puts ""
   end
 
+  def side_empty?(side) 
+    side.all? { |cup| cup.empty? }
+  end 
+
   def one_side_empty?
+    side_empty?(cups[0..5]) || side_empty?(cups[6..12])
   end
 
   def winner
+    if cups[6].length > cups[13].length 
+      name1 
+    elsif cups[6].length < cups[13].length 
+      name2 
+    else 
+      :draw 
+    end 
   end
+
 end

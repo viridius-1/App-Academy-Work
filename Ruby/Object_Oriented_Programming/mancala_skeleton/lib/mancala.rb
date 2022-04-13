@@ -52,12 +52,12 @@ class Mancala
     if winner == :draw
       "It was a draw!"
     else
-      "Congrats, #{winner}!"
+      "#{winner} wins!"
     end
   end
 
   def print_indices
-    puts "\nCup indices:"
+    puts "\nCups:"
     puts "12  11  10   9   8   7"
     puts " 1   2   3   4   5   6"
   end

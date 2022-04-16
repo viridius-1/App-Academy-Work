@@ -6,8 +6,8 @@ class NullPiece < Piece
     include Singleton 
 
     def initialize
-        # set_color 
-        # set_symbol
+        @color = :none
+        @symbol = ' '
     end 
 
 end 

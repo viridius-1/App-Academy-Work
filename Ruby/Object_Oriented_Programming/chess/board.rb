@@ -9,10 +9,12 @@ require_relative 'null_piece'
 
 class Board 
 
-    attr_accessor :rows 
+    attr_accessor :null_piece, :rows 
 
     def initialize 
         @rows = Array.new(8) { Array.new(8) }
+        @null_piece = NullPiece.instance
+        set_null_pieces 
         set_pieces(:white)
         set_pieces(:black)
     end 
@@ -25,11 +27,9 @@ class Board
         @rows[row][col] = value
     end 
 
-    def switch_color(color)
-        if :white 
-            :black 
-        else 
-            :white 
+    def set_null_pieces
+        (2..5).each do |row| 
+            (0..7).each { |col| self[row, col] = null_piece } 
         end 
     end 
 
@@ -81,7 +81,39 @@ class Board
         else 
             (0..7).each { |col| self[1, col] = Pawn.new(:black, 'p', [1, col], self) }  
         end 
+    end 
 
+    def piece_color(position) 
+        self[position.first, position.last].color 
+    end 
+
+    def valid_position?(position)
+        position.all? { |i| (0..7).include?(i) }
+    end 
+
+    def piece_at_position?(position)
+        self[position.first, position.last] != null_piece 
+    end 
+
+    def end_position_has_same_color_piece?(start_pos, end_pos)
+        piece_color(start_pos) == piece_color(end_pos) 
+    end 
+
+    def move_piece(start_pos, end_pos)  
+        if piece_at_position?(start_pos)
+            unless end_position_has_same_color_piece?(start_pos, end_pos)
+                if valid_position?(end_pos)
+                    self[end_pos.first, end_pos.last] = self[start_pos.first, start_pos.last]
+                    self[start_pos.first, start_pos.last] = null_piece
+                else 
+                    raise "That end position is not on the chess board."
+                end 
+            else 
+                raise "The end position has a piece of the same color as the piece at the start position. The piece can't be moved there."
+            end 
+        else 
+            raise "There is no piece at that start position."
+        end   
     end 
 
 end 

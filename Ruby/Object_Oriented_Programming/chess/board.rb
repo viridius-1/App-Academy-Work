@@ -9,7 +9,7 @@ require_relative 'null_piece'
 
 class Board 
 
-    attr_accessor :null_piece, :rows 
+    attr_accessor :rows 
 
     def initialize 
         @rows = Array.new(8) { Array.new(8) }
@@ -26,6 +26,27 @@ class Board
     def []=(row, col, value)
         @rows[row][col] = value
     end 
+
+    def move_piece(start_pos, end_pos)  
+        if piece_at_position?(start_pos)
+            unless end_position_has_same_color_piece?(start_pos, end_pos)
+                if valid_position?(end_pos)
+                    self[end_pos.first, end_pos.last] = self[start_pos.first, start_pos.last]
+                    self[start_pos.first, start_pos.last] = null_piece
+                else 
+                    raise "That end position is not on the chess board."
+                end 
+            else 
+                raise "The end position has a piece of the same color as the piece at the start position. The piece can't be moved there."
+            end 
+        else 
+            raise "There is no piece at that start position."
+        end   
+    end 
+
+    private 
+
+    attr_accessor :null_piece
 
     def set_null_pieces
         (2..5).each do |row| 
@@ -97,23 +118,6 @@ class Board
 
     def end_position_has_same_color_piece?(start_pos, end_pos)
         piece_color(start_pos) == piece_color(end_pos) 
-    end 
-
-    def move_piece(start_pos, end_pos)  
-        if piece_at_position?(start_pos)
-            unless end_position_has_same_color_piece?(start_pos, end_pos)
-                if valid_position?(end_pos)
-                    self[end_pos.first, end_pos.last] = self[start_pos.first, start_pos.last]
-                    self[start_pos.first, start_pos.last] = null_piece
-                else 
-                    raise "That end position is not on the chess board."
-                end 
-            else 
-                raise "The end position has a piece of the same color as the piece at the start position. The piece can't be moved there."
-            end 
-        else 
-            raise "There is no piece at that start position."
-        end   
     end 
 
 end 

@@ -6,6 +6,7 @@ require_relative 'queen'
 require_relative 'king'
 require_relative 'pawn'
 require_relative 'null_piece'
+require 'byebug'
 
 class Board 
 

@@ -22,8 +22,66 @@ module Slideable
         end 
     end 
 
-    def diagonal_dirs 
+    def diagonal_dirs
+        diagonal_moves = [] 
 
+        #get moves up and to the right
+        row, column = get_row_col(position) 
+        (column + 1).upto(7) do |col| 
+            row -= 1 
+            if square_has_same_color_piece?(row, col)
+                break 
+            elsif square_has_different_color_piece?(row, col, opponent_color)
+                diagonal_moves << [row, col] 
+                break 
+            else 
+                diagonal_moves << [row, col]  
+            end 
+        end 
+
+        #get moves down and to the right 
+        row, column = get_row_col(position)
+        (row + 1).upto(7) do |row_idx| 
+            column += 1 
+            if square_has_same_color_piece?(row_idx, column)
+                break 
+            elsif square_has_different_color_piece?(row_idx, column, opponent_color)
+                diagonal_moves << [row_idx, column] 
+                break 
+            else 
+                diagonal_moves << [row_idx, column]  
+            end 
+        end 
+
+        #get moves down and to the left 
+        row, column = get_row_col(position)
+        (row + 1).upto(7) do |row_idx| 
+            column -= 1 
+            if square_has_same_color_piece?(row_idx, column)
+                break 
+            elsif square_has_different_color_piece?(row_idx, column, opponent_color)
+                diagonal_moves << [row_idx, column] 
+                break 
+            else 
+                diagonal_moves << [row_idx, column]  
+            end 
+        end 
+
+        #get moves up and to the left 
+        row, column = get_row_col(position)
+        (column - 1).downto(0) do |col_idx| 
+            row -= 1 
+            if square_has_same_color_piece?(row, col_idx)
+                break 
+            elsif square_has_different_color_piece?(row, col_idx, opponent_color)
+                diagonal_moves << [row, col_idx] 
+                break 
+            else 
+                diagonal_moves << [row, col_idx]  
+            end
+        end  
+
+        diagonal_moves 
     end 
     
     def horizontal_dirs 

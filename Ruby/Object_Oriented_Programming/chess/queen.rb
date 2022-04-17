@@ -10,7 +10,7 @@ class Queen < Piece
     end 
     
     def move_dirs
-        [:diagonal, :horizontal, :vertical]
+        [horizontal_dirs, vertical_dirs, diagonal_dirs]
     end 
 
 end 

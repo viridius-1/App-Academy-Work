@@ -21,6 +21,8 @@ class Display
         draw_board(chess_board) 
     end 
 
+    private 
+
     def draw_board(args, boxlen=3)
         #Define box drawing characters
         side = '│'

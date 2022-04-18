@@ -40,14 +40,20 @@ class Simon
     end 
   end
 
+  def show_score 
+    puts "SCORE - #{sequence_length}"
+  end 
+
   def show_sequence
     add_random_color
-    puts "SEQUENCE"
+    show_score
+    puts "\nSEQUENCE"
     seq.each { |color| print "#{color} " }
   end
 
   def require_sequence
-    puts "Enter the sequence. Put a space between each color."
+    show_score
+    puts "\nEnter the sequence. Put a space between each color."
     user_seq = gets.chomp 
     user_seq.split 
   end
@@ -57,13 +63,16 @@ class Simon
   end
 
   def round_success_message
-    puts "Correct!"
-    sleep 1 
     @sequence_length += 1 
+    clear 
+    show_score
+    puts "\nCorrect!"
+    sleep 1 
     clear 
   end
 
   def game_over_message
+    clear 
     puts "You entered an incorrect sequence. Game over."
     puts "Score - #{sequence_length}"
   end

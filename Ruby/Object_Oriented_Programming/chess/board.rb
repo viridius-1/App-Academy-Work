@@ -44,21 +44,25 @@ class Board
         self[position.first, position.last].position = position
     end 
 
-    def move_piece(start_pos, end_pos)  
-        if piece_at_position?(start_pos)
-            unless end_position_has_same_color_piece?(start_pos, end_pos)
+    def move_piece(start_pos, end_pos) 
+        if Board.valid_position?(start_pos) 
+            if piece_at_position?(start_pos)
                 if Board.valid_position?(end_pos)
-                    move_piece_from_startposition_to_endposition(start_pos, end_pos)
-                    make_position_nullpiece(start_pos)
-                    update_piece_position(end_pos)
+                    unless end_position_has_same_color_piece?(start_pos, end_pos)
+                        move_piece_from_startposition_to_endposition(start_pos, end_pos)
+                        make_position_nullpiece(start_pos)
+                        update_piece_position(end_pos)
+                    else 
+                        raise "The end position has a piece of the same color as the piece at the start position. The piece can't be moved there."
+                    end 
                 else 
                     raise "That end position is not on the chess board."
                 end 
             else 
-                raise "The end position has a piece of the same color as the piece at the start position. The piece can't be moved there."
+                raise "There is no piece at that start position."
             end 
         else 
-            raise "There is no piece at that start position."
+            raise "That start position is not on the chess board."
         end   
     end 
 

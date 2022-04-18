@@ -9,6 +9,8 @@ class King < Piece
         super 
     end 
 
+    private 
+
     def move_dirs
         [king_dirs]
     end 

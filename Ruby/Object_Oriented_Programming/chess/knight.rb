@@ -9,6 +9,8 @@ class Knight < Piece
         super 
     end 
 
+    private 
+
     def move_dirs
         [knight_dirs]
     end 

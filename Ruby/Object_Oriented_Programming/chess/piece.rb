@@ -2,7 +2,7 @@ require_relative 'slideable'
 
 class Piece 
 
-    attr_reader :color, :board, :symbol
+    attr_reader :board, :color, :symbol 
     attr_accessor :position
 
     def initialize(color, symbol, position, board)
@@ -11,6 +11,22 @@ class Piece
         @position = position
         @board = board 
     end 
+
+    def [](row, col)
+        board[row][col]
+    end 
+
+    def moves 
+        all_moves = []
+        move_dirs.each { |move_dir| all_moves += move_dir }
+        all_moves 
+    end 
+
+    def position=(new_position)
+        @position = new_position
+    end 
+
+    private 
 
     def get_row_col(position)
         [position.first, position.last]
@@ -34,20 +50,6 @@ class Piece
 
     def square_occupied?(position)
         board[position.first, position.last].class != NullPiece
-    end 
-
-    def position=(new_position)
-        @position = new_position
-    end 
-
-    def [](row, col)
-        board[row][col]
-    end 
-
-    def moves 
-        all_moves = []
-        move_dirs.each { |move_dir| all_moves += move_dir }
-        all_moves 
     end 
 
 end 

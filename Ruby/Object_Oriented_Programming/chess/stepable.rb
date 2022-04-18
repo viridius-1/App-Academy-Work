@@ -2,6 +2,8 @@ require_relative 'board'
 
 module Stepable 
 
+    private 
+
     def row_on_board?(row)
         (0..7).include?(row)
     end 

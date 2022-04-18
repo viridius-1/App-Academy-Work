@@ -9,6 +9,8 @@ class Rook < Piece
         super 
     end 
 
+    private 
+
     def move_dirs
         [horizontal_dirs, vertical_dirs]
     end 

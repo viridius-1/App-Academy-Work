@@ -3,6 +3,8 @@ require 'byebug'
 
 module Slideable 
 
+    private 
+
     def diagonal_dirs
         diagonal_moves = [] 
 

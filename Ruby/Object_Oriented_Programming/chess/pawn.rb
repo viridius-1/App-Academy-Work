@@ -7,6 +7,12 @@ class Pawn < Piece
         super 
     end 
 
+    def moves
+        forward_steps + side_attacks
+    end 
+
+    private 
+
     def square_in_front(row, col)
         if color == :white 
             [row -=1, col]
@@ -78,10 +84,6 @@ class Pawn < Piece
         side_attack_squares = get_side_attack_squares 
         side_attack_squares.each { |square| side_attack_moves << square if board[square.first, square.last].color == opponent_color }         
         side_attack_moves
-    end 
-
-    def moves
-        forward_steps + side_attacks
     end 
 
 end 

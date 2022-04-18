@@ -9,6 +9,8 @@ class Bishop < Piece
         super 
     end 
 
+    private 
+
     def move_dirs
         [diagonal_dirs]
     end 

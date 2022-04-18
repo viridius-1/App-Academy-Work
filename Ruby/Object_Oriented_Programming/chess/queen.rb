@@ -9,6 +9,8 @@ class Queen < Piece
         super 
     end 
     
+    private 
+
     def move_dirs
         [horizontal_dirs, vertical_dirs, diagonal_dirs]
     end 

@@ -2,26 +2,6 @@ require 'byebug'
 
 module Slideable 
 
-    def get_row_col(position)
-        [position.first, position.last]
-    end 
-
-    def square_has_same_color_piece?(row, col)
-        self.color == board[row, col].color 
-    end 
-
-    def square_has_different_color_piece?(row, col, opponent_color)
-        opponent_color == board[row, col].color 
-    end 
-
-    def opponent_color
-        if self.color == :white 
-            :black 
-        else 
-            :white 
-        end 
-    end 
-
     def diagonal_dirs
         diagonal_moves = [] 
 
@@ -29,6 +9,7 @@ module Slideable
         row, column = get_row_col(position) 
         (column + 1).upto(7) do |col| 
             row -= 1 
+            break unless valid_position?([row, column]) 
             if square_has_same_color_piece?(row, col)
                 break 
             elsif square_has_different_color_piece?(row, col, opponent_color)
@@ -43,6 +24,7 @@ module Slideable
         row, column = get_row_col(position)
         (row + 1).upto(7) do |row_idx| 
             column += 1 
+            break unless valid_position?([row, column]) 
             if square_has_same_color_piece?(row_idx, column)
                 break 
             elsif square_has_different_color_piece?(row_idx, column, opponent_color)
@@ -57,6 +39,7 @@ module Slideable
         row, column = get_row_col(position)
         (row + 1).upto(7) do |row_idx| 
             column -= 1 
+            break unless valid_position?([row, column]) 
             if square_has_same_color_piece?(row_idx, column)
                 break 
             elsif square_has_different_color_piece?(row_idx, column, opponent_color)
@@ -71,6 +54,7 @@ module Slideable
         row, column = get_row_col(position)
         (column - 1).downto(0) do |col_idx| 
             row -= 1 
+            break unless valid_position?([row, column]) 
             if square_has_same_color_piece?(row, col_idx)
                 break 
             elsif square_has_different_color_piece?(row, col_idx, opponent_color)
@@ -144,15 +128,6 @@ module Slideable
         end 
             
         vertical_moves
-    end 
-
-    def moves 
-        all_moves = []
-        move_dirs.each { |move_dir| all_moves += move_dir }
-        all_moves 
-    end 
-
-    def grow_unblocked_moves_in_dir(dx, dy)
     end 
 
 end 

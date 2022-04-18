@@ -12,6 +12,10 @@ class Board
 
     attr_accessor :rows 
 
+    def self.valid_position?(position)
+        position.all? { |i| (0..7).include?(i) }
+    end 
+
     def initialize 
         @rows = Array.new(8) { Array.new(8) }
         @null_piece = NullPiece.instance
@@ -43,7 +47,7 @@ class Board
     def move_piece(start_pos, end_pos)  
         if piece_at_position?(start_pos)
             unless end_position_has_same_color_piece?(start_pos, end_pos)
-                if valid_position?(end_pos)
+                if self.valid_position?(end_pos)
                     move_piece_from_startposition_to_endposition(start_pos, end_pos)
                     make_position_nullpiece(start_pos)
                     update_piece_position(end_pos)
@@ -139,10 +143,6 @@ class Board
 
     def piece_color(position) 
         self[position.first, position.last].color 
-    end 
-
-    def valid_position?(position)
-        position.all? { |i| (0..7).include?(i) }
     end 
 
     def piece_at_position?(position)

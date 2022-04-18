@@ -1,3 +1,4 @@
+require_relative 'board'
 require 'byebug'
 
 module Slideable 
@@ -9,7 +10,7 @@ module Slideable
         row, column = get_row_col(position) 
         (column + 1).upto(7) do |col| 
             row -= 1 
-            break unless valid_position?([row, column]) 
+            break unless Board.valid_position?([row, column]) 
             if square_has_same_color_piece?(row, col)
                 break 
             elsif square_has_different_color_piece?(row, col, opponent_color)
@@ -24,7 +25,7 @@ module Slideable
         row, column = get_row_col(position)
         (row + 1).upto(7) do |row_idx| 
             column += 1 
-            break unless valid_position?([row, column]) 
+            break unless Board.valid_position?([row, column]) 
             if square_has_same_color_piece?(row_idx, column)
                 break 
             elsif square_has_different_color_piece?(row_idx, column, opponent_color)
@@ -39,7 +40,7 @@ module Slideable
         row, column = get_row_col(position)
         (row + 1).upto(7) do |row_idx| 
             column -= 1 
-            break unless valid_position?([row, column]) 
+            break unless Board.valid_position?([row, column]) 
             if square_has_same_color_piece?(row_idx, column)
                 break 
             elsif square_has_different_color_piece?(row_idx, column, opponent_color)
@@ -54,7 +55,7 @@ module Slideable
         row, column = get_row_col(position)
         (column - 1).downto(0) do |col_idx| 
             row -= 1 
-            break unless valid_position?([row, column]) 
+            break unless Board.valid_position?([row, column]) 
             if square_has_same_color_piece?(row, col_idx)
                 break 
             elsif square_has_different_color_piece?(row, col_idx, opponent_color)

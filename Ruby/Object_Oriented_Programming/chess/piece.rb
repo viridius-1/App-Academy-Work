@@ -2,8 +2,6 @@ require_relative 'slideable'
 
 class Piece 
 
-    include Slideable
-
     attr_reader :color, :board, :symbol
     attr_accessor :position
 
@@ -32,10 +30,6 @@ class Piece
 
     def square_has_different_color_piece?(row, col, opponent_color)
         opponent_color == board[row, col].color 
-    end 
-
-    def valid_position?(position)
-        position.all? { |i| (0..7).include?(i) }
     end 
 
     def square_occupied?(position)

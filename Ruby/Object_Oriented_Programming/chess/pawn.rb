@@ -1,3 +1,4 @@
+require_relative 'board'
 require_relative 'piece'
 
 class Pawn < Piece  
@@ -48,25 +49,25 @@ class Pawn < Piece
             row, col = get_row_col(position)     
             row -= 1 
             col -= 1 
-            side_attack_squares << [row, col] if valid_position?([row, col])
+            side_attack_squares << [row, col] if Board.valid_position?([row, col])
 
             #get square up and to the right 
             row, col = get_row_col(position)  
             row -= 1 
             col += 1 
-            side_attack_squares << [row, col] if valid_position?([row, col])
+            side_attack_squares << [row, col] if Board.valid_position?([row, col])
         else 
             #get square down and to the left 
             row, col = get_row_col(position)  
             row += 1 
             col -= 1 
-            side_attack_squares << [row, col] if valid_position?([row, col])
+            side_attack_squares << [row, col] if Board.valid_position?([row, col])
 
             #get square down and to the right 
             row, col = get_row_col(position)  
             row += 1 
             col += 1 
-            side_attack_squares << [row, col] if valid_position?([row, col]) 
+            side_attack_squares << [row, col] if Board.valid_position?([row, col]) 
         end 
 
         side_attack_squares

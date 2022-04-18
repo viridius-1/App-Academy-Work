@@ -1,11 +1,9 @@
+require_relative 'board'
+
 module Stepable 
 
     def row_on_board?(row)
         (0..7).include?(row)
-    end 
-
-    def row_and_column_on_board?(row, col)
-        [row, col].all? { |coordinate| (0..7).include?(coordinate) }
     end 
 
     #method returns moves a king can make 
@@ -60,7 +58,7 @@ module Stepable
         row, column = get_row_col(position) 
         row -= 2 
         column -= 1 
-        if row_and_column_on_board?(row, column)
+        if Board.valid_position?([row, column])
             knight_moves << [row, column] unless square_has_same_color_piece?(row, column)
         end 
 
@@ -68,7 +66,7 @@ module Stepable
         row, column = get_row_col(position) 
         row -=2 
         column += 1 
-        if row_and_column_on_board?(row, column)
+        if Board.valid_position?([row, column])
             knight_moves << [row, column] unless square_has_same_color_piece?(row, column)
         end 
 
@@ -76,7 +74,7 @@ module Stepable
         row, column = get_row_col(position) 
         row -= 1 
         column += 2 
-        if row_and_column_on_board?(row, column)
+        if Board.valid_position?([row, column])
             knight_moves << [row, column] unless square_has_same_color_piece?(row, column)
         end 
 
@@ -84,7 +82,7 @@ module Stepable
         row, column = get_row_col(position) 
         row += 1 
         column += 2 
-        if row_and_column_on_board?(row, column)
+        if Board.valid_position?([row, column])
             knight_moves << [row, column] unless square_has_same_color_piece?(row, column)
         end
 
@@ -92,7 +90,7 @@ module Stepable
         row, column = get_row_col(position) 
         row += 2 
         column += 1 
-        if row_and_column_on_board?(row, column)
+        if Board.valid_position?([row, column])
             knight_moves << [row, column] unless square_has_same_color_piece?(row, column)
         end 
 
@@ -100,7 +98,7 @@ module Stepable
         row, column = get_row_col(position) 
         row += 2 
         column -= 1 
-        if row_and_column_on_board?(row, column)
+        if Board.valid_position?([row, column])
             knight_moves << [row, column] unless square_has_same_color_piece?(row, column)
         end 
 
@@ -108,7 +106,7 @@ module Stepable
         row, column = get_row_col(position) 
         row += 1 
         column -= 2 
-        if row_and_column_on_board?(row, column)
+        if Board.valid_position?([row, column])
             knight_moves << [row, column] unless square_has_same_color_piece?(row, column)
         end 
 
@@ -116,7 +114,7 @@ module Stepable
         row, column = get_row_col(position) 
         row -= 1 
         column -=2 
-        if row_and_column_on_board?(row, column)
+        if Board.valid_position?([row, column])
             knight_moves << [row, column] unless square_has_same_color_piece?(row, column)
         end 
 

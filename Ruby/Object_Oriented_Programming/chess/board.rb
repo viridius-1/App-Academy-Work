@@ -58,6 +58,10 @@ class Board
         end   
     end 
 
+    def null_piece?(row_idx, col_idx)
+        self[row_idx, col_idx].class == NullPiece
+    end 
+
     private 
 
     attr_reader :null_piece

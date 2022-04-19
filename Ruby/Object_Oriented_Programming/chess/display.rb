@@ -1,11 +1,19 @@
 require_relative 'board'
+require_relative 'cursor'
+require 'colorize'
 
 class Display 
 
-    attr_reader :board
+    attr_reader :board, :cursor
 
     def initialize
         @board = Board.new 
+        @cursor = Cursor.new([0,0], board) 
+    end 
+
+    def move_cursor 
+        cursor.get_input 
+        render 
     end 
 
     def render 
@@ -14,7 +22,18 @@ class Display
         #build 2D array of chess piece symbols 
         board.rows.each_with_index do |row, row_idx| 
             chess_row = []
-            row.each_with_index { |col, col_idx| chess_row << board[row_idx, col_idx].symbol } 
+            row.each_with_index do |col, col_idx| 
+                if cursor.at_position?(row_idx, col_idx)
+                    if board.null_piece?(row_idx, col_idx)
+                        chess_row << " #{'-'.colorize(:light_white)} "
+                    else 
+                        chess_row << colored_symbol(row_idx, col_idx)
+                        #chess_row << " #{board[row_idx, col_idx].symbol.colorize(:light_yellow)} "
+                    end 
+                else     
+                    chess_row << board[row_idx, col_idx].symbol 
+                end 
+            end 
             chess_board << chess_row
         end 
 
@@ -22,6 +41,15 @@ class Display
     end 
 
     private 
+
+    #method returns the appropriate symbol color - light yellow if cursor is on piece but not selected. magenra if cursor is on piece but selected.
+    def colored_symbol(row_idx, col_idx)
+        if cursor.selected 
+            " #{board[row_idx, col_idx].symbol.colorize(:light_cyan)} "
+        else 
+            " #{board[row_idx, col_idx].symbol.colorize(:light_white)} "
+        end 
+    end 
 
     def draw_board(args, boxlen=3)
         #Define box drawing characters
@@ -39,6 +67,7 @@ class Display
         ##############################
         board_row_idx = 0 
         draw = [] 
+        background_color = :light_black
 
         args.each_with_index do |row, rowindex|
             # TOP OF ROW Upper borders
@@ -54,11 +83,13 @@ class Display
             # MIDDLE OF ROW: DATA
             row.each_with_index do |col, index|
                 if index == 0 
-                    draw << board_row_idx 
+                    draw << board_row_idx
                 end 
-                draw << side + col.to_s.center(boxlen)
+                draw << side + col.to_s.center(boxlen).colorize(:background => background_color)
+                background_color = background_color == :light_black ? :red : :light_black
             end
             draw << side + "\n"
+            background_color = background_color == :red ? :light_black : :red 
 
             # END OF ROW
             row.each_with_index do |col, colindex|

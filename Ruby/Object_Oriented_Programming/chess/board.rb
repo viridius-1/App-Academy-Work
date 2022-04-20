@@ -62,6 +62,37 @@ class Board
         self[row_idx, col_idx].class == NullPiece
     end 
 
+    def king?(row, col, color)
+        self[row, col].color == color && self[row, col].class == King
+    end 
+
+    def find_king(color)
+        rows.each_with_index do |row, row_idx| 
+            row.each_with_index { |piece, col_idx| return piece if king?(row_idx, col_idx, color) } 
+        end 
+    end 
+
+    def piece_attacking_position?(piece, position, color)
+        if ![King, NullPiece].include?(piece.class) && piece.color == color 
+            return true if piece.moves.include?(position) 
+        end 
+    end 
+
+    def any_pieces_attacking?(position, color) 
+        rows.each_with_index do |row, row_idx|  
+            row.each_with_index do |piece, col_idx| 
+                return true if piece_attacking_position?(piece, position, color)
+            end 
+        end 
+        false 
+    end 
+
+    def in_check?(color)
+        king = find_king(color)
+        king_position = king.position 
+        any_pieces_attacking?(king_position, king.opponent_color)
+    end 
+
     private 
 
     attr_reader :null_piece

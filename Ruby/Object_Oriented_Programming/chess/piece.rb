@@ -1,10 +1,10 @@
 require_relative 'slideable'
+require 'byebug'
 
 class Piece 
 
-    attr_reader :board, :color, :symbol 
-    attr_accessor :position
-
+    attr_reader :board, :color, :position, :symbol 
+    
     def initialize(color, symbol, position, board)
         @color = color
         @symbol = symbol 
@@ -16,28 +16,28 @@ class Piece
         board[row][col]
     end 
 
+    def position=(new_position)
+        @position = new_position
+    end 
+
+    def opponent_color
+        if color == :white 
+            :black 
+        else 
+            :white 
+        end 
+    end 
+
     def moves 
         all_moves = []
         move_dirs.each { |move_dir| all_moves += move_dir }
-        all_moves 
-    end 
-
-    def position=(new_position)
-        @position = new_position
+        all_moves
     end 
 
     private 
 
     def get_row_col(position)
         [position.first, position.last]
-    end 
-
-    def opponent_color
-        if self.color == :white 
-            :black 
-        else 
-            :white 
-        end 
     end 
 
     def square_has_same_color_piece?(row, col)

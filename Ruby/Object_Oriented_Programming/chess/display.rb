@@ -28,7 +28,6 @@ class Display
                         chess_row << " #{'-'.colorize(:light_white)} "
                     else 
                         chess_row << colored_symbol(row_idx, col_idx)
-                        #chess_row << " #{board[row_idx, col_idx].symbol.colorize(:light_yellow)} "
                     end 
                 else     
                     chess_row << board[row_idx, col_idx].symbol 
@@ -68,6 +67,7 @@ class Display
         board_row_idx = 0 
         draw = [] 
         background_color = :light_black
+        letter_hash = { 0 => 'a', 1 => 'b', 2 => 'c', 3 => 'd', 4 => 'e', 5 => 'f', 6 => 'g', 7 => 'h' }
 
         args.each_with_index do |row, rowindex|
             # TOP OF ROW Upper borders
@@ -83,7 +83,7 @@ class Display
             # MIDDLE OF ROW: DATA
             row.each_with_index do |col, index|
                 if index == 0 
-                    draw << board_row_idx
+                    draw << letter_hash[board_row_idx]
                 end 
                 draw << side + col.to_s.center(boxlen).colorize(:background => background_color)
                 background_color = background_color == :light_black ? :red : :light_black

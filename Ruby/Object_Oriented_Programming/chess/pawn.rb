@@ -1,5 +1,6 @@
 require_relative 'board'
 require_relative 'piece'
+require 'byebug'
 
 class Pawn < Piece  
 

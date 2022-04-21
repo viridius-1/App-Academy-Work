@@ -37,7 +37,7 @@ class Piece
 
     def valid_moves 
         valid_squares = []
-        moves.each { |square| valid_squares << square if !move_into_check?(square) } 
+        moves.each { |square| valid_squares << square if !move_into_check?(square) }
         valid_squares
     end 
 

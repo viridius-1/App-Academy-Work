@@ -226,8 +226,18 @@ class Board
         self[position.first, position.last].position = position
     end 
 
+    def move_results_in_check?(start_pos, end_pos)
+        self[start_pos.first, start_pos.last].move_into_check?(end_pos) && self[start_pos.first, start_pos.last].moves.include?(end_pos)
+    end 
+
     def legal_move?(start_pos, end_pos)
-        self[start_pos.first, start_pos.last].moves.include?(end_pos)
+        if self[start_pos.first, start_pos.last].valid_moves.include?(end_pos)
+            true 
+        elsif move_results_in_check?(start_pos, end_pos)
+            raise "This move can't be made, because it would result in check."
+        else 
+            false 
+        end 
     end 
 
     def king?(row, col, color)

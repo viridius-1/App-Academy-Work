@@ -3,13 +3,14 @@ require 'byebug'
 
 class Piece 
 
-    attr_reader :board, :color, :position, :symbol 
+    attr_reader :board, :board_copy_on, :color, :position, :symbol 
     
     def initialize(color, symbol, position, board)
         @color = color
         @symbol = symbol 
         @position = position
         @board = board 
+        @board_copy_on = false 
     end 
 
     def [](row, col)
@@ -33,7 +34,7 @@ class Piece
         move_dirs.each { |move_dir| all_moves += move_dir }
         all_moves
     end 
-
+    
     private 
 
     def get_row_col(position)
@@ -50,6 +51,10 @@ class Piece
 
     def square_occupied?(position)
         board[position.first, position.last].class != NullPiece
+    end 
+
+    def inspect 
+        { 'symbol' => symbol, 'color' => color, 'position' => position }.inspect 
     end 
 
 end 

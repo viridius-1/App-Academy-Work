@@ -10,7 +10,7 @@ require 'byebug'
 
 class Board 
 
-    attr_accessor :rows 
+    attr_reader :null_piece, :rows 
 
     def self.valid_position?(position)
         position.all? { |i| (0..7).include?(i) }
@@ -62,16 +62,6 @@ class Board
         self[row_idx, col_idx].class == NullPiece
     end 
 
-    def king?(row, col, color)
-        self[row, col].color == color && self[row, col].class == King
-    end 
-
-    def find_king(color)
-        rows.each_with_index do |row, row_idx| 
-            row.each_with_index { |piece, col_idx| return piece if king?(row_idx, col_idx, color) } 
-        end 
-    end 
-
     def piece_attacking_position?(piece, position, color)
         if ![King, NullPiece].include?(piece.class) && piece.color == color 
             return true if piece.moves.include?(position) 
@@ -79,11 +69,13 @@ class Board
     end 
 
     def any_pieces_attacking?(position, color) 
-        rows.each_with_index do |row, row_idx|  
-            row.each_with_index do |piece, col_idx| 
-                return true if piece_attacking_position?(piece, position, color)
-            end 
+        rows.each do |row|  
+            row.each { |piece| return true if piece_attacking_position?(piece, position, color) } 
         end 
+        false 
+    end 
+
+    def valid_moves?(color)
         false 
     end 
 
@@ -93,9 +85,11 @@ class Board
         any_pieces_attacking?(king_position, king.opponent_color)
     end 
 
-    private 
+    def checkmate?(color)
+        in_check?(color) && !valid_moves?(color)
+    end 
 
-    attr_reader :null_piece
+    private 
 
     def set_null_pieces
         (2..5).each do |row| 
@@ -198,6 +192,16 @@ class Board
 
     def legal_move?(start_pos, end_pos)
         self[start_pos.first, start_pos.last].moves.include?(end_pos)
+    end 
+
+    def king?(row, col, color)
+        self[row, col].color == color && self[row, col].class == King
+    end 
+
+    def find_king(color)
+        rows.each_with_index do |row, row_idx| 
+            row.each_with_index { |piece, col_idx| return piece if king?(row_idx, col_idx, color) } 
+        end 
     end 
 
 end 

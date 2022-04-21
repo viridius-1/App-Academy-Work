@@ -10,7 +10,7 @@ require 'byebug'
 
 class Board 
 
-    attr_reader :null_piece, :rows 
+    attr_accessor :null_piece, :rows 
 
     def self.valid_position?(position)
         position.all? { |i| (0..7).include?(i) }
@@ -32,15 +32,19 @@ class Board
         @rows[row][col] = value
     end 
 
+    def make_move(start_pos, end_pos)
+        move_piece_from_startposition_to_endposition(start_pos, end_pos)
+        make_position_nullpiece(start_pos)
+        update_piece_position(end_pos)
+    end 
+
     def move_piece(start_pos, end_pos) 
         if Board.valid_position?(start_pos) 
             if piece_at_position?(start_pos)
                 if Board.valid_position?(end_pos)
                     unless end_position_has_same_color_piece?(start_pos, end_pos)
                         if legal_move?(start_pos, end_pos)
-                            move_piece_from_startposition_to_endposition(start_pos, end_pos)
-                            make_position_nullpiece(start_pos)
-                            update_piece_position(end_pos)
+                            make_move(start_pos, end_pos)
                         else 
                             raise "That is an illegal move."
                         end 
@@ -56,6 +60,10 @@ class Board
         else 
             raise "That start position is not on the chess board."
         end   
+    end 
+
+    def move_piece!(start_pos, end_pos) 
+        make_move(start_pos, end_pos)
     end 
 
     def null_piece?(row_idx, col_idx)
@@ -75,10 +83,6 @@ class Board
         false 
     end 
 
-    def valid_moves?(color)
-        false 
-    end 
-
     def in_check?(color)
         king = find_king(color)
         king_position = king.position 
@@ -86,8 +90,40 @@ class Board
     end 
 
     def checkmate?(color)
+        #this needs to be updated for....lets say a player has a move that would prevent checkmate. Maybe the player is in check but the player can move their rook, bishop, or another piece to prevent check
         in_check?(color) && !valid_moves?(color)
     end 
+
+    def copy_rows
+        copy_of_rows = []
+
+        rows.each do |row| 
+            individual_row = []
+            row.each do |piece| 
+                if piece.class != NullPiece 
+                    individual_row << piece.dup 
+                else 
+                    individual_row << piece 
+                end 
+            end 
+            copy_of_rows << individual_row  
+        end 
+
+        copy_of_rows
+    end 
+
+    def duplicate 
+        board_copy = Board.new 
+        board_copy.null_piece = null_piece
+        board_copy.rows = copy_rows
+    
+        #update each piece to reference board copy
+        board_copy.rows.each do |row| 
+            row.each { |piece| piece.board = board_copy } 
+        end 
+
+        board_copy
+    end
 
     private 
 

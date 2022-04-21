@@ -3,14 +3,14 @@ require 'byebug'
 
 class Piece 
 
-    attr_reader :board, :board_copy_on, :color, :position, :symbol 
+    attr_reader :color, :position, :symbol 
+    attr_accessor :board
     
     def initialize(color, symbol, position, board)
         @color = color
         @symbol = symbol 
         @position = position
         @board = board 
-        @board_copy_on = false 
     end 
 
     def [](row, col)
@@ -33,6 +33,18 @@ class Piece
         all_moves = []
         move_dirs.each { |move_dir| all_moves += move_dir }
         all_moves
+    end 
+
+    def valid_moves 
+        valid_squares = []
+        moves.each { |square| valid_squares << square if !move_into_check?(square) } 
+        valid_squares
+    end 
+
+    def move_into_check?(end_pos)
+        board_copy = board.duplicate 
+        board_copy.move_piece!(position, end_pos)
+        board_copy.in_check?(color)
     end 
     
     private 

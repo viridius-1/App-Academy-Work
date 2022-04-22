@@ -42,8 +42,6 @@ class Piece
     def moves 
         all_moves = []
         move_dirs.each { |move_dir| all_moves += move_dir }
-        opponent_king_position = get_opponent_king_position
-        all_moves.delete(opponent_king_position)
         all_moves
     end 
 

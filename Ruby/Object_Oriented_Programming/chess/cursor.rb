@@ -50,6 +50,10 @@ class Cursor
     handle_key(key)
   end
 
+  def toggle_selected 
+    @selected = selected == true ? false : true 
+  end 
+
   private
 
   def read_char
@@ -85,6 +89,7 @@ class Cursor
     case key 
     when :space,:return 
         toggle_selected
+        cursor_pos
     when :left
         update_pos(MOVES[:left])
     when :right 
@@ -104,10 +109,6 @@ class Cursor
     @cursor_pos = [x, y] if Board.valid_position?([x, y])
     nil 
   end
-
-  def toggle_selected 
-    @selected = selected == true ? false : true 
-  end 
 
 end
 

@@ -6,16 +6,17 @@ class Display
 
     attr_reader :board, :cursor, :debug, :letter_hash
 
-    def initialize
-        @board = Board.new 
+    def initialize(board)
+        @board = board 
         @cursor = Cursor.new([0,0], board) 
         @letter_hash = { 0 => 'a', 1 => 'b', 2 => 'c', 3 => 'd', 4 => 'e', 5 => 'f', 6 => 'g', 7 => 'h' }
-        @debug = true 
+        @debug = false 
     end 
 
     def move_cursor 
-        cursor.get_input 
+        selected_position = cursor.get_input 
         render  
+        selected_position
     end 
 
     def render 
@@ -27,7 +28,7 @@ class Display
             row.each_with_index do |col, col_idx| 
                 if cursor.at_position?(row_idx, col_idx)
                     if board.null_piece?(row_idx, col_idx)
-                        chess_row << " #{'-'.colorize(:light_white)} "
+                        chess_row << colored_null_piece
                     else 
                         chess_row << colored_symbol(row_idx, col_idx)
                     end 
@@ -44,12 +45,21 @@ class Display
 
     private 
 
-    #method returns the appropriate symbol color - light yellow if cursor is on piece but not selected. magenra if cursor is on piece but selected.
+    #method returns the appropriate symbol color 
     def colored_symbol(row_idx, col_idx)
         if cursor.selected 
             " #{board[row_idx, col_idx].symbol.colorize(:light_cyan)} "
         else 
             " #{board[row_idx, col_idx].symbol.colorize(:light_white)} "
+        end 
+    end 
+
+    #method returns the appropriate null piece color for moving the cursor through the board
+    def colored_null_piece
+        if cursor.selected 
+            " #{'-'.colorize(:light_cyan)} "
+        else 
+            " #{'-'.colorize(:light_white)} "
         end 
     end 
 

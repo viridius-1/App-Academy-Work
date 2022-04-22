@@ -32,28 +32,55 @@ class Board
         @rows[row][col] = value
     end 
 
-    def move_piece(start_pos, end_pos) 
-        if Board.valid_position?(start_pos) 
-            if piece_at_position?(start_pos)
-                if Board.valid_position?(end_pos)
+    def move_piece(color, start_pos, end_pos) 
+        #if Board.valid_position?(start_pos)
+            #if piece_at_position?(start_pos)
+                #if Board.valid_position?(end_pos)
                     unless end_position_has_same_color_piece?(start_pos, end_pos)
-                        if legal_move?(start_pos, end_pos)
-                            make_move(start_pos, end_pos)
+                        if !move_results_in_check?(start_pos, end_pos)
+                            if legal_move?(start_pos, end_pos)
+                                if !move_to_king_position?(start_pos, end_pos)
+                                    make_move(start_pos, end_pos)
+                                else 
+                                    puts "A piece can't move to the king's position."
+                                    prompt_to_continue_move
+                                end 
+                            else 
+                                puts "That is an illegal move."
+                                prompt_to_continue_move
+                            end 
                         else 
-                            raise "That is an illegal move."
+                            puts "This move can't be made, because it would result in check."
+                            prompt_to_continue_move
                         end 
                     else 
-                        raise "The end position has a piece of the same color as the piece at the start position. The piece can't be moved there."
+                        puts "The end position has a piece of the same color as the piece at the start position. The piece can't be moved there."
+                        prompt_to_continue_move
                     end 
-                else 
-                    raise "That end position is not on the chess board."
-                end 
-            else 
-                raise "There is no piece at that start position."
-            end 
-        else 
-            raise "That start position is not on the chess board."
-        end   
+        end 
+
+    #             else 
+    #                 puts "That end position is not on the chess board."
+    #                 prompt_to_continue_move
+    #             end 
+    #         else 
+    #             puts "There is no piece at that start position."
+    #             prompt_to_continue_move
+    #         end 
+    #     else 
+    #         puts "That start position is not on the chess board."
+    #         prompt_to_continue_move
+    #     end   
+    # end 
+
+    def correct_piece_color?(color, start_pos)
+        color == piece_color(start_pos)
+    end 
+
+    def prompt_to_continue_move
+        puts "Press return/enter to continue."
+        gets 
+        false 
     end 
 
     def move_piece!(start_pos, end_pos) 
@@ -253,10 +280,6 @@ class Board
     def legal_move?(start_pos, end_pos)
         if self[start_pos.first, start_pos.last].valid_moves.include?(end_pos)
             true 
-        elsif move_results_in_check?(start_pos, end_pos)
-            raise "This move can't be made, because it would result in check."
-        elsif move_to_king_position?(start_pos, end_pos)
-            raise "A piece can't move to the king's position."
         else 
             false 
         end 

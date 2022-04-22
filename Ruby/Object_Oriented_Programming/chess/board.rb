@@ -90,8 +90,14 @@ class Board
     end 
 
     def checkmate?(color)
-        #this needs to be updated for....lets say a player has a move that would prevent checkmate. Maybe the player is in check but the player can move their rook, bishop, or another piece to prevent check
-        in_check?(color) && !valid_moves?(color)
+        rows.each do |row|
+            row.each do |piece| 
+                if piece.color == color 
+                    return false if !piece.valid_moves.empty? 
+                end 
+            end  
+        end 
+        true 
     end 
 
     def copy_rows

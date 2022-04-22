@@ -27,24 +27,30 @@ class Piece
         else 
             :white 
         end 
-    end 
+    end  
 
-    def moves 
-        all_moves = []
-        move_dirs.each { |move_dir| all_moves += move_dir }
-        all_moves
-    end 
-
-    def valid_moves 
-        valid_squares = []
-        moves.each { |square| valid_squares << square if !move_into_check?(square) }
-        valid_squares
+    def get_opponent_king_position
+        board.find_king(opponent_color).position 
     end 
 
     def move_into_check?(end_pos)
         board_copy = board.duplicate 
         board_copy.move_piece!(position, end_pos)
         board_copy.in_check?(color)
+    end 
+
+    def moves 
+        all_moves = []
+        move_dirs.each { |move_dir| all_moves += move_dir }
+        opponent_king_position = get_opponent_king_position
+        all_moves.delete(opponent_king_position)
+        all_moves
+    end 
+
+    def valid_moves 
+        valid_squares = []
+        moves.each { |square| valid_squares << square if !move_into_check?(square) } 
+        valid_squares
     end 
     
     private 

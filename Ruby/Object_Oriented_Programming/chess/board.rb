@@ -32,12 +32,6 @@ class Board
         @rows[row][col] = value
     end 
 
-    def make_move(start_pos, end_pos)
-        move_piece_from_startposition_to_endposition(start_pos, end_pos)
-        make_position_nullpiece(start_pos)
-        update_piece_position(end_pos)
-    end 
-
     def move_piece(start_pos, end_pos) 
         if Board.valid_position?(start_pos) 
             if piece_at_position?(start_pos)
@@ -70,9 +64,9 @@ class Board
         self[row_idx, col_idx].class == NullPiece
     end 
 
-    def piece_attacking_position?(piece, position, color)
-        if ![King, NullPiece].include?(piece.class) && piece.color == color 
-            return true if piece.moves.include?(position) 
+    def find_king(color)
+        rows.each_with_index do |row, row_idx| 
+            row.each_with_index { |piece, col_idx| return piece if king?(row_idx, col_idx, color) } 
         end 
     end 
 
@@ -98,24 +92,6 @@ class Board
             end  
         end 
         true 
-    end 
-
-    def copy_rows
-        copy_of_rows = []
-
-        rows.each do |row| 
-            individual_row = []
-            row.each do |piece| 
-                if piece.class != NullPiece 
-                    individual_row << piece.dup 
-                else 
-                    individual_row << piece 
-                end 
-            end 
-            copy_of_rows << individual_row  
-        end 
-
-        copy_of_rows
     end 
 
     def duplicate 
@@ -208,12 +184,36 @@ class Board
         end 
     end 
 
+    def copy_rows
+        copy_of_rows = []
+
+        rows.each do |row| 
+            individual_row = []
+            row.each do |piece| 
+                if piece.class != NullPiece 
+                    individual_row << piece.dup 
+                else 
+                    individual_row << piece 
+                end 
+            end 
+            copy_of_rows << individual_row  
+        end 
+
+        copy_of_rows
+    end 
+
     def piece_color(position) 
         self[position.first, position.last].color 
     end 
 
     def piece_at_position?(position)
         self[position.first, position.last] != null_piece 
+    end 
+
+    def piece_attacking_position?(piece, position, color)
+        if ![King, NullPiece].include?(piece.class) && piece.color == color 
+            return true if piece.moves.include?(position) 
+        end 
     end 
 
     def end_position_has_same_color_piece?(start_pos, end_pos)
@@ -232,8 +232,22 @@ class Board
         self[position.first, position.last].position = position
     end 
 
+    def make_move(start_pos, end_pos)
+        move_piece_from_startposition_to_endposition(start_pos, end_pos)
+        make_position_nullpiece(start_pos)
+        update_piece_position(end_pos)
+    end 
+
     def move_results_in_check?(start_pos, end_pos)
         self[start_pos.first, start_pos.last].move_into_check?(end_pos) && self[start_pos.first, start_pos.last].moves.include?(end_pos)
+    end 
+
+    def king?(row, col, color)
+        self[row, col].color == color && self[row, col].class == King
+    end 
+
+    def move_to_king_position?(start_pos, end_pos)
+        self[start_pos.first, start_pos.last].get_opponent_king_position == end_pos
     end 
 
     def legal_move?(start_pos, end_pos)
@@ -241,18 +255,10 @@ class Board
             true 
         elsif move_results_in_check?(start_pos, end_pos)
             raise "This move can't be made, because it would result in check."
+        elsif move_to_king_position?(start_pos, end_pos)
+            raise "A piece can't move to the king's position."
         else 
             false 
-        end 
-    end 
-
-    def king?(row, col, color)
-        self[row, col].color == color && self[row, col].class == King
-    end 
-
-    def find_king(color)
-        rows.each_with_index do |row, row_idx| 
-            row.each_with_index { |piece, col_idx| return piece if king?(row_idx, col_idx, color) } 
         end 
     end 
 

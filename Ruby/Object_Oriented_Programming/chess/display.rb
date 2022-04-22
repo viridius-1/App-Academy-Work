@@ -4,16 +4,18 @@ require 'colorize'
 
 class Display 
 
-    attr_reader :board, :cursor
+    attr_reader :board, :cursor, :debug, :letter_hash
 
     def initialize
         @board = Board.new 
         @cursor = Cursor.new([0,0], board) 
+        @letter_hash = { 0 => 'a', 1 => 'b', 2 => 'c', 3 => 'd', 4 => 'e', 5 => 'f', 6 => 'g', 7 => 'h' }
+        @debug = true 
     end 
 
     def move_cursor 
         cursor.get_input 
-        render 
+        render  
     end 
 
     def render 
@@ -37,6 +39,7 @@ class Display
         end 
 
         draw_board(chess_board) 
+        show_info if debug 
     end 
 
     private 
@@ -67,7 +70,6 @@ class Display
         board_row_idx = 0 
         draw = [] 
         background_color = :light_black
-        letter_hash = { 0 => 'a', 1 => 'b', 2 => 'c', 3 => 'd', 4 => 'e', 5 => 'f', 6 => 'g', 7 => 'h' }
 
         args.each_with_index do |row, rowindex|
             # TOP OF ROW Upper borders
@@ -121,6 +123,17 @@ class Display
         draw.each { |char| print "#{char}" } 
 
         true
+    end 
+
+    def show_info
+        cursor_pos = cursor.cursor_pos 
+        selected_piece = board[cursor_pos.first, cursor_pos.last]
+        unless selected_piece.class == NullPiece
+            puts "#{selected_piece.color.capitalize.upcase} #{selected_piece.class} #{letter_hash[cursor_pos.first]}#{cursor_pos.last}" 
+            puts "Valid Moves - #{selected_piece.valid_moves}" 
+            puts "Check = #{board.in_check?(selected_piece.color)}"
+            puts "Checkmate = #{board.checkmate?(selected_piece.color)}"
+        end 
     end 
 
 end 

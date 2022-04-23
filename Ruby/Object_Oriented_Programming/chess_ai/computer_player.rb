@@ -21,7 +21,7 @@ class ComputerPlayer < Player
     end 
 
     def get_pieces_with_valid_moves_including_a_player_position
-        player_color = 
+        #player_color = 
 
     end 
 

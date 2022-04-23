@@ -8,7 +8,7 @@ class Display
 
     def initialize(board)
         @board = board 
-        @cursor = Cursor.new([0,0], board) 
+        @cursor = Cursor.new([7,0], board) 
         @letter_hash = { 0 => 'a', 1 => 'b', 2 => 'c', 3 => 'd', 4 => 'e', 5 => 'f', 6 => 'g', 7 => 'h' }
         @debug = false 
     end 

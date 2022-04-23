@@ -32,49 +32,32 @@ class Board
         @rows[row][col] = value
     end 
 
-    def move_piece(color, start_pos, end_pos) 
-        #if Board.valid_position?(start_pos)
-            #if piece_at_position?(start_pos)
-                #if Board.valid_position?(end_pos)
-                    unless end_position_has_same_color_piece?(start_pos, end_pos)
-                        if !move_results_in_check?(start_pos, end_pos)
-                            if legal_move?(start_pos, end_pos)
-                                if !move_to_king_position?(start_pos, end_pos)
-                                    make_move(start_pos, end_pos)
-                                else 
-                                    puts "A piece can't move to the king's position."
-                                    prompt_to_continue_move
-                                end 
-                            else 
-                                puts "That is an illegal move."
-                                prompt_to_continue_move
-                            end 
-                        else 
-                            puts "This move can't be made, because it would result in check."
-                            prompt_to_continue_move
-                        end 
+    def move_piece(start_pos, end_pos) 
+        unless end_position_has_same_color_piece?(start_pos, end_pos)
+            if !move_results_in_check?(start_pos, end_pos)
+                if legal_move?(start_pos, end_pos)
+                    if !move_to_king_position?(start_pos, end_pos)
+                        make_move(start_pos, end_pos)
                     else 
-                        puts "The end position has a piece of the same color as the piece at the start position. The piece can't be moved there."
+                        puts "A piece can't move to the king's position."
                         prompt_to_continue_move
                     end 
+                else 
+                    puts "That is an illegal move."
+                    prompt_to_continue_move
+                end 
+            else 
+                puts "This move can't be made, because it would result in check."
+                prompt_to_continue_move
+            end 
+        else 
+            puts "The end position has a piece of the same color as the piece at the start position. The piece can't be moved there."
+            prompt_to_continue_move
         end 
+    end 
 
-    #             else 
-    #                 puts "That end position is not on the chess board."
-    #                 prompt_to_continue_move
-    #             end 
-    #         else 
-    #             puts "There is no piece at that start position."
-    #             prompt_to_continue_move
-    #         end 
-    #     else 
-    #         puts "That start position is not on the chess board."
-    #         prompt_to_continue_move
-    #     end   
-    # end 
-
-    def correct_piece_color?(color, start_pos)
-        color == piece_color(start_pos)
+    def move_piece!(start_pos, end_pos) 
+        make_move(start_pos, end_pos)
     end 
 
     def prompt_to_continue_move
@@ -83,8 +66,8 @@ class Board
         false 
     end 
 
-    def move_piece!(start_pos, end_pos) 
-        make_move(start_pos, end_pos)
+    def piece_color(position) 
+        self[position.first, position.last].color 
     end 
 
     def null_piece?(row_idx, col_idx)
@@ -229,10 +212,6 @@ class Board
         copy_of_rows
     end 
 
-    def piece_color(position) 
-        self[position.first, position.last].color 
-    end 
-
     def piece_at_position?(position)
         self[position.first, position.last] != null_piece 
     end 
@@ -251,7 +230,7 @@ class Board
         self[end_pos.first, end_pos.last] = self[start_pos.first, start_pos.last]
     end 
 
-    def make_position_nullpiece(start_pos)
+    def make_start_position_nullpiece(start_pos)
         self[start_pos.first, start_pos.last] = null_piece
     end 
 
@@ -261,7 +240,7 @@ class Board
 
     def make_move(start_pos, end_pos)
         move_piece_from_startposition_to_endposition(start_pos, end_pos)
-        make_position_nullpiece(start_pos)
+        make_start_position_nullpiece(start_pos)
         update_piece_position(end_pos)
     end 
 

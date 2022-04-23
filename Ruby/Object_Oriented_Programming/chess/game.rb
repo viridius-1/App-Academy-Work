@@ -17,14 +17,6 @@ class Game
         @current_player = player1 
     end 
 
-    def introduction 
-        puts "Welcome to Chess!"
-        puts "For chess instructions, please visit https://en.wikipedia.org/wiki/Rules_of_chess"
-        puts "Use space or enter to select pieces and squares."
-        puts "Press return/enter to begin."
-        gets 
-    end 
-
     def play 
         until board.checkmate?(current_player.color)
             move_complete = false 
@@ -32,15 +24,25 @@ class Game
                 start_position = get_start_position 
                 @starting_piece = board[start_position.first, start_position.last] 
                 end_position = get_cursor_selection(select_position_prompt)
-                move_complete = true if board.move_piece(current_player.color, start_position, end_position) 
+                next if end_position == start_position
+                print_board
+                move_complete = true if board.move_piece(start_position, end_position) 
             end 
-            check_prompt 
+            check_prompt
             swap_turn
         end 
         result
     end 
 
-    #private 
+    private 
+
+    def introduction 
+        puts "Welcome to Chess!"
+        puts "For chess instructions, please visit https://en.wikipedia.org/wiki/Rules_of_chess"
+        puts "Use space or enter to select pieces and squares."
+        puts "Press return/enter to begin."
+        gets 
+    end 
 
     def select_piece_prompt 
         "#{current_player.name}, select a piece."
@@ -51,7 +53,7 @@ class Game
     end 
 
     def check_prompt
-        "#{current_player.color.capitalize} is in check." if board.in_check?(current_player.color)
+        puts "#{current_player.color.capitalize} is in check." if board.in_check?(current_player.color)
     end 
 
     #method lets player move cursor through board until they hit enter or space 
@@ -60,8 +62,8 @@ class Game
 
         while !valid_cursor_selection
             print_board
-            print check_prompt
-            print prompt
+            check_prompt
+            puts prompt
             cursor_selection = current_player.make_move(display) 
             valid_cursor_selection = true if cursor_selection.is_a?(Array)
         end 
@@ -81,7 +83,7 @@ class Game
                 puts "That is not a piece."
                 display.cursor.toggle_selected
                 board.prompt_to_continue_move
-            elsif !board.correct_piece_color?(current_player.color, start_position)
+            elsif board.piece_color(start_position) != current_player.color
                 print_board
                 puts "That isn't your color. Please select a #{current_player.color.capitalize} piece."
                 display.cursor.toggle_selected
@@ -111,7 +113,7 @@ class Game
     end 
 
     def print_board 
-        #clear
+        clear
         display.render 
     end 
 

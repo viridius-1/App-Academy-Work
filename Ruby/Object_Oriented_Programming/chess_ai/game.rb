@@ -5,8 +5,7 @@ require 'byebug'
 
 class Game 
 
-    attr_reader :board, :computer, :computer_end_pos, :computer_piece, :computer_start_pos, :current_player, :display, :player
-    attr_accessor :starting_piece 
+    attr_reader :board, :computer, :computer_end_pos, :computer_piece, :computer_start_pos, :current_player, :display, :player, :starting_piece
 
     def initialize(name1)
         introduction 
@@ -30,9 +29,19 @@ class Game
             end 
             check_prompt
             swap_turn
-            #debugger 
         end 
         result
+    end 
+
+    private 
+
+    def introduction 
+        puts "Welcome to Chess!"
+        puts "For chess instructions, please visit https://en.wikipedia.org/wiki/Rules_of_chess"
+        puts "You are White."
+        puts "Use space or enter to select pieces and squares."
+        puts "Press return/enter to begin."
+        gets 
     end 
 
     def player_move 
@@ -43,39 +52,12 @@ class Game
             end_position = get_cursor_selection(select_position_prompt)
             next if end_position == start_position
             print_board
-            #debugger 
             move_complete = true if board.move_piece(start_position, end_position) 
         end 
     end 
 
     def computer_move
         @computer_piece, @computer_start_pos, @computer_end_pos = computer.move 
-    end 
-
-    def computer_move_prompt
-        puts "Black moved their #{computer_piece} from #{display.letter_hash[computer_start_pos.first]}#{computer_start_pos.last} to #{display.letter_hash[computer_end_pos.first]}#{computer_end_pos.last}." if !computer.at_start && !board.checkmate?(computer.color)
-    end 
-
-    private 
-
-    def introduction 
-        puts "Welcome to Chess!"
-        puts "For chess instructions, please visit https://en.wikipedia.org/wiki/Rules_of_chess"
-        puts "Use space or enter to select pieces and squares."
-        puts "Press return/enter to begin."
-        gets 
-    end 
-
-    def select_piece_prompt 
-        "#{current_player.name}, select a piece."
-    end 
-
-    def select_position_prompt
-        "#{current_player.name}, select a square to move the #{starting_piece.color.capitalize} #{starting_piece.class}."
-    end 
-
-    def check_prompt
-        puts "#{current_player.color.capitalize} is in check." if board.in_check?(current_player.color)
     end 
 
     #method lets player move cursor through board until they hit enter or space 
@@ -93,25 +75,24 @@ class Game
         cursor_selection
     end 
 
+    def invalid_start_position(prompt)
+        print_board
+        puts prompt 
+        display.cursor.toggle_selected
+        board.prompt_to_continue_move
+    end 
+
     #method returns the starting position of a piece 
     def get_start_position  
         valid_start = false 
  
         while !valid_start
             start_position = get_cursor_selection(select_piece_prompt)
-
             if board.null_piece?(start_position.first, start_position.last)
-                print_board
-                puts "That is not a piece."
-                display.cursor.toggle_selected
-                board.prompt_to_continue_move
+                invalid_start_position(null_piece_prompt)
             elsif board.piece_color(start_position) != current_player.color
-                print_board
-                puts "That isn't your color. Please select a #{current_player.color.capitalize} piece."
-                display.cursor.toggle_selected
-                board.prompt_to_continue_move
+                invalid_start_position(wrong_color_prompt)
             else 
-            #elsif !board.null_piece?(start_position.first, start_position.last)  
                 valid_start = true   
             end 
         end 
@@ -135,13 +116,33 @@ class Game
     end 
 
     def print_board 
-        clear
+        system("clear")
         display.render 
         computer_move_prompt
     end 
 
-    def clear 
-        system("clear")
+    def computer_move_prompt
+        puts "Black moved their #{computer_piece} from #{display.letter_hash[computer_start_pos.first]}#{computer_start_pos.last} to #{display.letter_hash[computer_end_pos.first]}#{computer_end_pos.last}." if !computer.at_start && !board.checkmate?(computer.color)
+    end 
+
+    def select_piece_prompt 
+        "#{current_player.name}, select a piece."
+    end 
+
+    def select_position_prompt
+        "#{current_player.name}, select a square to move the #{starting_piece.color.capitalize} #{starting_piece.class}."
+    end 
+
+    def null_piece_prompt 
+        "That is not a piece."
+    end 
+
+    def wrong_color_prompt 
+        "That isn't your color. Please select a #{current_player.color.capitalize} piece."
+    end 
+
+    def check_prompt
+        puts "#{current_player.color.capitalize} is in check." if board.in_check?(current_player.color)
     end 
 
 end 

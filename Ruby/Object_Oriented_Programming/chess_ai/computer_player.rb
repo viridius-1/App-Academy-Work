@@ -3,14 +3,39 @@ require 'byebug'
 
 class ComputerPlayer < Player 
 
-    attr_reader :at_start, :board, :pieces_with_valid_moves, :pieces_with_valid_moves_including_a_player_position
+    attr_reader :at_start, :board, :pieces_with_valid_moves, :player_positions, :pieces_with_valid_moves_including_a_player_position
 
     def initialize(name, color, board)
         super(name, color)
         @board = board 
         @at_start = true 
         @pieces_with_valid_moves = []
-        @pieces_with_valid_moves_including_a_player_position = []
+        @player_positions = []
+    end 
+
+    def move
+        started 
+        get_pieces_with_valid_moves
+        get_player_positions 
+        get_pieces_with_valid_moves_including_a_player_position
+
+        if pieces_with_valid_moves_including_a_player_position.empty? 
+           piece, end_pos = random_move 
+        else 
+           piece, end_pos = take_player_piece_move
+        end 
+
+        start_pos = piece.position 
+        make_move(piece, start_pos, end_pos) 
+    end 
+
+    private 
+
+    def get_player_positions 
+        @player_positions = []
+        board.rows.each do |row| 
+            row.each { |piece| @player_positions << piece.position if color == piece.opponent_color } 
+        end 
     end 
 
     def get_pieces_with_valid_moves
@@ -20,32 +45,38 @@ class ComputerPlayer < Player
         end 
     end 
 
-    def get_pieces_with_valid_moves_including_a_player_position
-        #player_color = 
-
+    def add_valid_moves_with_player_positions(piece)
+        piece.valid_moves.each { |move| @pieces_with_valid_moves_including_a_player_position[piece] << move if player_positions.include?(move) } 
     end 
 
-    def make_move(piece)
-        start_pos = piece.position 
-        end_pos = piece.valid_moves.sample
+    def reset_pieces_with_valid_moves_including_a_player_position
+        @pieces_with_valid_moves_including_a_player_position = Hash.new { |hash, key| hash[key] = [] }
+    end 
+
+    def get_pieces_with_valid_moves_including_a_player_position
+        reset_pieces_with_valid_moves_including_a_player_position
+        pieces_with_valid_moves.each { |piece| add_valid_moves_with_player_positions(piece) } 
+    end 
+
+    def random_move
+        piece = pieces_with_valid_moves.sample 
+        end_pos = piece.valid_moves.sample 
+        [piece, end_pos]
+    end 
+
+    def take_player_piece_move
+        piece = pieces_with_valid_moves_including_a_player_position.keys.sample 
+        end_pos = pieces_with_valid_moves_including_a_player_position[piece].sample 
+        [piece, end_pos]
+    end 
+
+    def make_move(piece, start_pos, end_pos)
         board.move_piece(start_pos, end_pos)
         [piece.class, start_pos, end_pos]
     end 
 
-
-    #get all pieces with valid moves
-    #get pieces with valid moves where the move includes a white position 
-    #if any pieces with valid moves include a white position 
-        #make a move that takes a white piece
-    #else 
-        #make random move 
-    #end 
-
-    def move
+    def started  
         @at_start = false 
-        get_pieces_with_valid_moves
-        get_pieces_with_valid_moves_including_a_player_position
-        make_move(pieces_with_valid_moves.sample) 
     end 
 
 end 

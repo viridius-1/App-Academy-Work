@@ -53,6 +53,18 @@ class Piece
     
     private 
 
+    def row_on_board?(row)
+        (0..7).include?(row)
+    end 
+
+    def get_column_coordinates(column)
+        column_start = column - 1 
+        column_start = 0 if column_start < 0 
+        column_end = column + 1 
+        column_end = 7 if column_end > 7 
+        [column_start, column_end]
+    end 
+
     def get_row_col(position)
         [position.first, position.last]
     end 

@@ -5,7 +5,7 @@ require 'byebug'
 
 class Game 
 
-    attr_reader :board, :computer, :computer_end_pos, :computer_piece, :computer_start_pos, :current_player, :display, :player, :starting_piece
+    attr_reader :board, :captured_piece, :computer, :computer_end_pos, :computer_piece, :computer_start_pos, :current_player, :display, :player, :starting_piece
 
     def initialize(name1)
         introduction 
@@ -18,6 +18,7 @@ class Game
         @computer_start_pos = nil 
         @computer_end_pos = nil 
         @current_player = player
+        @captured_piece = nil 
     end 
 
     def play 
@@ -57,7 +58,7 @@ class Game
     end 
 
     def computer_move
-        @computer_piece, @computer_start_pos, @computer_end_pos = computer.move 
+        @computer_piece, @computer_start_pos, @computer_end_pos, @captured_piece = computer.move 
     end 
 
     #method lets player move cursor through board until they hit enter or space 
@@ -122,7 +123,13 @@ class Game
     end 
 
     def computer_move_prompt
-        puts "Black moved their #{computer_piece} from #{display.letter_hash[computer_start_pos.first]}#{computer_start_pos.last} to #{display.letter_hash[computer_end_pos.first]}#{computer_end_pos.last}." if !computer.at_start && !board.checkmate?(computer.color)
+        if !computer.at_start && !board.checkmate?(computer.color)
+            if captured_piece 
+                puts "Black took your #{captured_piece} by moving their #{computer_piece} from #{display.letter_hash[computer_start_pos.first]}#{computer_start_pos.last} to #{display.letter_hash[computer_end_pos.first]}#{computer_end_pos.last}."
+            else 
+                puts "Black moved their #{computer_piece} from #{display.letter_hash[computer_start_pos.first]}#{computer_start_pos.last} to #{display.letter_hash[computer_end_pos.first]}#{computer_end_pos.last}."
+            end 
+        end 
     end 
 
     def select_piece_prompt 

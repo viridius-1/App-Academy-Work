@@ -3,18 +3,16 @@ require 'byebug'
 
 class ComputerPlayer < Player 
 
-    attr_reader :at_start, :board, :pieces_with_valid_moves, :player_positions, :pieces_with_valid_moves_including_a_player_position
+    attr_reader :at_start, :board, :captured_piece, :pieces_with_valid_moves, :player_positions, :pieces_with_valid_moves_including_a_player_position
 
     def initialize(name, color, board)
         super(name, color)
         @board = board 
         @at_start = true 
-        @pieces_with_valid_moves = []
-        @player_positions = []
     end 
 
     def move
-        started 
+        reset_data 
         get_pieces_with_valid_moves
         get_player_positions 
         get_pieces_with_valid_moves_including_a_player_position
@@ -31,15 +29,20 @@ class ComputerPlayer < Player
 
     private 
 
-    def get_player_positions 
+    def reset_data
+        @pieces_with_valid_moves = []
         @player_positions = []
+        @captured_piece = nil 
+        @at_start = false 
+    end 
+
+    def get_player_positions 
         board.rows.each do |row| 
             row.each { |piece| @player_positions << piece.position if color == piece.opponent_color } 
         end 
     end 
 
     def get_pieces_with_valid_moves
-        @pieces_with_valid_moves = []
         board.rows.each do |row|
             row.each { |piece| @pieces_with_valid_moves << piece if piece.color == color && !piece.valid_moves.empty? } 
         end 
@@ -70,13 +73,14 @@ class ComputerPlayer < Player
         [piece, end_pos]
     end 
 
-    def make_move(piece, start_pos, end_pos)
-        board.move_piece(start_pos, end_pos)
-        [piece.class, start_pos, end_pos]
+    def mark_captured_piece(piece, end_pos)
+        @captured_piece = board[end_pos.first, end_pos.last].class if piece.opponent_color == board[end_pos.first, end_pos.last].color
     end 
 
-    def started  
-        @at_start = false 
+    def make_move(piece, start_pos, end_pos)
+        mark_captured_piece(piece, end_pos)
+        board.move_piece(start_pos, end_pos)
+        [piece.class, start_pos, end_pos, captured_piece]
     end 
 
 end 

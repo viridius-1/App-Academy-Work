@@ -7,65 +7,64 @@ module Slideable
 
     def diagonal_dirs
         diagonal_moves = [] 
-        row, column = get_row_col(position) 
 
         #get moves up and to the right
-        row_idx = row 
-        (column + 1).upto(7) do |col_idx| 
-            row_idx -= 1 
-            break unless Board.valid_position?([row_idx, col_idx]) 
-            if square_has_same_color_piece?(row_idx, col_idx)
+        row, column = get_row_col(position) 
+        (column + 1).upto(7) do |col| 
+            row -= 1 
+            break unless Board.valid_position?([row, column]) 
+            if square_has_same_color_piece?(row, col)
                 break 
-            elsif square_has_different_color_piece?(row_idx, col_idx, opponent_color)
-                diagonal_moves << [row_idx, col_idx] 
+            elsif square_has_different_color_piece?(row, col, opponent_color)
+                diagonal_moves << [row, col] 
                 break 
             else 
-                diagonal_moves << [row_idx, col_idx]  
-            end  
+                diagonal_moves << [row, col]  
+            end 
         end 
 
         #get moves down and to the right 
-        col_idx = column
+        row, column = get_row_col(position)
         (row + 1).upto(7) do |row_idx| 
-            col_idx += 1 
-            break unless Board.valid_position?([row_idx, col_idx]) 
-            if square_has_same_color_piece?(row_idx, col_idx)
+            column += 1 
+            break unless Board.valid_position?([row, column]) 
+            if square_has_same_color_piece?(row_idx, column)
                 break 
-            elsif square_has_different_color_piece?(row_idx, col_idx, opponent_color)
-                diagonal_moves << [row_idx, col_idx] 
+            elsif square_has_different_color_piece?(row_idx, column, opponent_color)
+                diagonal_moves << [row_idx, column] 
                 break 
             else 
-                diagonal_moves << [row_idx, col_idx]  
+                diagonal_moves << [row_idx, column]  
             end 
         end 
 
         #get moves down and to the left 
-        col_idx = column
+        row, column = get_row_col(position)
         (row + 1).upto(7) do |row_idx| 
-            col_idx -= 1 
-            break unless Board.valid_position?([row_idx, col_idx]) 
-            if square_has_same_color_piece?(row_idx, col_idx)
+            column -= 1 
+            break unless Board.valid_position?([row, column]) 
+            if square_has_same_color_piece?(row_idx, column)
                 break 
-            elsif square_has_different_color_piece?(row_idx, col_idx, opponent_color)
-                diagonal_moves << [row_idx, col_idx] 
+            elsif square_has_different_color_piece?(row_idx, column, opponent_color)
+                diagonal_moves << [row_idx, column] 
                 break 
             else 
-                diagonal_moves << [row_idx, col_idx]  
+                diagonal_moves << [row_idx, column]  
             end 
         end 
 
         #get moves up and to the left 
-        row_idx = row 
+        row, column = get_row_col(position)
         (column - 1).downto(0) do |col_idx| 
-            row_idx -= 1 
-            break unless Board.valid_position?([row_idx, col_idx]) 
-            if square_has_same_color_piece?(row_idx, col_idx)
+            row -= 1 
+            break unless Board.valid_position?([row, column]) 
+            if square_has_same_color_piece?(row, col_idx)
                 break 
-            elsif square_has_different_color_piece?(row_idx, col_idx, opponent_color)
-                diagonal_moves << [row_idx, col_idx] 
+            elsif square_has_different_color_piece?(row, col_idx, opponent_color)
+                diagonal_moves << [row, col_idx] 
                 break 
             else 
-                diagonal_moves << [row_idx, col_idx]  
+                diagonal_moves << [row, col_idx]  
             end
         end  
 

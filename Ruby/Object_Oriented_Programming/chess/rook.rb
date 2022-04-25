@@ -12,7 +12,7 @@ class Rook < Piece
     private 
 
     def move_dirs
-        [horizontal_dirs, vertical_dirs]
+        horizontal_dirs + vertical_dirs
     end 
 
 end 

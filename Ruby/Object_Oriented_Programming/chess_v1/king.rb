@@ -9,6 +9,12 @@ class King < Piece
         super 
     end 
 
+    def moves 
+        legal_moves = []
+        move_dirs.each { |square| legal_moves << square if !board.any_pieces_attacking?(square, opponent_color) } 
+        legal_moves
+    end 
+
     private 
 
     def move_dirs

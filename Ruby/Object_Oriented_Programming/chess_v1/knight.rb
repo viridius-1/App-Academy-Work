@@ -1,6 +1,5 @@
 require_relative 'piece'
 require_relative 'stepable'
-require 'byebug'
 
 class Knight < Piece  
 
@@ -13,7 +12,7 @@ class Knight < Piece
     private 
 
     def move_dirs
-        knight_dirs
+        [knight_dirs]
     end 
 
 end 

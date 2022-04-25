@@ -50,31 +50,28 @@ class Pawn < Piece
 
     def get_side_attack_squares
         side_attack_squares = []
+        row, col = get_row_col(position) 
 
         if color == :white 
-            #get square up and to the left 
-            row, col = get_row_col(position)     
-            row -= 1 
-            col -= 1 
-            side_attack_squares << [row, col] if Board.valid_position?([row, col])
+            #get square up and to the left    
+            row_idx = row - 1 
+            col_idx = col - 1 
+            side_attack_squares << [row_idx, col_idx] if Board.valid_position?([row_idx, col_idx])
 
-            #get square up and to the right 
-            row, col = get_row_col(position)  
-            row -= 1 
-            col += 1 
-            side_attack_squares << [row, col] if Board.valid_position?([row, col])
+            #get square up and to the right  
+            row_idx = row - 1 
+            col_idx = col + 1 
+            side_attack_squares << [row_idx, col_idx] if Board.valid_position?([row_idx, col_idx])
         else 
-            #get square down and to the left 
-            row, col = get_row_col(position)  
-            row += 1 
-            col -= 1 
-            side_attack_squares << [row, col] if Board.valid_position?([row, col])
+            #get square down and to the left  
+            row_idx = row + 1 
+            col_idx = col - 1 
+            side_attack_squares << [row_idx, col_idx] if Board.valid_position?([row_idx, col_idx])
 
             #get square down and to the right 
-            row, col = get_row_col(position)  
-            row += 1 
-            col += 1 
-            side_attack_squares << [row, col] if Board.valid_position?([row, col]) 
+            row_idx = row + 1 
+            col_idx = col + 1 
+            side_attack_squares << [row_idx, col_idx] if Board.valid_position?([row_idx, col_idx]) 
         end 
 
         side_attack_squares

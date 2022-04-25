@@ -4,7 +4,7 @@ require 'byebug'
 class Piece 
 
     attr_reader :color, :position, :symbol 
-    attr_accessor :board 
+    attr_accessor :board
     
     def initialize(color, symbol, position, board)
         @color = color
@@ -41,7 +41,7 @@ class Piece
 
     def moves 
         all_moves = []
-        move_dirs.each { |move_dir| all_moves << move_dir if !move_dir.empty? }
+        move_dirs.each { |move_dir| all_moves += move_dir }
         all_moves
     end 
 
@@ -53,24 +53,12 @@ class Piece
     
     private 
 
-    def row_on_board?(row)
-        (0..7).include?(row)
-    end 
-
-    def get_column_coordinates(column)
-        column_start = column - 1 
-        column_start = 0 if column_start < 0 
-        column_end = column + 1 
-        column_end = 7 if column_end > 7 
-        [column_start, column_end]
-    end 
-
     def get_row_col(position)
         [position.first, position.last]
     end 
 
     def square_has_same_color_piece?(row, col)
-        color == board[row, col].color 
+        self.color == board[row, col].color 
     end 
 
     def square_has_different_color_piece?(row, col, opponent_color)

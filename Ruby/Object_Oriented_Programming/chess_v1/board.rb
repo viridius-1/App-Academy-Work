@@ -217,7 +217,7 @@ class Board
     end 
 
     def piece_attacking_position?(piece, position, color)
-        if piece.class != NullPiece && piece.color == color 
+        if ![King, NullPiece].include?(piece.class) && piece.color == color 
             return true if piece.moves.include?(position) 
         end 
     end 

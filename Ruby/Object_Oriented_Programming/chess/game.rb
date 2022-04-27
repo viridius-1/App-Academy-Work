@@ -6,23 +6,99 @@ require 'byebug'
 
 class Game 
 
-    attr_reader :board, :captured_piece, :computer, :computer_end_pos, :computer_piece, :computer_start_pos, :current_player, :display, :player, :starting_piece
+    attr_reader :board, :captured_piece, :computer, :computer_end_pos, :computer_piece, :computer_start_pos, :current_player, :display, :player, :player1, :player2, :starting_piece
 
-    def initialize(name1)
-        introduction 
+    def initialize 
         @board = Board.new
         @display = Display.new(board)
         @starting_piece = nil 
-        @player = HumanPlayer.new(name1, :white)
         @computer = ComputerPlayer.new('Computer', :black, board) 
         @computer_piece = nil 
         @computer_start_pos = nil 
         @computer_end_pos = nil 
-        @current_player = player
         @captured_piece = nil 
+        introduction
+        clear 
+        choose_game
     end 
 
-    def play 
+    def two_player_game_prompt
+        print "Player 1, enter your name: "
+        user_name1 = gets.chomp 
+        print "Player 2, enter your name: "
+        user_name2 = gets.chomp 
+        clear 
+        puts "#{user_name1}, you are white."
+        puts "#{user_name2}, you are black."
+        set_players(user_name1, user_name2)
+        puts "Press return/enter to begin." 
+        gets 
+        clear 
+        two_player_game
+    end 
+
+    def computer_game_prompt
+        print "Enter your name: "
+        user_name = gets.chomp 
+        clear 
+        puts "#{user_name}, you are white."
+        set_player(user_name)
+        puts "Press return/enter to begin."
+        gets
+        clear 
+        computer_game 
+    end 
+
+    def choose_game
+        valid_choice = false 
+        while !valid_choice 
+            puts "Choose a chess game. Enter 1 or 2."
+            puts "1. Two players"
+            puts "2. Play against computer"
+            user_choice = gets.chomp.to_i
+            if [1, 2].include?(user_choice)
+                valid_choice = true 
+            else 
+                puts "Please enter 1 or 2."
+            end 
+        end 
+        
+        clear 
+        if user_choice == 1  
+            two_player_game_prompt  
+        else 
+            computer_game_prompt
+        end 
+    end 
+
+    private 
+
+    def introduction 
+        puts "Welcome to Chess!"
+        puts "For chess instructions, please visit https://en.wikipedia.org/wiki/Rules_of_chess"
+        puts "Use space or enter to select pieces and squares."
+        puts "Press return/enter to begin."
+        gets 
+    end 
+
+    def two_player_game
+        until board.checkmate?(current_player.color)
+            move_complete = false 
+            while !move_complete
+                start_position = get_start_position 
+                @starting_piece = board[start_position.first, start_position.last] 
+                end_position = get_cursor_selection(select_position_prompt)
+                next if end_position == start_position
+                print_board
+                move_complete = true if board.move_piece(start_position, end_position) 
+            end 
+            check_prompt
+            swap_human_players 
+        end 
+        result 
+    end 
+
+    def computer_game 
         until board.checkmate?(current_player.color)
             if current_player == player 
                 player_move
@@ -35,15 +111,15 @@ class Game
         result
     end 
 
-    private 
+    def set_players(name1, name2)
+        @player1 = HumanPlayer.new(name1, :white)
+        @player2 = HumanPlayer.new(name2, :black) 
+        @current_player = player1
+    end 
 
-    def introduction 
-        puts "Welcome to Chess!"
-        puts "For chess instructions, please visit https://en.wikipedia.org/wiki/Rules_of_chess"
-        puts "You are White."
-        puts "Use space or enter to select pieces and squares."
-        puts "Press return/enter to begin."
-        gets 
+    def set_player(name)
+        @player = HumanPlayer.new(name, :white)
+        @current_player = player
     end 
 
     def player_move 
@@ -106,8 +182,16 @@ class Game
         current_player == player ? computer : player
     end 
 
+    def other_human_player(current_player)
+        current_player == player1 ? player2 : player1
+    end 
+
     def swap_turn 
         @current_player = other_player(current_player)
+    end 
+
+    def swap_human_players
+        @current_player = other_human_player(current_player)
     end 
 
     def result 
@@ -118,9 +202,13 @@ class Game
     end 
 
     def print_board 
-        system("clear")
+        clear 
         display.render 
         computer_move_prompt
+    end 
+
+    def clear 
+        system("clear")
     end 
 
     def computer_move_prompt

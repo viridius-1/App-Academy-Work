@@ -16,27 +16,20 @@ class ComputerPlayer < Player
 
     def move
         reset_data 
+        checkmate_on_next_move?(:black, :white)
+        #may want to put in a conditional for black to check white if possible...follow precedence 
+        
+        retreat_from_player_attack? if continue 
 
-        if checkmate_on_next_move?(:black, :white)
-            @continue = false 
-            #may want to put in a conditional for black to check white if possible...follow precedence 
-        elsif player_can_take_black_piece?
-            @continue = false if retreat_from_player_attack? 
-        end 
-
-        if continue 
-            if pieces_with_valid_moves_including_a_player_position.empty? 
-                @piece, @end_pos = random_move 
-            elsif !pieces_with_valid_moves_including_a_player_position.empty? 
-                @piece, @end_pos = take_player_piece_move
-            end 
-        end 
+        take_player_piece? if continue 
+        
+        @piece, @end_pos = random_move if continue 
 
         start_pos = piece.position 
         make_move(piece, start_pos, end_pos) 
     end 
 
-    #private 
+    private 
 
     def reset_data 
         @black_positions = []
@@ -57,6 +50,10 @@ class ComputerPlayer < Player
 
         get_pieces_with_valid_moves_including_a_player_position
         get_player_pieces_with_valid_moves_including_a_black_position
+    end 
+
+    def precedence_score(piece)
+        precedence_hash[piece.class.to_s]
     end 
 
     def get_positions(positions, color) 
@@ -97,15 +94,19 @@ class ComputerPlayer < Player
         player_pieces_with_valid_moves.each { |piece| add_valid_moves_with_black_positions(piece) }
     end 
 
-    def player_can_take_black_piece? 
-        !@player_pieces_with_valid_moves_including_a_black_position.empty?         
+    def black_can_take_player_piece? 
+        !pieces_with_valid_moves_including_a_player_position.empty?
     end 
 
-    def get_player_positions_on_duplicate_board(board_copy)
+    def player_can_take_black_piece? 
+        !player_pieces_with_valid_moves_including_a_black_position.empty?         
+    end 
+
+    def positions_on_duplicate_board(board_copy, color)
         player_positions_on_duplicate_board = []
 
         board_copy.rows.each do |row| 
-            row.each { |piece| player_positions_on_duplicate_board << piece.position if piece.color == :white } 
+            row.each { |piece| player_positions_on_duplicate_board << piece.position if piece.color == color } 
         end 
 
         player_positions_on_duplicate_board
@@ -114,20 +115,28 @@ class ComputerPlayer < Player
     def black_piece_take_white_piece_passes_precedence_test?(player_positions_on_duplicate_board, board_copy, black_move, black_piece_score)
         if player_positions_on_duplicate_board.include?(black_move) 
             white_piece = board_copy[black_move.first, black_move.last]
-            white_piece_score = precedence_hash[white_piece.class.to_s]
+            white_piece_score = precedence_score(white_piece) 
             return true if white_piece_score <= black_piece_score
         end 
         false 
     end 
 
+    def white_piece_take_black_piece_passes_precedence_test?(black_positions_on_duplicate_board, board_copy, white_move, white_piece, black_piece_score)
+        if black_positions_on_duplicate_board.include?(white_move)
+            white_piece_score = precedence_score(white_piece) 
+            return false if white_piece_score > black_piece_score
+        end 
+        true 
+    end 
+
     #method asseses whether to let player take a black piece. based on key-value pairs in precedence hash.
     def fair_player_attack?(player_piece, move)
         black_piece = board[move.first, move.last]
-        black_piece_score = precedence_hash[black_piece.class.to_s]
+        black_piece_score = precedence_score(black_piece)
 
         board_copy = player_piece.make_move_on_duplicate_board(move)
 
-        player_positions_on_duplicate_board = get_player_positions_on_duplicate_board(board_copy)
+        player_positions_on_duplicate_board = positions_on_duplicate_board(board_copy, :white)
 
         #assess whether a black piece can take a white piece with an equal or greater precedence than the black_piece_score
         board_copy.rows.each do |row| 
@@ -139,6 +148,28 @@ class ComputerPlayer < Player
         end 
 
         false 
+    end 
+
+    #method asseses whether black should take a white piece. based on key-value pairs in precedence hash.
+    def fair_black_attack?(black_piece, black_move)
+        black_piece_score = precedence_score(black_piece)
+
+        board_copy = black_piece.make_move_on_duplicate_board(black_move)
+
+        black_positions_on_duplicate_board = positions_on_duplicate_board(board_copy, :black)
+
+        board_copy.rows.each do |row| 
+            row.each do |piece| 
+                if piece.color == :white 
+                    piece.valid_moves.each do |white_move| 
+                        white_piece = piece 
+                        return false if !white_piece_take_black_piece_passes_precedence_test?(black_positions_on_duplicate_board, board_copy, white_move, white_piece, black_piece_score)
+                    end 
+                end 
+            end 
+        end 
+
+        true 
     end 
 
     def retreat?(position)
@@ -155,10 +186,12 @@ class ComputerPlayer < Player
     end 
 
     def retreat_from_player_attack?
-        player_pieces_with_valid_moves_including_a_black_position.each do |player_piece, player_moves| 
-            player_moves.each do |player_move| 
-                if !fair_player_attack?(player_piece, player_move)
-                    return true if retreat?(player_move)
+        if player_can_take_black_piece?
+            player_pieces_with_valid_moves_including_a_black_position.each do |player_piece, player_moves| 
+                player_moves.each do |player_move| 
+                    if !fair_player_attack?(player_piece, player_move)
+                        return true if retreat?(player_move)
+                    end 
                 end 
             end 
         end 
@@ -187,10 +220,42 @@ class ComputerPlayer < Player
         [piece, end_pos]
     end 
 
-    def take_player_piece_move
-        piece = pieces_with_valid_moves_including_a_player_position.keys.sample 
-        end_pos = pieces_with_valid_moves_including_a_player_position[piece].sample 
-        [piece, end_pos]
+    def get_black_take_player_hash
+        black_take_player_hash = {}
+
+        pieces_with_valid_moves_including_a_player_position.each do |piece, black_moves| 
+            black_moves.each do |black_move|
+                white_piece = board[black_move.first, black_move.last]
+                black_take_player_hash[piece] = [precedence_score(white_piece), black_move] 
+            end 
+        end 
+
+        black_take_player_hash
+    end 
+
+    def sort_by_white_piece_score(black_take_player_hash)
+        black_take_player_hash.sort_by { |piece, move_data| move_data[0] }
+    end 
+
+    def valid_take_player_piece_move?(black_take_player_arr)
+        black_take_player_arr.each do |move_data|
+            black_piece = move_data[0]
+            black_move = move_data[1][1]
+            if fair_black_attack?(black_piece, black_move)
+                set_move(black_piece, black_move)
+                return true
+            end 
+        end 
+        false 
+    end 
+
+    def take_player_piece?
+        if black_can_take_player_piece? 
+            black_take_player_hash = get_black_take_player_hash 
+            black_take_player_arr = sort_by_white_piece_score(black_take_player_hash)
+            return true if valid_take_player_piece_move?(black_take_player_arr)
+        end 
+        false 
     end 
 
     def mark_captured_piece(piece, end_pos)
@@ -200,6 +265,7 @@ class ComputerPlayer < Player
     def set_move(piece, move)
         @piece = piece 
         @end_pos = move 
+        @continue = false 
     end 
 
     def make_move(piece, start_pos, end_pos)

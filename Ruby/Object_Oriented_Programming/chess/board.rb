@@ -81,7 +81,7 @@ class Board
     end 
 
     def any_pieces_attacking?(position, color) 
-        rows.each do |row|  
+        rows.each do |row|   
             row.each { |piece| return true if piece_attacking_position?(piece, position, color) } 
         end 
         false 
@@ -218,7 +218,11 @@ class Board
 
     def piece_attacking_position?(piece, position, color)
         if piece.class != NullPiece && piece.color == color 
-            return true if piece.moves.include?(position) 
+            if piece.class == Pawn 
+                return true if piece.side_attacks.include?(position)
+            else 
+                return true if piece.moves.include?(position) 
+            end 
         end 
     end 
 

@@ -118,7 +118,8 @@ class TowersOfHanoi
         puts "A disk can't be placed on a disk that is smaller than it."
         puts "Good luck!"
         puts "\n"
-        puts "Press return/enter to begin."
+        print_towers
+        puts "\n\nPress return/enter to begin."
         gets 
         play 
     end 

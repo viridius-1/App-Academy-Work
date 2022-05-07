@@ -1,6 +1,8 @@
 class Deck 
 
+    def initialize 
 
+    end 
 
 
 

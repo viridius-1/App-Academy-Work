@@ -1,12 +1,10 @@
 require 'rspec'
 require 'player'
+require 'byebug'
 
 describe Player do
-    subject(:player) { Player.new('Jake') }  
-
-    it 'has chips' do 
-        expect(player.chips).to eq(10)
-    end 
+    let(:deck) { Deck.new }
+    subject(:player) { Player.new('Jake', deck) }  
 
     context 'when game starts' do 
         it 'has a hand' do 
@@ -14,7 +12,15 @@ describe Player do
         end 
 
         it 'has 5 cards' do 
-            expect(player.hand.length).to eq(5)
+            expect(player.hand.hand.length).to eq(5)
+        end 
+
+        it 'has chips' do 
+            expect(player.chips).to eq(10)
+        end 
+
+        it "returns the player's name" do 
+            expect(player.name).to eq('Jake')
         end 
     end 
     

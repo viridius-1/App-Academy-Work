@@ -1,6 +1,15 @@
+require_relative 'deck'
+require_relative 'player'
+
 class Poker 
 
+    attr_reader :deck, :player1
 
+    def initialize 
+        @deck = Deck.new
+        @player1 = Player.new('Jake', deck)
+
+    end 
 
 
 

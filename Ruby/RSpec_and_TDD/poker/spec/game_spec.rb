@@ -1,5 +1,6 @@
 require 'rspec'
 require 'game'
+require 'byebug'
 
 describe Poker do 
     subject(:game) { Poker.new }
@@ -16,18 +17,72 @@ describe Poker do
     let(:two_eights_one_pair_hand) { double('two_eights_one_pair_hand') }
     let(:two_fives_one_pair_hand) { double('two_fives_one_pair_hand') }
 
+    before(:each) do 
+        game.players = [player1, player2, player3, player4]
+    end 
+
+    describe '#deal_first_cards' do 
+        it 'deals cards to every player' do 
+            allow(player1).to receive(:deal_cards)
+            allow(player2).to receive(:deal_cards)
+            allow(player3).to receive(:deal_cards)
+            allow(player4).to receive(:deal_cards)
+            game.deal_first_cards
+        end 
+    end 
+
+    describe '#set_highest_bet_and_player' do 
+        it 'sets the highest bet and player with the highest bet for a round' do 
+            game.current_player = player1
+            game.set_highest_bet_and_player(2)
+            expect(game.highest_bet).to eq(2)
+            expect(game.player_with_highest_bet).to eq(player1)
+        end 
+    end 
+
+    context 'when game is over' do 
+        describe '#over?' do 
+            before(:each) do 
+                allow(player1).to receive(:chips).and_return(40)
+                allow(player2).to receive(:chips).and_return(0)
+                allow(player3).to receive(:chips).and_return(0)
+                allow(player4).to receive(:chips).and_return(0)
+
+                allow(player1).to receive(:name).and_return('Jake')
+                allow(player2).to receive(:name).and_return('Ann')
+                allow(player3).to receive(:name).and_return('Mike')
+                allow(player4).to receive(:name).and_return('Mary')
+            end 
+
+            it 'returns true if the game is over' do 
+                expect(game.over?).to be(true)
+            end 
+
+            it 'returns the correct winner' do 
+                expect(game.winner).to eq('Jake')
+            end 
+        end 
+    end 
+
     context 'when switching turns' do 
         describe '#switch_turn' do  
-            it 'switches turns' do 
+            before(:each) do 
                 game.current_player = player1
+                allow(player2).to receive(:alive).and_return(true) 
+            end 
+
+            it 'switches turns' do 
+                allow(player2).to receive(:fold).and_return(false)
                 game.switch_turn 
                 expect(game.current_player).to eq(player2)
             end 
 
             it "doesn't switch a turn to a player that has folded" do 
-                allow(player3).to receive(:fold).and_return(true)
+                allow(player2).to receive(:fold).and_return(true)
+                allow(player3).to receive(:alive).and_return(true) 
+                allow(player3).to receive(:fold).and_return(false)
                 game.switch_turn
-                expect(game.current_player).to eq(player4)
+                expect(game.current_player).to eq(player3)
             end 
         end 
     end 
@@ -98,19 +153,24 @@ end
 #can calculate a hand - pair, full house, etc 
 
 #PLAYER 
+#pending 
+#a player can bet 
+#a player can raise 
+#player is out of game if they fold 
+#a player's hand can be revealed 
+#done 
 #a player has chips 
 #context - when game starts 
     #a player can have a hand 
     #player has 5 cards when game starts 
-#a player can bet 
 #a player can receive chips 
-#a player can fold, see the current bet, or raise 
+#a player can fold, see the current bet
 #a player can discard 3 cards, 2 cards, 1 card, or no cards 
 #a player can be dealt new cards to replace their old cards
-#player is out of game if they fold 
-#a player's hand can be revealed 
+
 
 #GAME
+#test all the methods Im setting up 
 #keeps track of whose turn it is 
 #can switch player turns 
 #player can no longer take turns if they fold
@@ -120,7 +180,7 @@ end
 #if there is a draw....
     #it splits the pot if it can be split evenly 
     #if it cant be split evenly, the odd money piece goes by suit rank...from high to low the rank is.....ace, hearts, diamonds, clubs
-
+#game runs until only 1 player has chips 
 
 =begin 
 p "\u2660" #spades 

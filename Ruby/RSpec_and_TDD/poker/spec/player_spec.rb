@@ -59,7 +59,14 @@ describe Player do
                 expect(player.legal_bet?('12')).to be(false)
             end 
         end 
-        
+
+        describe '#player_must_fold?' do 
+            it 'returns true when a player must fold' do 
+                player.able_to_see = false 
+                player.able_to_raise = false 
+                expect(player.must_fold?).to be(true)
+            end 
+        end 
         
         it 'can fold' do 
             player.fold = true 

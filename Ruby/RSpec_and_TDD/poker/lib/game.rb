@@ -9,31 +9,39 @@ class Poker
 
     def initialize 
         @deck = Deck.new
-        @pot = 0 
-        @round_current_bet = 0 
-        @player1 = Player.new('Jake', deck, pot, round_current_bet)
-        @player2 = Player.new('Ann', deck, pot, round_current_bet)
-        @player3 = Player.new('Mike', deck, pot, round_current_bet)
-        @player4 = Player.new('Mary', deck, pot, round_current_bet)
+        @player1 = Player.new('Jake', deck)
+        @player2 = Player.new('Ann', deck)
+        @player3 = Player.new('Mike', deck)
+        @player4 = Player.new('Mary', deck)
         @players = [player1, player2, player3, player4]
     end 
 
     def play 
-        until over? 
+        #until over? 
             set_alive_players
             reset_bet_round_data
             deal_first_cards
             bet_round 
 
-        end 
-        result 
+        #end 
+        #result 
+    end 
+
+    def deal_first_cards
+        players.each { |player| player.deal_cards } 
     end 
 
     def reset_bet_round_data
         @round_current_bet = 0 
+        @pot = 0 
         @highest_bet = 0 
         @player_with_highest_bet = nil 
         @current_player = first_alive_player
+        reset_player_bet_round_data
+    end 
+
+    def reset_player_bet_round_data
+        players.each { |player| player.reset_bet_data }
     end 
 
     def set_alive_players
@@ -50,8 +58,10 @@ class Poker
         live_players
     end 
 
-    def deal_first_cards
-        players.each { |player| player.deal_cards } 
+    def folded_players 
+        folded = []
+        players.each { |player| folded << player.name if player.fold }
+        folded 
     end 
 
     def bet_round 
@@ -59,27 +69,65 @@ class Poker
 
         bet_round_over = false 
         while !bet_round_over
-            switch_turn
-
-
-
-
-
-        end 
-
-
-        #account for if a player is folded and if a player is alive.........player can bet if player.alive && player.fold == false.  
-
+            if three_players_folded? 
+                bet_round_over = true 
+            else 
+                update_pot_and_round_current_bet_for_players
+                switch_turn
+                if current_player_is_player_with_highest_bet? 
+                    bet_round_over = true 
+                else 
+                    choice_of_next_player = next_turn  
+                    increase_pot(choice_of_next_player[1]) 
+                    if choice_of_next_player_is_raise?(choice_of_next_player[0]) 
+                        set_round_current_bet(choice_of_next_player[1])
+                        set_highest_bet_and_player(choice_of_next_player[1]) if bet_is_higher_than_highest_bet?(choice_of_next_player[1]) 
+                    end 
+                end 
+            end 
+        end  
     end 
 
     #method makes the first bet in a round 
     def first_turn 
         first_choice = current_player.make_first_turn(alive_players)
         if first_choice != 'f'
-            @round_current_bet = first_choice
-            @pot += first_choice
+            set_round_current_bet(first_choice)
+            increase_pot(first_choice)
             set_highest_bet_and_player(first_choice)
         end 
+    end 
+
+    #method makes the next turn in a round 
+    def next_turn
+        current_player.make_next_turn(alive_players, folded_players, player_with_highest_bet.name)
+    end 
+
+    def update_pot_and_round_current_bet_for_players       
+        players.each do |player| 
+            player.pot = pot 
+            player.round_current_bet = round_current_bet
+        end 
+    end 
+
+    def current_player_is_player_with_highest_bet? 
+        current_player == player_with_highest_bet
+    end 
+
+    def choice_of_next_player_is_raise?(choice)
+        choice == 'r'
+    end 
+
+    def bet_is_higher_than_highest_bet?(bet)
+        bet > highest_bet
+    end 
+
+    def increase_pot(amount)
+        @pot += amount 
+    end 
+
+    def set_round_current_bet(amount)
+        @round_current_bet = amount 
     end 
 
     def set_highest_bet_and_player(bet)
@@ -97,7 +145,7 @@ class Poker
 
     def switch_turn 
         current_player_idx = get_current_player_idx
-        
+
         switch_turn_complete = false 
         while !switch_turn_complete
             current_player_idx += 1 
@@ -108,6 +156,12 @@ class Poker
                 switch_turn_complete = true 
             end 
         end 
+    end 
+
+    def three_players_folded?
+        players_folded = 0 
+        players.each { |player| players_folded += 1 if player.fold }
+        players_folded == 3 
     end 
 
     def over? 
@@ -125,6 +179,7 @@ class Poker
     end 
 
 end 
+
 
 
 
@@ -146,4 +201,19 @@ end
 
 
 
+#the below code was in bet_round.....
+ # if round_current_bet == player_with_highest_bet.bet 
+#     bet_round_over = true 
+# else 
+#     choice_of_player_with_highest_bet = next_turn 
+#     if choice_of_player_with_highest_bet[0] == 's'
+#         @pot += choice_of_player_with_highest_bet[1]
+#         bet_round_over = true 
+#     elsif choice_of_player_with_highest_bet[0] == 'r'
+#         @pot += choice_of_player_with_highest_bet[1]
+#         set_highest_bet_and_player(choice_of_player_with_highest_bet) if choice_of_player_with_highest_bet[1] > highest_bet
+#     elsif choice_of_player_with_highest_bet[0] == 'f'
+#         bet_round_over = true 
+#     end 
+# end 
 

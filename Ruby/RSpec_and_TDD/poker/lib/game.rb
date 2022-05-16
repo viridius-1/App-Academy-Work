@@ -4,8 +4,8 @@ require 'byebug'
 
 class Poker 
 
-    attr_reader :deck, :highest_bet, :player_with_highest_bet, :player1, :player2, :player3, :player4, :round_current_bet
-    attr_accessor :current_player, :players, :pot 
+    attr_reader :deck, :highest_bet, :player_with_highest_bet
+    attr_accessor :current_player, :players, :player1, :player2, :player3, :player4, :pot, :round_current_bet
 
     def initialize 
         @deck = Deck.new
@@ -22,6 +22,7 @@ class Poker
             reset_bet_round_data
             deal_first_cards
             bet_round 
+            exchange_cards
 
         #end 
         #result 
@@ -29,6 +30,12 @@ class Poker
 
     def deal_first_cards
         players.each { |player| player.deal_cards } 
+    end 
+
+    def exchange_cards
+
+
+
     end 
 
     def reset_bet_round_data
@@ -53,7 +60,7 @@ class Poker
     end 
 
     def alive_players
-        live_players = []
+        live_players = [] 
         players.each { |player| live_players << player.name if player.alive }
         live_players
     end 
@@ -77,12 +84,7 @@ class Poker
                 if current_player_is_player_with_highest_bet? 
                     bet_round_over = true 
                 else 
-                    choice_of_next_player = next_turn  
-                    increase_pot(choice_of_next_player[1]) 
-                    if choice_of_next_player_is_raise?(choice_of_next_player[0]) 
-                        set_round_current_bet(choice_of_next_player[1])
-                        set_highest_bet_and_player(choice_of_next_player[1]) if bet_is_higher_than_highest_bet?(choice_of_next_player[1]) 
-                    end 
+                    next_turn
                 end 
             end 
         end  
@@ -98,8 +100,16 @@ class Poker
         end 
     end 
 
-    #method makes the next turn in a round 
     def next_turn
+        choice_of_next_player = make_next_turn  
+        increase_pot(choice_of_next_player[1]) 
+        if choice_of_next_player_is_raise?(choice_of_next_player[0]) 
+            set_round_current_bet(choice_of_next_player[1])
+            set_highest_bet_and_player(choice_of_next_player[1]) if bet_is_higher_than_highest_bet?(choice_of_next_player[1]) 
+        end 
+    end 
+
+    def make_next_turn
         current_player.make_next_turn(alive_players, folded_players, player_with_highest_bet.name)
     end 
 
@@ -122,7 +132,7 @@ class Poker
         bet > highest_bet
     end 
 
-    def increase_pot(amount)
+    def increase_pot(amount) 
         @pot += amount 
     end 
 
@@ -217,3 +227,28 @@ end
 #     end 
 # end 
 
+
+###method before modifying it...
+#   def bet_round 
+#         first_turn 
+
+#         bet_round_over = false 
+#         while !bet_round_over
+#             if three_players_folded? 
+#                 bet_round_over = true 
+#             else 
+#                 update_pot_and_round_current_bet_for_players
+#                 switch_turn
+#                 if current_player_is_player_with_highest_bet? 
+#                     bet_round_over = true 
+#                 else 
+#                     choice_of_next_player = next_turn  
+#                     increase_pot(choice_of_next_player[1]) 
+#                     if choice_of_next_player_is_raise?(choice_of_next_player[0]) 
+#                         set_round_current_bet(choice_of_next_player[1])
+#                         set_highest_bet_and_player(choice_of_next_player[1]) if bet_is_higher_than_highest_bet?(choice_of_next_player[1]) 
+#                     end 
+#                 end 
+#             end 
+#         end  
+#     end 

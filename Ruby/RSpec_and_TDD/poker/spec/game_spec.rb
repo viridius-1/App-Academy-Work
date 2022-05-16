@@ -19,6 +19,9 @@ describe Poker do
 
     before(:each) do 
         game.players = [player1, player2, player3, player4]
+        game.current_player = player1 
+        game.pot = 0 
+        game.round_current_bet = 0 
     end 
 
     describe '#deal_first_cards' do 
@@ -37,75 +40,6 @@ describe Poker do
             game.set_highest_bet_and_player(2)
             expect(game.highest_bet).to eq(2)
             expect(game.player_with_highest_bet).to eq(player1)
-        end 
-    end 
-
-    context 'when game is over' do 
-        describe '#over?' do 
-            before(:each) do 
-                allow(player1).to receive(:chips).and_return(40)
-                allow(player2).to receive(:chips).and_return(0)
-                allow(player3).to receive(:chips).and_return(0)
-                allow(player4).to receive(:chips).and_return(0)
-
-                allow(player1).to receive(:name).and_return('Jake')
-                allow(player2).to receive(:name).and_return('Ann')
-                allow(player3).to receive(:name).and_return('Mike')
-                allow(player4).to receive(:name).and_return('Mary')
-            end 
-
-            it 'returns true if the game is over' do 
-                expect(game.over?).to be(true)
-            end 
-
-            it 'returns the correct winner' do 
-                expect(game.winner).to eq('Jake')
-            end 
-        end 
-    end 
-
-    context 'when switching turns' do 
-        describe '#switch_turn' do  
-            before(:each) do 
-                game.current_player = player1
-                allow(player2).to receive(:alive).and_return(true) 
-            end 
-
-            it 'switches turns' do 
-                allow(player2).to receive(:fold).and_return(false)
-                game.switch_turn 
-                expect(game.current_player).to eq(player2)
-            end 
-
-            it "doesn't switch a turn to a player that has folded" do 
-                allow(player2).to receive(:fold).and_return(true)
-                allow(player3).to receive(:alive).and_return(true) 
-                allow(player3).to receive(:fold).and_return(false)
-                game.switch_turn
-                expect(game.current_player).to eq(player3)
-            end 
-        end 
-    end 
-     
-    context 'when comparing hands' do 
-        describe '#compare_hands' do 
-            it 'ranks a straight flush above four of a kind' do 
-                allow(straight_flush).to receive(:calculate).and_return(1)
-                allow(four_of_a_kind).to receive(:calculate).and_return(2)
-                expect(game.compare_hands(straight_flush, four_of_a_kind)).to eq(straight_flush)
-            end 
-
-            it 'ranks three of a kind below a straight' do 
-                allow(three_of_a_kind).to receive(:calculate).and_return(6)
-                allow(straight).to receive(:calculate).and_return(5)
-                expect(game.compare_hands(three_of_a_kind, straight)).to eq(straight)
-            end 
-
-            # it 'ranks a higher one pair hand (two 8s) over a lower one pair hand (two 5s)' do 
-            #     allow(two_eights_one_pair_hand).to receive(:calculate).and return(8)
-            #     allow(two_fives_one_pair_hand).to receive(:calculate).and return(8)
-            #     expect(game.compare_hands(two_eights_one_pair_hand, two_fives_one_pair_hand)).to eq(two_eights_one_pair_hand)
-            # end 
         end 
     end 
 
@@ -136,7 +70,177 @@ describe Poker do
 
         #make another it block?........if pot cant be split evenly, the odd money piece goes by suit rank...from high to low the rank is.....ace, hearts, diamonds, clubs
     end 
+
+    describe '#three_players_folded?' do 
+        it 'returns true when 3 players have folded' do 
+            allow(player1).to receive(:fold).and_return(false)
+            allow(player2).to receive(:fold).and_return(true)
+            allow(player3).to receive(:fold).and_return(true)
+            allow(player4).to receive(:fold).and_return(true)
+            expect(game.three_players_folded?).to be(true)
+        end 
+
+        it 'returns false when 3 players have not folded' do 
+            allow(player1).to receive(:fold).and_return(false)
+            allow(player2).to receive(:fold).and_return(false)
+            allow(player3).to receive(:fold).and_return(true)
+            allow(player4).to receive(:fold).and_return(true)
+            expect(game.three_players_folded?).to be(false)
+        end 
+    end 
+
+    context 'when a bet round is running' do
+        before(:each) do 
+            allow(player1).to receive(:alive).and_return(true)
+            allow(player1).to receive(:name).and_return('Jake')
+            allow(player2).to receive(:alive).and_return(true)
+            allow(player2).to receive(:name).and_return('Ann')
+            allow(player3).to receive(:alive).and_return(true)
+            allow(player3).to receive(:name).and_return('Mike')
+            allow(player4).to receive(:alive).and_return(true)
+            allow(player4).to receive(:name).and_return('Mary')
+
+            allow(player1).to receive(:fold).and_return(false)
+            allow(player2).to receive(:fold).and_return(false)
+            allow(player3).to receive(:fold).and_return(false)
+            allow(player4).to receive(:fold).and_return(false)
+
+            alive_players = ['Jake', 'Ann', 'Mike', 'Mary'] 
+
+            expect(player1).to receive(:make_first_turn).with(alive_players).and_return(1)
+            game.first_turn 
+        end 
+
+        describe '#first_turn' do
+            it "sets the round's current bet when the player bets" do
+                expect(game.round_current_bet).to eq(1)
+            end 
+
+            it "increases the pot by the player's bet" do 
+                expect(game.pot).to eq(1)
+            end 
+
+            it 'sets the highest bet' do 
+                expect(game.highest_bet).to eq(1)
+            end 
+
+            it 'sets the player with the highest bet' do 
+                expect(game.player_with_highest_bet).to eq(player1)
+            end 
+        end 
+
+        describe '#next_turn' do 
+            before(:each) do 
+                alive_players = ['Jake', 'Ann', 'Mike', 'Mary'] 
+                folded_players = []
+                game.pot = 0 
+                expect(player1).to receive(:make_next_turn).with(alive_players, folded_players, 'Jake').and_return(['s', 3])
+                game.next_turn
+            end 
+
+            it 'increases the pot when a player sees' do 
+                expect(game.pot).to eq(3)
+            end 
+
+            it "sets the round's current bet when a player raises" do 
+                alive_players = ['Jake', 'Ann', 'Mike', 'Mary'] 
+                folded_players = []
+                expect(player1).to receive(:make_next_turn).with(alive_players, folded_players, 'Jake').and_return(['r', 4])
+                game.next_turn
+                expect(game.round_current_bet).to eq(4)
+            end 
+
+            it 'sets the highest bet when a player raises' do 
+                alive_players = ['Jake', 'Ann', 'Mike', 'Mary'] 
+                folded_players = []
+                expect(player1).to receive(:make_next_turn).with(alive_players, folded_players, 'Jake').and_return(['r', 4])
+                game.next_turn
+                expect(game.highest_bet).to eq(4)
+            end 
+
+            it 'sets the player with the highest bet when a player raises' do 
+                alive_players = ['Jake', 'Ann', 'Mike', 'Mary'] 
+                folded_players = []
+                expect(player1).to receive(:make_next_turn).with(alive_players, folded_players, 'Jake').and_return(['r', 4])
+                game.next_turn
+                expect(game.player_with_highest_bet).to eq(player1)
+            end 
+        end 
+    end 
+
+    context 'when switching turns' do 
+        describe '#switch_turn' do  
+            before(:each) do 
+                game.current_player = player1
+                allow(player2).to receive(:alive).and_return(true) 
+            end 
+
+            it 'switches turns' do 
+                allow(player2).to receive(:fold).and_return(false)
+                game.switch_turn 
+                expect(game.current_player).to eq(player2)
+            end 
+
+            it "doesn't switch a turn to a player that has folded" do 
+                allow(player2).to receive(:fold).and_return(true)
+                allow(player3).to receive(:alive).and_return(true) 
+                allow(player3).to receive(:fold).and_return(false)
+                game.switch_turn
+                expect(game.current_player).to eq(player3)
+            end 
+        end 
+    end 
+
+    # context 'when comparing hands' do 
+    #     describe '#compare_hands' do 
+    #         it 'ranks a straight flush above four of a kind' do 
+    #             allow(straight_flush).to receive(:calculate).and_return(1)
+    #             allow(four_of_a_kind).to receive(:calculate).and_return(2)
+    #             expect(game.compare_hands(straight_flush, four_of_a_kind)).to eq(straight_flush)
+    #         end 
+
+    #         it 'ranks three of a kind below a straight' do 
+    #             allow(three_of_a_kind).to receive(:calculate).and_return(6)
+    #             allow(straight).to receive(:calculate).and_return(5)
+    #             expect(game.compare_hands(three_of_a_kind, straight)).to eq(straight)
+    #         end 
+
+    #         it 'ranks a higher one pair hand (two 8s) over a lower one pair hand (two 5s)' do 
+    #             allow(two_eights_one_pair_hand).to receive(:calculate).and return(8)
+    #             allow(two_fives_one_pair_hand).to receive(:calculate).and return(8)
+    #             expect(game.compare_hands(two_eights_one_pair_hand, two_fives_one_pair_hand)).to eq(two_eights_one_pair_hand)
+    #         end 
+    #     end 
+    # end
+
+    context 'when game is over' do 
+        describe '#over?' do 
+            before(:each) do 
+                allow(player1).to receive(:chips).and_return(40)
+                allow(player2).to receive(:chips).and_return(0)
+                allow(player3).to receive(:chips).and_return(0)
+                allow(player4).to receive(:chips).and_return(0)
+
+                allow(player1).to receive(:name).and_return('Jake')
+                allow(player2).to receive(:name).and_return('Ann')
+                allow(player3).to receive(:name).and_return('Mike')
+                allow(player4).to receive(:name).and_return('Mary')
+            end 
+
+            it 'returns true if the game is over' do 
+                expect(game.over?).to be(true)
+            end 
+
+            it 'returns the correct winner' do 
+                expect(game.winner).to eq('Jake')
+            end 
+        end 
+    end 
+
+ 
+
 end 
+
 
 
 #CARD 

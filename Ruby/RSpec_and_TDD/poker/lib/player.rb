@@ -4,8 +4,8 @@ require 'byebug'
 
 class Player 
 
-    attr_reader :alive_players, :deck, :folded_players, :hand, :name, :player_with_highest_bet
-    attr_accessor :able_to_see, :able_to_raise, :alive, :bet, :chips, :fold, :pot, :raise, :round_current_bet  
+    attr_reader :deck, :folded_players, :hand, :name, :player_with_highest_bet
+    attr_accessor :able_to_see, :able_to_raise, :alive, :alive_players, :already_bet, :bet, :chips, :fold, :pot, :raise, :round_current_bet  
 
     def initialize(name, deck)
         @deck = deck 
@@ -24,11 +24,13 @@ class Player
         @bet = 0
         @raise = 0 
         @fold = false
-    end 
-
-    def reset_see_raise_possibilities
         @able_to_see = false  
         @able_to_raise = false 
+        @already_bet = false 
+    end 
+
+    def set_already_bet
+        @already_bet = true 
     end 
 
     def set_alive_players(alive_players)
@@ -137,6 +139,8 @@ class Player
 
     #method is used when player is taking the first turn in a bet round 
     def make_first_turn(alive_players)
+        reset_bet_data
+        set_already_bet
         set_alive_players(alive_players)
 
         player_choice = get_first_player_choice
@@ -149,12 +153,13 @@ class Player
         end 
     end 
 
-     #method is used when player is taking a susequent turn in a bet round 
+    #method is used when player is taking a subsequent turn in a bet round 
     def make_next_turn(alive_players, folded_players, player_with_highest_bet)
         set_alive_players(alive_players)
         set_folded_players(folded_players)
         set_player_with_highest_bet(player_with_highest_bet)
-        reset_see_raise_possibilities
+        reset_bet_data if !already_bet
+        set_already_bet
         evaluate_able_to_see
         evaluate_able_to_raise
 

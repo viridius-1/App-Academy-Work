@@ -50,6 +50,8 @@ describe Poker do
         end 
     end 
 
+    #maybe a test for increase_pot
+
     describe '#award_pot' do 
         it 'awards the pot to the showdown winner' do 
             allow(player1).to receive(:chips).and_return(game.pot)

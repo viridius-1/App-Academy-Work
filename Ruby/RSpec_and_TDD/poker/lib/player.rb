@@ -91,7 +91,7 @@ class Player
     end 
 
     def evaluate_able_to_see 
-        if round_current_bet > bet 
+        if round_current_bet >= bet 
             @able_to_see = true if chips + bet >= round_current_bet
         end         
     end 
@@ -185,7 +185,7 @@ class Player
         Integer(user_amount)
     end 
 
-    #method is used when player is taking the first turn in a bet round 
+    #method is used when player is taking the first turn in the 1st bet round 
     def make_first_turn(alive_players)
         reset_bet_data
         set_alive_players(alive_players)
@@ -208,7 +208,10 @@ class Player
         set_alive_players(alive_players)
         set_folded_players(folded_players)
         set_player_with_highest_bet(player_with_highest_bet)
+        next_turn_decision_or_fold
+    end 
 
+    def next_turn_decision_or_fold
         if must_fold? 
             @fold = true 
             puts "#{name}, you don't have enough chips to see or raise. You have folded."
@@ -232,7 +235,7 @@ class Player
             raise = get_amount
             @bet += raise 
             @chips -= raise 
-            ['r', bet]
+            ['r', bet, raise]
         elsif player_choice == 'f'
             fold_player 
         end 

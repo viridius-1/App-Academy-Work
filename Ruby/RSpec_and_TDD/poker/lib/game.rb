@@ -59,6 +59,10 @@ class Poker
         players.each { |player| player.alive = false if player.chips == 0 }
     end 
 
+    def toggle_bet_round1_finished_and_already_bet
+        players.each { |player| player.toggle_bet_round1_finished_and_already_bet } 
+    end 
+
     def first_alive_player
         players.each { |player| return player if player.alive }
     end 
@@ -73,10 +77,6 @@ class Poker
         folded = []
         players.each { |player| folded << player.name if player.fold }
         folded 
-    end 
-
-    def toggle_bet_round1_finished_and_already_bet
-        players.each { |player| player.toggle_bet_round1_finished_and_already_bet } 
     end 
 
     def bet_round 
@@ -102,7 +102,12 @@ class Poker
 
     #method makes the first bet in a round 
     def first_turn 
-        first_choice = current_player.make_first_turn(alive_players)
+        if !current_player.bet_round1_finished
+            first_choice = current_player.make_first_turn(alive_players)
+        else 
+            return next_turn
+        end 
+
         if first_choice != 'f'
             set_round_current_bet(first_choice)
             increase_pot(first_choice)
@@ -112,10 +117,12 @@ class Poker
 
     def next_turn
         choice_of_next_player = make_next_turn  
-        increase_pot(choice_of_next_player[1]) 
         if choice_of_next_player_is_raise?(choice_of_next_player[0]) 
+            increase_pot(choice_of_next_player[2]) 
             set_round_current_bet(choice_of_next_player[1])
             set_highest_bet_and_player(choice_of_next_player[1]) if bet_is_higher_than_highest_bet?(choice_of_next_player[1]) 
+        else   
+            increase_pot(choice_of_next_player[1]) 
         end 
     end 
 

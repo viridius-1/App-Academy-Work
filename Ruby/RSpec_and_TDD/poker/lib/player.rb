@@ -4,8 +4,8 @@ require 'byebug'
 
 class Player 
 
-    attr_reader :deck, :folded_players, :hand, :name, :player_with_highest_bet
-    attr_accessor :able_to_see, :able_to_raise, :alive, :alive_players, :already_bet, :bet, :chips, :fold, :pot, :raise, :round_current_bet  
+    attr_reader :card_letters, :deck, :folded_players, :name, :player_with_highest_bet, :ten_card_at_idx_0_in_exchange_print
+    attr_accessor :able_to_see, :able_to_raise, :alive, :alive_players, :already_bet, :bet, :cards_to_exchange, :chips, :fold, :hand, :hand_copy, :pot, :raise, :round_current_bet  
 
     def initialize(name, deck)
         @deck = deck 
@@ -14,6 +14,7 @@ class Player
         @name = name 
         @chips = 10 
         @alive = true 
+        @card_letters = ['v', 'w', 'x', 'y', 'z', 'h']
     end 
 
     def deal_cards
@@ -27,6 +28,11 @@ class Player
         @able_to_see = false  
         @able_to_raise = false 
         @already_bet = false 
+    end 
+
+    def reset_hand_copy_and_cards_to_exchange 
+        @hand_copy = hand.hand.dup
+        @cards_to_exchange = []
     end 
 
     def set_already_bet
@@ -72,12 +78,13 @@ class Player
 
         while !valid_choice
             render 
+            show_hand
             puts "#{name}, enter B to bet or F to fold."
             player_choice = gets.chomp.downcase 
             if player_choice == 'b' || player_choice == 'f'
                 valid_choice = true 
             else 
-                invalid_choice
+                invalid_entry
             end 
         end 
 
@@ -88,6 +95,7 @@ class Player
         valid_choice = false 
         while !valid_choice
             render 
+            show_hand
             puts "#{name}, make a selection."
             puts "Enter S to see." if able_to_see
             puts "Enter R to raise." if able_to_raise
@@ -97,7 +105,7 @@ class Player
             if player_choice_possibilities.include?(player_choice)
                 valid_choice = true 
             else 
-                invalid_choice
+                invalid_entry
             end 
         end 
 
@@ -129,6 +137,7 @@ class Player
 
         while !valid_bet 
             render 
+            show_hand
             puts "#{name}, how much do you want to bet?"
             user_amount = gets.chomp
             valid_bet = true if legal_amount?(user_amount)
@@ -192,10 +201,81 @@ class Player
         end 
     end 
 
-    def fold_player 
-        @fold = true 
-        puts "#{name}, you have folded."
-        ['f', 0] 
+    def exchange_or_reset
+        ['e', 'r']
+    end 
+
+    def valid_entry_for_3_or_4_cards?(entry)
+        range_end = hand_copy.length - 1 
+        card_letters[0..range_end].include?(entry) || exchange_or_reset.include?(entry)
+    end 
+
+    def valid_user_exchange_choice?(entry)
+        if hand_copy.length == 5 
+            return true if card_letters.include?(entry) 
+        elsif hand_copy.length > 2 
+            return true if valid_entry_for_3_or_4_cards?(entry)
+        else 
+            return true if exchange_or_reset.include?(entry)
+        end 
+
+        false 
+    end 
+
+    def get_user_exchange_choice
+        valid_choice = false
+        while !valid_choice
+            clear 
+            exchange_cards_prompt
+            user_choice = gets.chomp.downcase
+            if valid_user_exchange_choice?(user_choice)
+                valid_choice = true
+            else 
+                invalid_entry
+            end 
+        end 
+        user_choice
+    end 
+
+    def delete_cards_to_exchange
+        cards_to_exchange.each { |card| hand.hand.delete(card) } 
+    end 
+
+    def deal_new_cards
+        num_cards_to_deal = cards_to_exchange.length 
+        new_cards = deck.deal(num_cards_to_deal)
+        new_cards.each { |card| @hand.hand << card }
+    end 
+
+    def discard_and_deal
+        delete_cards_to_exchange
+        deal_new_cards
+    end 
+
+    def update_cards_to_exchange(choice)
+        hand_copy_index = card_letters.index(choice)
+        selected_card = hand_copy.delete_at(hand_copy_index)
+        @cards_to_exchange << selected_card
+    end 
+
+    def exchange_cards 
+        reset_hand_copy_and_cards_to_exchange
+
+        exchange_cards = false 
+        while !exchange_cards
+            user_exchange_choice = get_user_exchange_choice 
+            if user_exchange_choice == 'h'
+                exchange_cards = true 
+            elsif user_exchange_choice == 'e'
+                discard_and_deal
+                new_hand_prompt
+                exchange_cards = true 
+            elsif user_exchange_choice == 'r' 
+                reset_hand_copy_and_cards_to_exchange
+            else 
+                update_cards_to_exchange(user_exchange_choice)
+            end 
+        end 
     end 
 
     def receive_chips(amount)
@@ -210,8 +290,14 @@ class Player
         @hand.add_card(card)
     end 
 
-    def invalid_choice
-        puts "Invalid choice. Press return/enter to continue."
+    def fold_player 
+        @fold = true 
+        puts "#{name}, you have folded."
+        ['f', 0] 
+    end 
+
+    def invalid_entry
+        puts "Invalid entry. Press return/enter to continue."
         gets 
     end 
 
@@ -220,12 +306,12 @@ class Player
         gets 
     end 
 
-    def render 
+    def render
         clear 
-        show_info
+        show_bet_info
     end 
 
-    def show_info
+    def show_bet_info
         puts "POKER"
         puts "Players with Chips - #{alive_players.join(', ')}"
         puts "Folded Players - #{folded_players.join(', ')}" if folded_players
@@ -234,12 +320,97 @@ class Player
         puts "Current Bet this Round - #{round_current_bet}"
         puts "Your Bet this Round - #{bet}"
         puts "Your Chips - #{chips}"
-        show_hand
+        new_line
     end 
 
     def show_hand
-        print "\nHand: "
-        hand.hand.each { |card| print "#{card.symbol} " } 
+        print "Hand: "
+        hand.hand.each { |card| print "#{card.symbol}  " } 
+        new_line
+    end 
+
+    def card_in_hand_with_10_card_at_idx_0?
+        ten_card_at_idx_0_in_exchange_print && !['v', 'w', 'x', 'y', 'z'].include?(object)
+    end 
+
+    def ten_card_at_idx_0?(card, idx)
+        idx == 0 && card.type == "10"
+    end 
+
+    def exchange_cards_prompt 
+        render 
+        show_hand_for_exchange
+        show_cards_for_exchange
+        exchange_prompt 
+    end 
+
+    def new_hand_prompt
+        render 
+        puts "#{name}, here's your new hand. Press return/enter to continue."
+        show_hand
+        gets 
+    end 
+
+    def exchange_print(object, idx)
+        if idx == 0 
+            print object 
+        elsif idx == 1 && card_in_hand_with_10_card_at_idx_0?
+            print "   #{object}"
+        else 
+            print object.rjust(6)
+        end 
+    end 
+
+    def print_cards_for_exchange 
+        @ten_card_at_idx_0_in_exchange_print = false 
+        hand_copy.each_with_index do |card, idx| 
+            exchange_print(card.symbol, idx) 
+            @ten_card_at_idx_0_in_exchange_print = true if ten_card_at_idx_0?(card, idx)
+        end 
+    end 
+
+    def print_letters_for_exchange
+        last_idx_needed = hand_copy.length - 1 
+        current_card_letters = card_letters[0..last_idx_needed]
+        current_card_letters.each_with_index { |letter, idx| exchange_print(letter, idx) } 
+        new_line 
+    end 
+
+    def show_hand_for_exchange 
+        print "Hand".rjust(17)
+        new_line
+        print_letters_for_exchange 
+        print_cards_for_exchange
+    end 
+
+    def exchange_prompt
+        puts "\n\n#{name}:"
+        if hand_copy.length == 5 
+            enter_letter_message
+            puts "Enter H to hold these cards"
+        elsif hand_copy.length > 2  
+            enter_letter_message
+            enter_e_enter_r_message
+        else 
+            enter_e_enter_r_message
+        end 
+    end 
+
+    def show_cards_for_exchange 
+        print "\n\nCards to Exchange: "
+        cards_to_exchange.each { |card| print "#{card.symbol}  " }
+    end 
+
+    def enter_letter_message
+        puts "Enter letter above card to mark it for exchange. You can exchange 3 cards."
+    end 
+
+    def enter_e_enter_r_message
+        puts "Enter E to exchange cards. You can exchange 3 cards." 
+        puts "Enter R to reset cards"
+    end 
+
+    def new_line 
         puts "\n"
     end 
 

@@ -33,9 +33,7 @@ class Poker
     end 
 
     def exchange_cards
-
-
-
+        players.each { |player| player.exchange_cards } 
     end 
 
     def reset_bet_round_data

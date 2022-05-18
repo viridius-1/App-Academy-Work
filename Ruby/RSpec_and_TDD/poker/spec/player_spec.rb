@@ -257,6 +257,72 @@ describe Player do
     end 
     
     context 'when exchanging cards' do  
+        describe '#valid_user_exchange_choice?' do 
+
+            it 'returns true for a valid entry when the hand_copy length is 5' do 
+                player.hand_copy = ['9♠', 'Q♣', 'J♠', '5♠', '3♡']   
+                expect(player.valid_user_exchange_choice?('v')).to be(true)
+            end 
+
+            it 'returns false for a invalid entry when the hand_copy length is 5' do 
+                player.hand_copy = ['9♠', 'Q♣', 'J♠', '5♠', '3♡']   
+                expect(player.valid_user_exchange_choice?('j')).to be(false)
+            end 
+
+            it 'returns true when a player wants to hold their cards' do 
+                player.hand_copy = ['9♠', 'Q♣', 'J♠', '5♠', '3♡']   
+                expect(player.valid_user_exchange_choice?('h')).to be(true)
+            end 
+
+            it 'returns true for a valid entry when the hand_copy length is 3 or 4' do 
+                player.hand_copy = ['Q♣', 'J♠', '5♠', '3♡']   
+                expect(player.valid_user_exchange_choice?('y')).to be(true)
+            end 
+
+            it 'returns false for a invalid entry when the hand_copy length is 3 or 4' do 
+                player.hand_copy = ['Q♣', 'J♠', '5♠', '3♡']   
+                expect(player.valid_user_exchange_choice?('z')).to be(false)
+            end 
+
+            it 'lets a player exchange cards when when the hand_copy length is 2, 3, or 4' do 
+                player.hand_copy = ['Q♣', 'J♠', '5♠', '3♡']   
+                expect(player.valid_user_exchange_choice?('e')).to be(true)
+            end 
+
+            it 'lets a player reset cards when when the hand_copy length is 2, 3, or 4' do 
+                player.hand_copy = ['Q♣', 'J♠', '5♠', '3♡']   
+                expect(player.valid_user_exchange_choice?('r')).to be(true)
+            end 
+        end 
+
+        describe '#delete_cards_to_exchange' do 
+            it 'deletes cards from a hand' do 
+                player.hand = ['9♠', 'Q♣', 'J♠', '5♠', '3♡']   
+                player.cards_to_exchange = ['J♠', '5♠', '3♡']
+                player.delete_cards_to_exchange
+                expect(player.hand.length).to eq(2)
+            end 
+        end 
+
+        describe '#deal_new_cards' do 
+            it "deals a player new cards" do 
+                player.hand = ['9♠', 'Q♣']  
+                player.cards_to_exchange = ['J♠', '5♠', '3♡']
+                allow(deck).to receive(:deal).with(3).and_return(['8♠', '4♡', '10♣'])
+                player.deal_new_cards
+                expect(player.hand.length).to eq(5) 
+            end 
+        end 
+
+        describe '#update_cards_to_exchange' do 
+            it "marks a card to be exchanged" do 
+                player.hand_copy = ['9♠', 'Q♣', 'J♠', '5♠', '3♡']   
+                player.cards_to_exchange = []
+                player.update_cards_to_exchange('v')
+                expect(player.cards_to_exchange).to eq(['9♠'])
+            end 
+        end 
+
         describe '#discard' do 
             it 'can discard a card' do 
                 allow(hand).to receive(:remove_card).with(2)

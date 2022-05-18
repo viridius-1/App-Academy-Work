@@ -19,11 +19,14 @@ class Poker
     def play 
         #until over? 
             set_alive_players
+            reset_pot 
             reset_bet_round_data
             deal_first_cards
             bet_round 
             exchange_cards
+            bet_round
 
+            #set_bet_round1_finished_to_false at end of round for each player 
         #end 
         #result 
     end 
@@ -36,9 +39,12 @@ class Poker
         players.each { |player| player.exchange_cards } 
     end 
 
+    def reset_pot
+        @pot = 0 
+    end 
+
     def reset_bet_round_data
         @round_current_bet = 0 
-        @pot = 0 
         @highest_bet = 0 
         @player_with_highest_bet = nil 
         @current_player = first_alive_player
@@ -69,6 +75,10 @@ class Poker
         folded 
     end 
 
+    def toggle_bet_round1_finished_and_already_bet
+        players.each { |player| player.toggle_bet_round1_finished_and_already_bet } 
+    end 
+
     def bet_round 
         first_turn 
 
@@ -86,6 +96,8 @@ class Poker
                 end 
             end 
         end  
+
+        toggle_bet_round1_finished_and_already_bet
     end 
 
     #method makes the first bet in a round 

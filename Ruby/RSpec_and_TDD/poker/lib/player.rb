@@ -5,7 +5,7 @@ require 'byebug'
 class Player 
 
     attr_reader :card_letters, :deck, :folded_players, :name, :player_with_highest_bet, :ten_card_at_idx_0_in_exchange_print
-    attr_accessor :able_to_see, :able_to_raise, :alive, :alive_players, :already_bet, :bet, :cards_to_exchange, :chips, :fold, :hand, :hand_copy, :pot, :raise, :round_current_bet  
+    attr_accessor :able_to_see, :able_to_raise, :alive, :alive_players, :already_bet, :bet, :bet_round1_finished, :cards_to_exchange, :chips, :fold, :hand, :hand_copy, :pot, :round_current_bet  
 
     def initialize(name, deck)
         @deck = deck 
@@ -14,6 +14,8 @@ class Player
         @name = name 
         @chips = 10 
         @alive = true 
+        reset_already_bet
+        @bet_round1_finished = false 
         @card_letters = ['v', 'w', 'x', 'y', 'z', 'h']
     end 
 
@@ -22,17 +24,54 @@ class Player
     end 
 
     def reset_bet_data
-        @bet = 0
-        @raise = 0 
+        if !bet_round1_finished
+            reset_data_for_round1 
+        else      
+            reset_data_for_round2 
+        end 
+    end 
+
+    def reset_data_for_round1
+        if !already_bet
+            set_already_bet
+            reset_fold
+            reset_bet
+            reset_able_to_see_and_able_to_raise
+        end 
+    end 
+
+    def reset_data_for_round2
+        if !already_bet
+            set_already_bet
+            reset_able_to_see_and_able_to_raise
+        end 
+    end 
+
+    def reset_already_bet 
+        @already_bet = false 
+    end 
+
+    def reset_fold
         @fold = false
+    end 
+
+    def reset_bet 
+        @bet = 0
+    end 
+
+    def reset_able_to_see_and_able_to_raise
         @able_to_see = false  
         @able_to_raise = false 
-        @already_bet = false 
     end 
 
     def reset_hand_copy_and_cards_to_exchange 
         @hand_copy = hand.hand.dup
         @cards_to_exchange = []
+    end 
+
+    def toggle_bet_round1_finished_and_already_bet
+        @already_bet = already_bet == false ? true : false 
+        @bet_round1_finished = bet_round1_finished == false ? true : false 
     end 
 
     def set_already_bet
@@ -149,7 +188,6 @@ class Player
     #method is used when player is taking the first turn in a bet round 
     def make_first_turn(alive_players)
         reset_bet_data
-        set_already_bet
         set_alive_players(alive_players)
 
         player_choice = get_first_player_choice
@@ -164,13 +202,12 @@ class Player
 
     #method is used when player is taking a subsequent turn in a bet round 
     def make_next_turn(alive_players, folded_players, player_with_highest_bet)
+        reset_bet_data
+        evaluate_able_to_see
+        evaluate_able_to_raise
         set_alive_players(alive_players)
         set_folded_players(folded_players)
         set_player_with_highest_bet(player_with_highest_bet)
-        reset_bet_data if !already_bet
-        set_already_bet
-        evaluate_able_to_see
-        evaluate_able_to_raise
 
         if must_fold? 
             @fold = true 
@@ -192,7 +229,7 @@ class Player
             @chips -= see_amount
             ['s', see_amount]
         elsif player_choice == 'r'
-            @raise = get_amount
+            raise = get_amount
             @bet += raise 
             @chips -= raise 
             ['r', bet]
@@ -329,7 +366,7 @@ class Player
         new_line
     end 
 
-    def card_in_hand_with_10_card_at_idx_0?
+    def card_in_hand_with_10_card_at_idx_0?(object)
         ten_card_at_idx_0_in_exchange_print && !['v', 'w', 'x', 'y', 'z'].include?(object)
     end 
 
@@ -354,7 +391,7 @@ class Player
     def exchange_print(object, idx)
         if idx == 0 
             print object 
-        elsif idx == 1 && card_in_hand_with_10_card_at_idx_0?
+        elsif idx == 1 && card_in_hand_with_10_card_at_idx_0?(object)
             print "   #{object}"
         else 
             print object.rjust(6)
@@ -377,7 +414,7 @@ class Player
     end 
 
     def show_hand_for_exchange 
-        print "Hand".rjust(17)
+        print "Hand".rjust(15)
         new_line
         print_letters_for_exchange 
         print_cards_for_exchange

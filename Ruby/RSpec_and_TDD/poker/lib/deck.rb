@@ -21,8 +21,7 @@ class Deck
         '2' => 2
         }
         @suits = ["\u2660", "\u2663", "\u2661", "\u2662"]
-        @deck = []
-        create_deck 
+        fill_deck 
     end 
 
     def deal(num)
@@ -40,7 +39,8 @@ class Deck
 
     #private 
 
-    def create_deck
+    def fill_deck
+        @deck = []
         card_types.each do |card, value| 
             suits.each { |suit| @deck << Card.new(card, suit, value) } 
         end
@@ -57,3 +57,4 @@ class Deck
     end
 
 end 
+

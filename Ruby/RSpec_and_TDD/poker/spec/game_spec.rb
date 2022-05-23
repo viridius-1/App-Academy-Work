@@ -1,5 +1,6 @@
 require 'rspec'
 require 'game'
+require 'card'
 require 'byebug'
 
 describe Poker do 
@@ -50,28 +51,62 @@ describe Poker do
         end 
     end 
 
-    #maybe a test for increase_pot
-
-    describe '#award_pot' do 
-        it 'awards the pot to the showdown winner' do 
-            allow(player1).to receive(:chips).and_return(game.pot)
-            expect { game.award_pot(player1) }.to_not raise_error 
+    describe '#increase_pot' do 
+        it 'increases the pot' do 
+            game.pot = 1 
+            game.increase_pot(1)
+            expect(game.pot).to eq(2)
         end 
+    end
 
-        it 'resets the pot to 0 after awarding the pot' do 
-            game.award_pot
-            expect(game.pot).to eq(0)
-        end     
+    describe '#award_pot_to_winner' do 
+        before(:each) do    
+            allow(player1).to receive(:name).and_return('Jake') 
+            allow(player1).to receive(:fold).and_return(false) 
+            allow(player1).to receive(:player_hand).and_return([]) 
 
-        it 'splits an even pot when there is a draw' do 
-            game.pot = 8 
-            allow(player1).to receive(:chips).and_return(game.pot / 2)
-            allow(player2).to receive(:chips).and_return(game.pot / 2)
-            expect { game.award_pot(player1, player2) }.to_not raise_error 
+            allow(player2).to receive(:name).and_return('Ann') 
+            allow(player2).to receive(:fold).and_return(false) 
+            allow(player2).to receive(:player_hand).and_return([]) 
+
+            allow(player3).to receive(:name).and_return('Mike') 
+            allow(player3).to receive(:fold).and_return(false) 
+            allow(player3).to receive(:player_hand).and_return([]) 
+
+            allow(player4).to receive(:name).and_return('Mary') 
+            allow(player4).to receive(:fold).and_return(false) 
+            allow(player4).to receive(:player_hand).and_return([]) 
         end 
-
-        #make another it block?........if pot cant be split evenly, the odd money piece goes by suit rank...from high to low the rank is.....ace, hearts, diamonds, clubs
+        
+        it 'awards the pot to the winner of a round' do 
+            game.pot = 5
+            game.winning_players_of_round = [player1]
+            allow(player1).to receive(:chips).and_return(9)
+            allow(player1).to receive(:chips=).and_return(14)
+            game.award_pot_to_winner(player1)
+        end 
     end 
+
+    # describe '#award_pot' do 
+    #     it 'awards the pot to the showdown winner' do 
+    #         allow(player1).to receive(:chips).and_return(game.pot)
+    #         expect { game.award_pot(player1) }.to_not raise_error 
+    #     end 
+
+    #     it 'resets the pot to 0 after awarding the pot' do 
+    #         game.award_pot
+    #         expect(game.pot).to eq(0)
+    #     end     
+
+    #     it 'splits an even pot when there is a draw' do 
+    #         game.pot = 8 
+    #         allow(player1).to receive(:chips).and_return(game.pot / 2)
+    #         allow(player2).to receive(:chips).and_return(game.pot / 2)
+    #         expect { game.award_pot(player1, player2) }.to_not raise_error 
+    #     end 
+
+    #     #make another it block?........if pot cant be split evenly, the odd money piece goes by suit rank...from high to low the rank is.....ace, hearts, diamonds, clubs
+    # end 
 
     describe '#three_players_folded?' do 
         it 'returns true when 3 players have folded' do 
@@ -110,6 +145,7 @@ describe Poker do
             alive_players = ['Jake', 'Ann', 'Mike', 'Mary'] 
 
             expect(player1).to receive(:make_first_turn).with(alive_players).and_return(1)
+            expect(player1).to receive(:bet_round1_finished).and_return(false)
             game.first_turn 
         end 
 
@@ -147,23 +183,23 @@ describe Poker do
             it "sets the round's current bet when a player raises" do 
                 alive_players = ['Jake', 'Ann', 'Mike', 'Mary'] 
                 folded_players = []
-                expect(player1).to receive(:make_next_turn).with(alive_players, folded_players, 'Jake').and_return(['r', 4])
+                expect(player1).to receive(:make_next_turn).with(alive_players, folded_players, 'Jake').and_return(['r', 3, 2])
                 game.next_turn
-                expect(game.round_current_bet).to eq(4)
+                expect(game.round_current_bet).to eq(3)
             end 
 
             it 'sets the highest bet when a player raises' do 
                 alive_players = ['Jake', 'Ann', 'Mike', 'Mary'] 
                 folded_players = []
-                expect(player1).to receive(:make_next_turn).with(alive_players, folded_players, 'Jake').and_return(['r', 4])
+                expect(player1).to receive(:make_next_turn).with(alive_players, folded_players, 'Jake').and_return(['r', 3, 2])
                 game.next_turn
-                expect(game.highest_bet).to eq(4)
+                expect(game.highest_bet).to eq(3)
             end 
 
             it 'sets the player with the highest bet when a player raises' do 
                 alive_players = ['Jake', 'Ann', 'Mike', 'Mary'] 
                 folded_players = []
-                expect(player1).to receive(:make_next_turn).with(alive_players, folded_players, 'Jake').and_return(['r', 4])
+                expect(player1).to receive(:make_next_turn).with(alive_players, folded_players, 'Jake').and_return(['r', 3, 2])
                 game.next_turn
                 expect(game.player_with_highest_bet).to eq(player1)
             end 
@@ -193,6 +229,35 @@ describe Poker do
         end 
     end 
 
+    context 'when evaluating winners of a round' do 
+        before(:each) do 
+            allow(player1).to receive(:fold).and_return(false)
+            allow(player2).to receive(:fold).and_return(false)
+            allow(player3).to receive(:fold).and_return(false)
+            allow(player4).to receive(:fold).and_return(false)
+        end 
+
+        describe '#winners_of_round' do 
+            it 'can tell if there is 1 winner in a round' do 
+                allow(player1).to receive(:calculate_hand).and_return(2)
+                allow(player2).to receive(:calculate_hand).and_return(8)
+                allow(player3).to receive(:calculate_hand).and_return(5)
+                allow(player4).to receive(:calculate_hand).and_return(7)
+                game.winners_of_round
+                expect(game.winning_players_of_round.length).to eq(1)
+            end 
+
+            it 'can tell if there are 2 or more players whose hands are tied in a round' do 
+                allow(player1).to receive(:calculate_hand).and_return(5)
+                allow(player2).to receive(:calculate_hand).and_return(8)
+                allow(player3).to receive(:calculate_hand).and_return(5)
+                allow(player4).to receive(:calculate_hand).and_return(7)
+                game.winners_of_round
+                expect(game.winning_players_of_round.length).to eq(2)
+            end 
+        end 
+    end 
+
     # context 'when comparing hands' do 
     #     describe '#compare_hands' do 
     #         it 'ranks a straight flush above four of a kind' do 
@@ -214,6 +279,255 @@ describe Poker do
     #         end 
     #     end 
     # end
+
+    context "when evaluating a round's winner" do 
+        before(:each) do 
+            allow(player1).to receive(:fold).and_return(false)
+            allow(player2).to receive(:fold).and_return(false)
+            allow(player3).to receive(:fold).and_return(false)
+            allow(player4).to receive(:fold).and_return(false)
+        end 
+
+        describe '#winners_of_round' do 
+            it 'chooses the winner when 1 hand is better than the rest' do 
+                allow(player1).to receive(:calculate_hand).and_return(1)
+                allow(player2).to receive(:calculate_hand).and_return(2)
+                allow(player3).to receive(:calculate_hand).and_return(3)
+                allow(player4).to receive(:calculate_hand).and_return(4)
+                game.winners_of_round
+                expect(game.winning_players_of_round.length).to eq(1)
+            end 
+
+            it 'recognizes when there is a tie' do 
+                allow(player1).to receive(:calculate_hand).and_return(7)
+                allow(player2).to receive(:calculate_hand).and_return(9)
+                allow(player3).to receive(:calculate_hand).and_return(8)
+                allow(player4).to receive(:calculate_hand).and_return(7)
+                game.winners_of_round
+                expect(game.winning_players_of_round.length).to eq(2)
+            end 
+        end 
+
+        describe '#evaluate_tie' do 
+            before(:each) do 
+                game.winning_players_of_round = [player1, player2]
+
+                allow(player1).to receive(:name).and_return('Jake') 
+                allow(player1).to receive(:fold).and_return(false) 
+                allow(player1).to receive(:player_hand).and_return([]) 
+
+                allow(player2).to receive(:name).and_return('Ann') 
+                allow(player2).to receive(:fold).and_return(false) 
+                allow(player2).to receive(:player_hand).and_return([]) 
+
+                allow(player3).to receive(:name).and_return('Mike') 
+                allow(player3).to receive(:fold).and_return(false) 
+                allow(player3).to receive(:player_hand).and_return([]) 
+
+                allow(player4).to receive(:name).and_return('Mary') 
+                allow(player4).to receive(:fold).and_return(false) 
+                allow(player4).to receive(:player_hand).and_return([]) 
+
+                allow(player1).to receive(:chips=)
+                allow(player1).to receive(:chips).and_return(9)
+
+                allow(player2).to receive(:chips=)
+                allow(player2).to receive(:chips).and_return(9)
+
+                allow(player1).to receive(:suit_of_first_card_in_hand).and_return("♠")
+                allow(player2).to receive(:suit_of_first_card_in_hand).and_return("♡")
+
+                allow(player1).to receive(:value_of_three_of_a_kind).and_return(12)
+                allow(player2).to receive(:value_of_three_of_a_kind).and_return(5)
+            end 
+
+            it 'chooses the winner for a royal flush tie' do 
+                allow(player1).to receive(:calculate_hand).and_return(1)
+                allow(player2).to receive(:calculate_hand).and_return(1)
+
+                game.evaluate_tie
+                expect(game.round_winner).to eq(player1)
+            end 
+
+            it 'chooses the winner for a four of a kind tie' do
+                allow(player1).to receive(:calculate_hand).and_return(2)
+                allow(player2).to receive(:calculate_hand).and_return(2) 
+
+                allow(player1).to receive(:value_of_four_of_a_kind).and_return(10)
+                allow(player2).to receive(:value_of_four_of_a_kind).and_return(5)
+
+                game.evaluate_tie
+                expect(game.round_winner).to eq(player1)
+            end 
+
+            it 'chooses the winner for a full house tie' do 
+                allow(player1).to receive(:calculate_hand).and_return(3)
+                allow(player2).to receive(:calculate_hand).and_return(3) 
+
+                game.evaluate_tie
+                expect(game.round_winner).to eq(player1)
+            end 
+
+            it 'chooses the winner for a flush tie by high card' do 
+                allow(player1).to receive(:calculate_hand).and_return(4)
+                allow(player2).to receive(:calculate_hand).and_return(4) 
+
+                allow(player1).to receive(:hand_values).and_return([9, 12, 5, 6, 3])
+                allow(player2).to receive(:hand_values).and_return([8, 5, 10, 7, 4])
+
+                game.evaluate_tie
+                expect(game.round_winner).to eq(player1)
+            end 
+
+            it 'chooses the winner for a flush tie by suit when the card values are tied' do 
+                allow(player1).to receive(:calculate_hand).and_return(4)
+                allow(player2).to receive(:calculate_hand).and_return(4) 
+
+                allow(player1).to receive(:hand_values).and_return([9, 12, 5, 6, 3])
+                allow(player2).to receive(:hand_values).and_return([9, 12, 5, 6, 3])
+
+                game.evaluate_tie
+                expect(game.round_winner).to eq(player1)
+            end 
+
+            it 'chooses the winner for a straight tie by high card' do 
+                allow(player1).to receive(:calculate_hand).and_return(5)
+                allow(player2).to receive(:calculate_hand).and_return(5) 
+
+                allow(player1).to receive(:hand_values).and_return([9, 12, 10, 8, 11])
+                allow(player2).to receive(:hand_values).and_return([8, 9, 10, 7, 6])
+
+                game.evaluate_tie
+                expect(game.round_winner).to eq(player1)
+            end 
+
+            it 'chooses the winner for a straight tie by suit when the card values are tied' do 
+                allow(player1).to receive(:calculate_hand).and_return(5)
+                allow(player2).to receive(:calculate_hand).and_return(5) 
+
+                allow(player1).to receive(:hand_values).and_return([9, 12, 10, 8, 11])
+                allow(player2).to receive(:hand_values).and_return([9, 12, 10, 8, 11])
+
+                game.evaluate_tie
+                expect(game.round_winner).to eq(player1)
+            end 
+
+            it 'chooses the winner for a three of a kind tie by high card' do 
+                allow(player1).to receive(:calculate_hand).and_return(6)
+                allow(player2).to receive(:calculate_hand).and_return(6) 
+
+                allow(player1).to receive(:hand_values).and_return([10, 10, 10, 8, 5])
+                allow(player2).to receive(:hand_values).and_return([9, 9, 9, 6, 5])
+
+                game.evaluate_tie
+                expect(game.round_winner).to eq(player1)
+            end 
+
+            it 'chooses the winner for a two pair tie by high card' do 
+                allow(player1).to receive(:calculate_hand).and_return(7)
+                allow(player2).to receive(:calculate_hand).and_return(7) 
+
+                allow(player1).to receive(:hand_values=)
+                allow(player1).to receive(:hand_values).and_return([8, 12, 10, 8, 10])
+                allow(player2).to receive(:hand_values=)
+                allow(player2).to receive(:hand_values).and_return([8, 5, 10, 8, 10])
+
+                game.evaluate_tie
+                expect(game.round_winner).to eq(player1)
+            end 
+
+            it 'chooses the winner for a two pair tie by suit when the card values are tied' do 
+                allow(player1).to receive(:calculate_hand).and_return(7)
+                allow(player2).to receive(:calculate_hand).and_return(7) 
+
+                allow(player1).to receive(:hand_values=)
+                allow(player1).to receive(:hand_values).and_return([12, 12, 10, 10, 8])
+                allow(player2).to receive(:hand_values=)
+                allow(player2).to receive(:hand_values).and_return([12, 12, 10, 10, 8])
+
+                allow(player1).to receive(:player_hand).and_return([ 
+                    Card.new("12", "♡", 12), 
+                    Card.new("12", "♠", 12),
+                    Card.new("10", "♡", 10),  
+                    Card.new("10", "♢", 10), 
+                    Card.new("8", "♡", 8)
+                ])
+                allow(player2).to receive(:player_hand).and_return([ 
+                    Card.new("12", "♣", 12), 
+                    Card.new("12", "♢", 12),
+                    Card.new("10", "♣", 10),  
+                    Card.new("10", "♠", 10), 
+                    Card.new("8", "♣", 8)
+                ])  
+                
+                game.evaluate_tie
+                expect(game.round_winner).to eq(player1)
+            end 
+
+            it 'chooses the winner for a one pair tie by high card' do 
+                allow(player1).to receive(:calculate_hand).and_return(8)
+                allow(player2).to receive(:calculate_hand).and_return(8) 
+
+                allow(player1).to receive(:hand_values=)
+                allow(player1).to receive(:hand_values).and_return([10, 10, 12, 8, 4])
+                allow(player2).to receive(:hand_values=)
+                allow(player2).to receive(:hand_values).and_return([10, 10, 12, 6, 5])
+    
+                game.evaluate_tie
+                expect(game.round_winner).to eq(player1)
+            end 
+
+             it 'chooses the winner for a one pair tie by suit when the card values are tied' do 
+                allow(player1).to receive(:calculate_hand).and_return(8)
+                allow(player2).to receive(:calculate_hand).and_return(8) 
+
+                allow(player1).to receive(:hand_values=)
+                allow(player1).to receive(:hand_values).and_return([10, 10, 12, 8, 4])
+                allow(player2).to receive(:hand_values=)
+                allow(player2).to receive(:hand_values).and_return([10, 10, 12, 8, 4])
+
+                allow(player1).to receive(:player_hand).and_return([ 
+                    Card.new("10", "♡", 10), 
+                    Card.new("10", "♠", 10),
+                    Card.new("12", "♡", 12),  
+                    Card.new("8", "♢", 8), 
+                    Card.new("4", "♡", 4)
+                ])
+                allow(player2).to receive(:player_hand).and_return([ 
+                    Card.new("10", "♣", 10), 
+                    Card.new("10", "♢", 10),
+                    Card.new("12", "♣", 12),  
+                    Card.new("8", "♠", 8), 
+                    Card.new("4", "♣", 4)
+                ])  
+                
+                game.evaluate_tie
+                expect(game.round_winner).to eq(player1)
+            end 
+
+            it 'chooses the winner for a high card tie' do 
+                allow(player1).to receive(:calculate_hand).and_return(9)
+                allow(player2).to receive(:calculate_hand).and_return(9) 
+
+                allow(player1).to receive(:hand_values).and_return([9, 12, 5, 6, 3])
+                allow(player2).to receive(:hand_values).and_return([8, 5, 10, 7, 4])
+
+                game.evaluate_tie
+                expect(game.round_winner).to be(player1)
+            end 
+
+            it 'chooses the winner for a high card tie by suit when all card values are tied' do 
+                allow(player1).to receive(:calculate_hand).and_return(9)
+                allow(player2).to receive(:calculate_hand).and_return(9) 
+
+                allow(player1).to receive(:hand_values).and_return([9, 12, 5, 6, 3])
+                allow(player2).to receive(:hand_values).and_return([9, 12, 5, 6, 3])
+
+                game.evaluate_tie
+                expect(game.round_winner).to eq(player1)
+            end    
+        end 
+    end 
 
     context 'when game is over' do 
         describe '#over?' do 

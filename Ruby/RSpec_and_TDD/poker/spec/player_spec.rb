@@ -9,18 +9,6 @@ describe Player do
     subject(:player) { Player.new('Jake', deck) }  
     before(:each) { player.deal_cards }
 
-    describe '#reset_bet_data' do 
-        it 'resets the bet data of a player' do 
-            player.reset_bet_data 
-            expect(player.bet).to eq(0)
-            expect(player.raise).to eq(0)
-            expect(player.fold).to be(false)
-            expect(player.able_to_see).to be(false)
-            expect(player.able_to_raise).to be(false)
-            expect(player.already_bet).to be(false)
-          end 
-    end 
-
     describe '#receive_chips' do 
         it 'increases the chip amount' do 
             player.chips = 10 
@@ -206,7 +194,7 @@ describe Player do
             it "returns the bet amount in an array when player raises" do 
                 allow(player).to receive(:get_next_player_choice).and_return('r')
                 allow(player).to receive(:get_amount).and_return(2)
-                expect(player.next_turn_decision).to eq(['r', 3])
+                expect(player.next_turn_decision).to eq(['r', 3, 2])
             end 
 
             it "folds a player when the player wants to fold" do 
@@ -297,20 +285,20 @@ describe Player do
 
         describe '#delete_cards_to_exchange' do 
             it 'deletes cards from a hand' do 
-                player.hand = ['9♠', 'Q♣', 'J♠', '5♠', '3♡']   
+                player.hand.hand = ['9♠', 'Q♣', 'J♠', '5♠', '3♡']   
                 player.cards_to_exchange = ['J♠', '5♠', '3♡']
                 player.delete_cards_to_exchange
-                expect(player.hand.length).to eq(2)
+                expect(player.hand.hand.length).to eq(2)
             end 
         end 
 
         describe '#deal_new_cards' do 
             it "deals a player new cards" do 
-                player.hand = ['9♠', 'Q♣']  
+                player.hand.hand = ['9♠', 'Q♣']  
                 player.cards_to_exchange = ['J♠', '5♠', '3♡']
                 allow(deck).to receive(:deal).with(3).and_return(['8♠', '4♡', '10♣'])
                 player.deal_new_cards
-                expect(player.hand.length).to eq(5) 
+                expect(player.hand.hand.length).to eq(5) 
             end 
         end 
 

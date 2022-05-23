@@ -4,8 +4,8 @@ require 'byebug'
 
 class Player 
 
-    attr_reader :card_letters, :deck, :folded_players, :name, :player_with_highest_bet, :ten_card_at_idx_0_in_exchange_print
-    attr_accessor :able_to_see, :able_to_raise, :alive, :alive_players, :already_bet, :bet, :bet_round1_finished, :cards_to_exchange, :chips, :fold, :hand, :hand_copy, :pot, :round_current_bet  
+    attr_reader :alive_players_names, :card_letters, :deck, :max_bet_when_2_players_left, :max_of_other_players_chips, :name, :other_player, :ten_card_at_idx_0_in_exchange_print
+    attr_accessor :able_to_call, :able_to_raise, :able_to_stay, :alive, :alive_players, :already_bet, :bet, :bet_round1_finished, :cards_to_exchange, :chips, :eliminated_players, :eliminated_players_names, :fold, :folded_players, :hand, :hand_copy, :player_with_highest_bet, :pot, :round_current_bet  
 
     def initialize(name, deck)
         @deck = deck 
@@ -35,16 +35,27 @@ class Player
         if !already_bet
             set_already_bet
             reset_fold
+            reset_folded_players
             reset_bet
-            reset_able_to_see_and_able_to_raise
+            reset_able_to_stay_able_to_call_able_to_raise
+            reset_pot 
+            reset_round_current_bet
         end 
     end 
 
     def reset_data_for_round2
         if !already_bet
             set_already_bet
-            reset_able_to_see_and_able_to_raise
+            reset_able_to_stay_able_to_call_able_to_raise
         end 
+    end 
+
+    def reset_pot 
+        @pot = 0 
+    end 
+
+    def reset_round_current_bet
+        @round_current_bet = 0 
     end 
 
     def reset_already_bet 
@@ -55,12 +66,17 @@ class Player
         @fold = false
     end 
 
+    def reset_folded_players
+        @folded_players = []
+    end 
+
     def reset_bet 
         @bet = 0
     end 
 
-    def reset_able_to_see_and_able_to_raise
-        @able_to_see = false  
+    def reset_able_to_stay_able_to_call_able_to_raise
+        @able_to_stay = false
+        @able_to_call = false  
         @able_to_raise = false 
     end 
 
@@ -78,8 +94,24 @@ class Player
         @already_bet = true 
     end 
 
+    def set_alive_and_eliminated_players_data(alive_players, eliminated_players) 
+        set_alive_players(alive_players)
+        set_eliminated_players(eliminated_players)
+        set_names(alive_players)
+        set_names(eliminated_players)
+    end 
+
     def set_alive_players(alive_players)
         @alive_players = alive_players
+    end 
+
+    def set_eliminated_players(eliminated_players)
+        @eliminated_players = eliminated_players
+    end 
+
+    def set_names(players)
+        @players = []
+        players.each { |player| @players << player.name }
     end 
 
     def set_folded_players(folded_players)
@@ -90,24 +122,111 @@ class Player
         @player_with_highest_bet = player_with_highest_bet
     end 
 
-    def evaluate_able_to_see 
-        if round_current_bet >= bet 
-            @able_to_see = true if chips + bet >= round_current_bet
-        end         
+    def set_other_player
+        @other_player = get_other_player 
+    end 
+
+    def set_max_bet_when_2_players_left
+        @max_bet_when_2_players_left = (other_player.chips + round_current_bet) - bet 
+    end 
+
+    def set_max_of_other_players_chips
+        chips_of_other_players = []
+        alive_players.each { |alive_player| chips_of_other_players << alive_player.chips if self != alive_player && !alive_player.fold }
+        @max_of_other_players_chips = chips_of_other_players.max 
+    end 
+
+    def get_players_not_folded 
+        players_not_folded = []
+        alive_players.each { |player| players_not_folded << player unless player.fold }
+        players_not_folded
+    end 
+
+    def get_other_player 
+        players_not_folded = get_players_not_folded
+        self == players_not_folded[0] ? players_not_folded[1] : players_not_folded[0]
+    end 
+
+    def no_chips? 
+        chips == 0 
+    end 
+
+    def evaluate_able_to_stay_able_to_call_able_to_raise
+        evaluate_able_to_stay 
+        evaluate_able_to_call
+        evaluate_able_to_raise
+    end 
+
+    def evaluate_able_to_stay
+        @able_to_stay = true if bet == round_current_bet
+    end 
+
+    def evaluate_able_to_call 
+        if no_chips?     
+            return
+        elsif round_current_bet > bet 
+            @able_to_call = true if chips + bet >= round_current_bet
+        end 
     end 
 
     def evaluate_able_to_raise
-        raise_floor = round_current_bet + 1 
-        @able_to_raise = true if chips + bet >= raise_floor
+        if no_chips? 
+            return 
+        elsif chips + bet > round_current_bet 
+            if two_players_in_bet_round? 
+                set_other_player
+                @able_to_raise = true if other_player.chips > 0 
+            else 
+                set_max_of_other_players_chips
+                return if max_of_other_players_chips == nil 
+                @able_to_raise = true if max_of_other_players_chips > 0 
+            end 
+        end 
+    end 
+
+    def players_in_bet_round
+        players_in_round = 0  
+        alive_players.each { |player| players_in_round += 1 unless player.fold }
+        players_in_round 
+    end 
+
+    def three_or_four_players_in_bet_round?
+        players_in_bet_round == 3 || players_in_bet_round == 4 
+    end 
+
+    def two_players_in_bet_round?
+        players_in_bet_round == 2 
+    end 
+
+    def invalid_bet_when_3_or_4_players_left?(amount)
+        if three_or_four_players_in_bet_round? 
+            set_max_of_other_players_chips
+            return true if Integer(amount) > max_of_other_players_chips
+        end 
+        false 
+    end 
+
+    def invalid_bet_when_2_players_left?(amount)
+        if two_players_in_bet_round? 
+            set_other_player
+            set_max_bet_when_2_players_left
+            return true if Integer(amount) > max_bet_when_2_players_left
+        end 
+        false 
     end 
 
     def must_fold? 
-        !able_to_see && !able_to_raise
+        !able_to_stay && !able_to_call && !able_to_raise
+    end 
+
+    def eliminated? 
+        chips == 0 
     end 
 
     def get_player_choice_possibilities
         player_choice_possibilities = ['f']
-        player_choice_possibilities << 's' if able_to_see
+        player_choice_possibilities << 's' if able_to_stay
+        player_choice_possibilities << 'c' if able_to_call
         player_choice_possibilities << 'r' if able_to_raise 
         player_choice_possibilities
     end 
@@ -136,7 +255,8 @@ class Player
             render 
             show_hand
             puts "#{name}, make a selection."
-            puts "Enter S to see." if able_to_see
+            puts "Enter S to stay." if able_to_stay 
+            puts "Enter C to call." if able_to_call
             puts "Enter R to raise." if able_to_raise
             puts "Enter F to fold."
             player_choice = gets.chomp.downcase 
@@ -159,8 +279,12 @@ class Player
         if illegal_characters?(amount) || amount.empty?
             invalid_amount
             return false 
-        elsif Integer(amount) == 0 
-            puts "Invalid entry. You can't bet 0 chips. You have #{chips} chips to bet. Press return/enter to continue."
+        elsif invalid_bet_when_3_or_4_players_left?(amount)
+            puts "Invalid entry. You can't bet more than #{max_of_other_players_chips}, because that's the most chips that another player has. Press return/enter to continue."
+            gets 
+            return false 
+        elsif invalid_bet_when_2_players_left?(amount)
+            puts "Invalid entry. You can't bet more than #{max_bet_when_2_players_left}. #{other_player.name} is the only other player left in this round. The number of chips they have is #{other_player.chips} and this round's current bet is #{round_current_bet}. Press return/enter to continue."
             gets 
             return false 
         elsif Integer(amount) > chips
@@ -172,48 +296,59 @@ class Player
     end 
 
     def get_amount
-        valid_bet = false 
-
-        while !valid_bet 
+        while true
             render 
             show_hand
-            puts "#{name}, how much do you want to bet?"
-            user_amount = gets.chomp
-            valid_bet = true if legal_amount?(user_amount)
+            puts "#{name}, how much do you want to bet? Enter the number of your bet or P to go back."
+            user_choice = gets.chomp.downcase 
+            if user_choice == 'p'
+                return user_choice if user_choice == 'p'
+            elsif legal_amount?(user_choice)
+                return Integer(user_choice)
+            end 
         end 
-
-        Integer(user_amount)
     end 
 
     #method is used when player is taking the first turn in the 1st bet round 
-    def make_first_turn(alive_players)
+    def make_first_turn(alive_players, eliminated_players)
         reset_bet_data
-        set_alive_players(alive_players)
+        set_alive_and_eliminated_players_data(alive_players, eliminated_players) 
+        set_player_with_highest_bet(nil)
+        first_turn_decision 
+    end 
 
-        player_choice = get_first_player_choice
-        if player_choice == 'b'
-            @bet = get_amount  
-            @chips -= bet 
-            bet 
-        else 
-            fold_player
-        end 
+    def first_turn_decision
+        while true 
+            player_choice = get_first_player_choice
+            if player_choice == 'b' 
+                bet_choice = get_amount
+                if bet_choice != 'p' 
+                    @bet = bet_choice 
+                    @chips -= bet 
+                    return bet 
+                end 
+            else 
+                return fold_player
+            end 
+        end
     end 
 
     #method is used when player is taking a subsequent turn in a bet round 
-    def make_next_turn(alive_players, folded_players, player_with_highest_bet)
-        reset_bet_data
-        evaluate_able_to_see
-        evaluate_able_to_raise
-        set_alive_players(alive_players)
+    def make_next_turn(alive_players, eliminated_players, folded_players, player_with_highest_bet)
+        set_alive_and_eliminated_players_data(alive_players, eliminated_players)
         set_folded_players(folded_players)
         set_player_with_highest_bet(player_with_highest_bet)
+        reset_bet_data
+        reset_able_to_stay_able_to_call_able_to_raise
+        evaluate_able_to_stay_able_to_call_able_to_raise
         next_turn_decision_or_fold
     end 
 
     def next_turn_decision_or_fold
         if must_fold? 
             @fold = true 
+            render 
+            show_hand
             puts "#{name}, you don't have enough chips to see or raise. You have folded."
             puts "Press enter/return to continue."
             gets 
@@ -224,20 +359,27 @@ class Player
     end 
 
     def next_turn_decision
-        player_choice = get_next_player_choice
-
-        if player_choice == 's'
-            see_amount = round_current_bet - bet 
-            @bet += see_amount
-            @chips -= see_amount
-            ['s', see_amount]
-        elsif player_choice == 'r'
-            raise = get_amount
-            @bet += raise 
-            @chips -= raise 
-            ['r', bet, raise]
-        elsif player_choice == 'f'
-            fold_player 
+        while true 
+            evaluate_able_to_stay_able_to_call_able_to_raise
+            player_choice = get_next_player_choice
+            
+            if player_choice == 's'
+                return 's'
+            elsif player_choice == 'c'
+                call_amount = round_current_bet - bet 
+                @bet += call_amount
+                @chips -= call_amount
+                return ['c', call_amount]
+            elsif player_choice == 'r'
+                raise_choice = get_amount 
+                if raise_choice != 'p'
+                    @bet += raise_choice
+                    @chips -= raise_choice 
+                    return ['r', bet, raise_choice]
+                end 
+            elsif player_choice == 'f'
+                return fold_player 
+            end 
         end 
     end 
 
@@ -318,22 +460,49 @@ class Player
         end 
     end 
 
-    def receive_chips(amount)
-        @chips += amount
+    def calculate_hand 
+        hand.calculate
     end 
 
-    def discard(idx) 
-        @hand.remove_card(idx)
-    end 
+    # def receive_chips(amount)
+    #     @chips += amount
+    # end 
 
-    def receive_card(card)
-        @hand.add_card(card)
-    end 
+    # def discard(idx) 
+    #     @hand.remove_card(idx)
+    # end 
+
+    # def receive_card(card)
+    #     @hand.add_card(card)
+    # end 
 
     def fold_player 
         @fold = true 
-        puts "#{name}, you have folded."
         ['f', 0] 
+    end 
+
+    def player_hand    
+        hand.hand
+    end 
+
+    def hand_values 
+        @hand.values 
+    end 
+
+    def hand_values=(array)
+        @hand.values = array
+    end  
+
+    def suit_of_first_card_in_hand
+        player_hand[0].suit
+    end 
+
+    def value_of_four_of_a_kind
+        hand.four_of_a_kind_value
+    end 
+
+    def value_of_three_of_a_kind
+        hand.three_of_a_kind_value
     end 
 
     def invalid_entry
@@ -342,7 +511,7 @@ class Player
     end 
 
     def invalid_amount 
-        puts "Invalid entry. Please enter a number less than or equal to the chips you have. You have #{chips} chips to bet. Press return/enter to continue."
+        puts "Invalid entry. Please enter a number less than or equal to the chips you have. The number of chips you have is #{chips}. Press return/enter to continue."
         gets 
     end 
 
@@ -353,14 +522,25 @@ class Player
 
     def show_bet_info
         puts "POKER"
-        puts "Players with Chips - #{alive_players.join(', ')}"
-        puts "Folded Players - #{folded_players.join(', ')}" if folded_players
         puts "Pot - #{pot}" 
-        puts "Player with Highest Bet this Round - #{player_with_highest_bet}"
+        print_chip_count
+        puts "\nFolded Players this Round - #{folded_players.join(', ')}" if folded_players
+        puts "Player with Highest Bet this Round - #{player_with_highest_bet}" if player_with_highest_bet
         puts "Current Bet this Round - #{round_current_bet}"
         puts "Your Bet this Round - #{bet}"
         puts "Your Chips - #{chips}"
         new_line
+    end 
+
+    def print_player_chips(players) 
+        players = [] if players == nil 
+        players.each { |player| puts "#{player.name} - #{player.chips}" } 
+    end 
+
+    def print_chip_count
+        puts "\nChips"
+        print_player_chips(alive_players)
+        print_player_chips(eliminated_players)
     end 
 
     def show_hand

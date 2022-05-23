@@ -141,6 +141,14 @@ class Hand
       cards_in_hand_have_same_value?(2)
     end 
 
+    def four_of_a_kind_value 
+      values.each { |value| return value if values.count(value) == 4 }
+    end 
+
+    def three_of_a_kind_value 
+      values.each { |value| return value if values.count(value) == 3 }
+    end 
+
 end 
 
 

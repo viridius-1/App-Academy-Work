@@ -237,7 +237,9 @@ class Player
         while !valid_choice
             render 
             show_hand
-            puts "#{name}, enter B to bet or F to fold."
+            puts "#{name}, make a selection." 
+            puts "Enter B to bet." 
+            puts "Enter F to fold."
             player_choice = gets.chomp.downcase 
             if player_choice == 'b' || player_choice == 'f'
                 valid_choice = true 

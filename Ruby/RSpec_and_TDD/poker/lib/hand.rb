@@ -10,14 +10,6 @@ class Hand
       @values = nil 
     end 
 
-    def remove_card(idx)
-      hand.delete_at(idx)
-    end 
-
-    def add_card(card)
-      @hand << card 
-    end 
-
     #method calculates the rank of a hand 
     def calculate
       get_suits
@@ -43,6 +35,8 @@ class Hand
         9 
       end  
     end 
+
+    #private 
 
     #method returns the rank of the high card in a set of cards 
     def rank(cards)
@@ -150,45 +144,3 @@ class Hand
     end 
 
 end 
-
-
-=begin    
-STRAIGHT FLUSH VS. STRAIGHT FLUSH 
--high card wins. draw goes to suit 
-
-FOUR OF A KIND VS FOUR OF A KIND 
--high card within the four of a kind wins. 
-
-FULL HOUSE VS FULL HOUSE 
--high card within the three cards wins
-
-FLUSH VS FLUSH 
--high card within the flush wins. if tie, keep going to next card...if still tie at end, then winner decided by suit
-
-STRAIGHT VS STRAIGHT 
--high card wins. draw goes to suit 
-
-THREE OF A KIND VS THREE OF A KIND 
--high card within the three of a kind wins 
-
-TWO PAIR VS TWO PAIR 
--high card within the two pair wins. if that is tied, then go to next pair. high card within that 2nd pair wins. if that is tied then go to high card of remaining card. if all tied then that is a draw, winner would be by suit
-
-ONE PAIR VS ONE PAIR
--high card within the one pair wins. if that is tied, then goes to high card of remaining 3 cards. if all 3 remaining cards tied, then that is a draw and winner is by suit.
-
-HIGH CARD VS HIGH CARD 
--high card wins. keep going through cards to next high card. if all tied then that is a draw and winner is by suit. 
-
-
-SUIT RANK 
-spades hearts diamonds clubs
-
-OPTIONS 
-1) high card within hand, meaning within the 5 cards of the hand
-2) high card within the winning card types, meaning within the four of a kind cards or the 3 cards in full house
-
-
-
-=end 
-

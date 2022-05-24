@@ -1,11 +1,10 @@
 require_relative 'hand'
 require_relative 'game'
-require 'byebug'
 
 class Player 
 
     attr_reader :alive_players_names, :card_letters, :deck, :max_bet_when_2_players_left, :max_of_other_players_chips, :name, :other_player, :ten_card_at_idx_0_in_exchange_print
-    attr_accessor :able_to_call, :able_to_raise, :able_to_stay, :alive, :alive_players, :already_bet, :bet, :bet_round1_finished, :cards_to_exchange, :chips, :eliminated_players, :eliminated_players_names, :fold, :folded_players, :hand, :hand_copy, :player_with_highest_bet, :pot, :round_current_bet  
+    attr_accessor :able_to_call, :able_to_raise, :able_to_stay, :alive, :alive_players, :already_bet, :bet, :bet_round1_finished, :cards_to_exchange, :chips, :eliminated_players, :eliminated_players_names, :fold, :folded_players, :hand, :hand_copy, :players, :player_with_highest_bet, :pot, :round_current_bet  
 
     def initialize(name, deck)
         @deck = deck 
@@ -30,6 +29,84 @@ class Player
             reset_data_for_round2 
         end 
     end 
+
+    def toggle_bet_round1_finished_and_already_bet
+        @already_bet = already_bet == false ? true : false 
+        @bet_round1_finished = bet_round1_finished == false ? true : false 
+    end 
+
+    def no_chips? 
+        chips == 0 
+    end 
+
+    def calculate_hand 
+        hand.calculate
+    end 
+
+    def player_hand    
+        hand.hand
+    end 
+
+    def hand_values 
+        @hand.values 
+    end 
+
+    def hand_values=(array)
+        @hand.values = array
+    end
+
+    def suit_of_first_card_in_hand
+        player_hand[0].suit
+    end 
+
+    def value_of_four_of_a_kind
+        hand.four_of_a_kind_value
+    end 
+
+    def value_of_three_of_a_kind
+        hand.three_of_a_kind_value
+    end 
+
+    #method is used when player is taking the first turn in the 1st bet round 
+    def make_first_turn(alive_players, eliminated_players)
+        reset_bet_data
+        set_alive_and_eliminated_players_data(alive_players, eliminated_players) 
+        set_player_with_highest_bet(nil)
+        first_turn_decision 
+    end 
+
+    #method is used when player is taking a subsequent turn in a bet round 
+    def make_next_turn(alive_players, eliminated_players, folded_players, player_with_highest_bet)
+        set_alive_and_eliminated_players_data(alive_players, eliminated_players)
+        set_folded_players(folded_players)
+        set_player_with_highest_bet(player_with_highest_bet)
+        reset_bet_data
+        reset_able_to_stay_able_to_call_able_to_raise
+        evaluate_able_to_stay_able_to_call_able_to_raise
+        next_turn_decision_or_fold
+    end 
+
+    def exchange_cards 
+        reset_hand_copy_and_cards_to_exchange
+
+        exchange_cards = false 
+        while !exchange_cards
+            user_exchange_choice = get_user_exchange_choice 
+            if user_exchange_choice == 'h'
+                exchange_cards = true 
+            elsif user_exchange_choice == 'e'
+                discard_and_deal
+                new_hand_prompt
+                exchange_cards = true 
+            elsif user_exchange_choice == 'r' 
+                reset_hand_copy_and_cards_to_exchange
+            else 
+                update_cards_to_exchange(user_exchange_choice)
+            end 
+        end 
+    end 
+
+    #private 
 
     def reset_data_for_round1
         if !already_bet
@@ -83,11 +160,6 @@ class Player
     def reset_hand_copy_and_cards_to_exchange 
         @hand_copy = hand.hand.dup
         @cards_to_exchange = []
-    end 
-
-    def toggle_bet_round1_finished_and_already_bet
-        @already_bet = already_bet == false ? true : false 
-        @bet_round1_finished = bet_round1_finished == false ? true : false 
     end 
 
     def set_already_bet
@@ -145,10 +217,6 @@ class Player
     def get_other_player 
         players_not_folded = get_players_not_folded
         self == players_not_folded[0] ? players_not_folded[1] : players_not_folded[0]
-    end 
-
-    def no_chips? 
-        chips == 0 
     end 
 
     def evaluate_able_to_stay_able_to_call_able_to_raise
@@ -217,10 +285,6 @@ class Player
 
     def must_fold? 
         !able_to_stay && !able_to_call && !able_to_raise
-    end 
-
-    def eliminated? 
-        chips == 0 
     end 
 
     def get_player_choice_possibilities
@@ -311,14 +375,6 @@ class Player
         end 
     end 
 
-    #method is used when player is taking the first turn in the 1st bet round 
-    def make_first_turn(alive_players, eliminated_players)
-        reset_bet_data
-        set_alive_and_eliminated_players_data(alive_players, eliminated_players) 
-        set_player_with_highest_bet(nil)
-        first_turn_decision 
-    end 
-
     def first_turn_decision
         while true 
             player_choice = get_first_player_choice
@@ -333,17 +389,6 @@ class Player
                 return fold_player
             end 
         end
-    end 
-
-    #method is used when player is taking a subsequent turn in a bet round 
-    def make_next_turn(alive_players, eliminated_players, folded_players, player_with_highest_bet)
-        set_alive_and_eliminated_players_data(alive_players, eliminated_players)
-        set_folded_players(folded_players)
-        set_player_with_highest_bet(player_with_highest_bet)
-        reset_bet_data
-        reset_able_to_stay_able_to_call_able_to_raise
-        evaluate_able_to_stay_able_to_call_able_to_raise
-        next_turn_decision_or_fold
     end 
 
     def next_turn_decision_or_fold
@@ -442,70 +487,10 @@ class Player
         @cards_to_exchange << selected_card
     end 
 
-    def exchange_cards 
-        reset_hand_copy_and_cards_to_exchange
-
-        exchange_cards = false 
-        while !exchange_cards
-            user_exchange_choice = get_user_exchange_choice 
-            if user_exchange_choice == 'h'
-                exchange_cards = true 
-            elsif user_exchange_choice == 'e'
-                discard_and_deal
-                new_hand_prompt
-                exchange_cards = true 
-            elsif user_exchange_choice == 'r' 
-                reset_hand_copy_and_cards_to_exchange
-            else 
-                update_cards_to_exchange(user_exchange_choice)
-            end 
-        end 
-    end 
-
-    def calculate_hand 
-        hand.calculate
-    end 
-
-    # def receive_chips(amount)
-    #     @chips += amount
-    # end 
-
-    # def discard(idx) 
-    #     @hand.remove_card(idx)
-    # end 
-
-    # def receive_card(card)
-    #     @hand.add_card(card)
-    # end 
-
     def fold_player 
         @fold = true 
         ['f', 0] 
-    end 
-
-    def player_hand    
-        hand.hand
-    end 
-
-    def hand_values 
-        @hand.values 
-    end 
-
-    def hand_values=(array)
-        @hand.values = array
-    end  
-
-    def suit_of_first_card_in_hand
-        player_hand[0].suit
-    end 
-
-    def value_of_four_of_a_kind
-        hand.four_of_a_kind_value
-    end 
-
-    def value_of_three_of_a_kind
-        hand.three_of_a_kind_value
-    end 
+    end   
 
     def invalid_entry
         puts "Invalid entry. Press return/enter to continue."

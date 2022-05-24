@@ -1,6 +1,5 @@
 require 'rspec'
 require 'deck'
-require 'byebug'
 
 describe Deck do 
     subject(:test_deck) { Deck.new }

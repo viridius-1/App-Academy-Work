@@ -1,18 +1,30 @@
 require 'rspec'
 require 'player'
-require 'byebug'
 
 describe Player do
     let(:deck) { Deck.new }
     let(:card) { double('card') }
     let(:hand) { double('hand') }
+
+    let(:player1) { double('player1') }
+    let(:player2) { double('player2') }
+    let(:player3) { double('player3') }
+    let(:player4) { double('player4') }
+
     subject(:player) { Player.new('Jake', deck) }  
-    before(:each) { player.deal_cards }
+    before(:each) do 
+        player.deal_cards 
+
+        allow(player1).to receive(:name).and_return('Jake')
+        allow(player2).to receive(:name).and_return('Ann')
+        allow(player3).to receive(:name).and_return('Mike')
+        allow(player4).to receive(:name).and_return('Mary') 
+    end 
 
     describe '#receive_chips' do 
         it 'increases the chip amount' do 
             player.chips = 10 
-            player.receive_chips(1)
+            player.chips += 1 
             expect(player.chips).to eq(11)
         end 
     end 
@@ -58,10 +70,11 @@ describe Player do
     context 'when a player makes the first turn' do 
         describe '#make_first_turn' do 
             before(:each) do 
-                alive_players = ['Jake', 'Ann', 'Mike', 'Mary'] 
+                alive_players = [player1, player2, player3, player4] 
+                eliminated_players = []
                 allow(player).to receive(:get_first_player_choice).and_return('b')
                 allow(player).to receive(:get_amount).and_return(1)
-                player.make_first_turn(alive_players)
+                player.make_first_turn(alive_players, eliminated_players)
             end 
 
             it 'sets already_bet to true' do 
@@ -69,21 +82,25 @@ describe Player do
             end 
 
             it 'sets alive players' do 
-                alive_players = ['Jake', 'Ann', 'Mike', 'Mary'] 
+                alive_players = [player1, player2, player3, player4] 
+                eliminated_players = []
                 allow(player).to receive(:alive_players).and_return(alive_players)
+                player.make_first_turn(alive_players, eliminated_players)
                 expect(player.alive_players).to eq(alive_players)
             end  
 
             it "returns the player's bet when the player wants to bet" do 
-                alive_players = ['Jake', 'Ann', 'Mike', 'Mary'] 
-                expect(player.make_first_turn(alive_players)).to eq(1)
+                alive_players = [player1, player2, player3, player4] 
+                eliminated_players = []
+                expect(player.make_first_turn(alive_players, eliminated_players)).to eq(1)
             end 
 
             it 'folds a player when the player wants to fold' do 
+                alive_players = [player1, player2, player3, player4] 
+                eliminated_players = []
                 expect(player).to receive(:fold_player)
-                alive_players = ['Jake', 'Ann', 'Mike', 'Mary'] 
                 allow(player).to receive(:get_first_player_choice).and_return('f')
-                expect { player.make_first_turn(alive_players) }.to_not raise_error
+                expect { player.make_first_turn(alive_players, eliminated_players) }.to_not raise_error
             end 
         end 
     end 
@@ -91,20 +108,32 @@ describe Player do
     context 'when a player makes the next turn in a round' do 
         describe '#make_next_turn' do 
             before(:each) do 
-                alive_players = ['Jake', 'Ann', 'Mike', 'Mary'] 
+                alive_players = [player1, player2, player3, player4] 
+                eliminated_players = []
                 folded_players = []
                 player_with_highest_bet = player 
+
+                allow(player1).to receive(:fold).and_return(false)
+                allow(player2).to receive(:fold).and_return(false)
+                allow(player3).to receive(:fold).and_return(false)
+                allow(player4).to receive(:fold).and_return(false)
+
+                allow(player1).to receive(:chips).and_return(10)
+                allow(player2).to receive(:chips).and_return(10)
+                allow(player3).to receive(:chips).and_return(10)
+                allow(player4).to receive(:chips).and_return(10)
+
                 player.already_bet = true  
                 player.round_current_bet = 2 
                 player.bet = 1 
                 player.chips = 9 
                 allow(player).to receive(:gets)
                 allow(player).to receive(:next_turn_decision).and_return('s')
-                player.make_next_turn(alive_players, folded_players, player_with_highest_bet)
+                player.make_next_turn(alive_players, eliminated_players, folded_players, player_with_highest_bet)
             end 
 
             it 'sets alive players' do 
-                alive_players = ['Jake', 'Ann', 'Mike', 'Mary'] 
+                alive_players = [player1, player2, player3, player4] 
                 expect(player.alive_players).to eq(alive_players)
             end  
 
@@ -117,12 +146,13 @@ describe Player do
             end 
 
             it "resets a player's bet data if a player hasn't already bet in a round" do 
-                alive_players = ['Jake', 'Ann', 'Mike', 'Mary'] 
+                alive_players = [player1, player2, player3, player4] 
+                eliminated_players = []
                 folded_players = []
                 player_with_highest_bet = player 
                 player.already_bet = false 
                 expect(player).to receive(:reset_bet_data)
-                player.make_next_turn(alive_players, folded_players, player_with_highest_bet)
+                player.make_next_turn(alive_players, eliminated_players, folded_players, player_with_highest_bet)
             end 
 
             it 'sets already_bet to true' do 
@@ -130,7 +160,7 @@ describe Player do
             end 
 
             it 'knows when a player can see a bet' do 
-                expect(player.able_to_see).to be(true)
+                expect(player.able_to_call).to be(true)
             end 
 
             it 'knows when a player can raise a bet' do 
@@ -138,18 +168,20 @@ describe Player do
             end 
 
             it 'knows when a player must fold' do 
-                alive_players = ['Jake', 'Ann', 'Mike', 'Mary'] 
+                alive_players = [player1, player2, player3, player4] 
+                eliminated_players = []
                 folded_players = []
                 player_with_highest_bet = player 
                 allow(player).to receive(:must_fold?).and_return(true)
-                expect(player.make_next_turn(alive_players, folded_players, player_with_highest_bet)).to eq('f')
+                expect(player.make_next_turn(alive_players, eliminated_players, folded_players, player_with_highest_bet)).to eq('f')
             end 
 
             it "returns a player's decision if a player doesn't have to fold" do 
-                alive_players = ['Jake', 'Ann', 'Mike', 'Mary'] 
+                alive_players = [player1, player2, player3, player4] 
+                eliminated_players = []
                 folded_players = []
                 player_with_highest_bet = player 
-                expect(player.make_next_turn(alive_players, folded_players, player_with_highest_bet)).to eq('s')
+                expect(player.make_next_turn(alive_players, eliminated_players, folded_players, player_with_highest_bet)).to eq('s')
             end 
         end 
     end 
@@ -157,24 +189,37 @@ describe Player do
     context 'when a player is deciding to see, raise, or fold' do 
         describe '#next_turn_decision' do 
             before(:each) do 
+                allow(player1).to receive(:fold).and_return(false)
+                allow(player2).to receive(:fold).and_return(false)
+                allow(player3).to receive(:fold).and_return(false)
+                allow(player4).to receive(:fold).and_return(false)
+
+                allow(player1).to receive(:chips).and_return(9)
+                allow(player2).to receive(:chips).and_return(9)
+                allow(player3).to receive(:chips).and_return(9)
+                allow(player4).to receive(:chips).and_return(9)
+
+                alive_players = [player1, player2, player3, player4] 
+                player.alive_players = alive_players
+
                 player.round_current_bet = 2 
                 player.bet = 1  
                 player.chips = 9  
-                allow(player).to receive(:get_next_player_choice).and_return('s')
+                allow(player).to receive(:get_next_player_choice).and_return('c')
             end
 
-            it "increases the player's bet amount by the see amount when the player sees" do 
+            it "increases the player's bet amount by the call amount when the player calls" do 
                 player.next_turn_decision
                 expect(player.bet).to eq(2)
             end 
 
-            it "decreases the player's chip amount by the see amount when the player sees" do 
+            it "decreases the player's chip amount by the call amount when the player calls" do 
                 player.next_turn_decision
                 expect(player.chips).to eq(8)
             end 
              
-            it "returns the see amount in an array when player sees" do 
-                expect(player.next_turn_decision).to eq(['s', 1])
+            it "returns the call amount in an array when player calls" do 
+                expect(player.next_turn_decision).to eq(['c', 1])
             end 
 
             it "increases the player's bet amount by the raise amount when the player raises" do 
@@ -217,6 +262,19 @@ describe Player do
 
         describe '#legal_amount?' do 
             before(:each) do 
+                alive_players = [player1, player2, player3, player4] 
+                player.alive_players = alive_players
+
+                allow(player1).to receive(:fold).and_return(false)
+                allow(player2).to receive(:fold).and_return(false)
+                allow(player3).to receive(:fold).and_return(false)
+                allow(player4).to receive(:fold).and_return(false)
+
+                allow(player1).to receive(:chips).and_return(9)
+                allow(player2).to receive(:chips).and_return(9)
+                allow(player3).to receive(:chips).and_return(9)
+                allow(player4).to receive(:chips).and_return(9)
+
                 allow(player).to receive(:invalid_amount) 
                 allow(player).to receive(:gets)
             end 
@@ -232,7 +290,7 @@ describe Player do
 
         describe '#player_must_fold?' do 
             it 'returns true when a player must fold' do 
-                player.able_to_see = false 
+                player.able_to_call = false 
                 player.able_to_raise = false 
                 expect(player.must_fold?).to be(true)
             end 
@@ -308,20 +366,6 @@ describe Player do
                 player.cards_to_exchange = []
                 player.update_cards_to_exchange('v')
                 expect(player.cards_to_exchange).to eq(['9♠'])
-            end 
-        end 
-
-        describe '#discard' do 
-            it 'can discard a card' do 
-                allow(hand).to receive(:remove_card).with(2)
-                expect { player.discard(2) }.to_not raise_error
-            end 
-        end 
-
-        describe '#receive_card' do 
-            it 'can receive a card' do 
-                allow(hand).to receive(:add_card).with(card)
-                expect { player.receive_card(card) }.to_not raise_error
             end 
         end 
     end 

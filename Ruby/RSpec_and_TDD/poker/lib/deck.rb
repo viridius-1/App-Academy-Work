@@ -37,8 +37,6 @@ class Deck
         dealt_cards
     end 
 
-    #private 
-
     def fill_deck
         @deck = []
         card_types.each do |card, value| 
@@ -49,6 +47,8 @@ class Deck
     def shuffle_cards
         deck.shuffle!
     end 
+
+    #private 
 
     def cards
         cards_in_deck = []

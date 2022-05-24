@@ -1,6 +1,5 @@
 require_relative 'deck'
 require_relative 'player'
-require 'byebug'
 
 class Poker 
 
@@ -34,6 +33,8 @@ class Poker
         end 
         result 
     end 
+ 
+    #private 
 
     def deal_first_cards
         players.each { |player| player.deal_cards if player.alive } 
@@ -92,6 +93,70 @@ class Poker
 
     def set_alive_players
         players.each { |player| player.alive = false if player.chips == 0 }
+    end 
+
+    def set_round_current_bet(amount)
+        @round_current_bet = amount 
+    end 
+
+    def set_highest_bet_and_player_with_highest_bet(bet, player)
+        @highest_bet = bet 
+        @player_with_highest_bet = player
+    end 
+
+    def update_player_with_highest_bet
+        if player_with_highest_bet 
+            player_with_highest_bet.name
+        else 
+            nil 
+        end 
+    end 
+
+    def update_pot_and_round_current_bet_for_players       
+        players.each do |player| 
+            player.pot = pot 
+            player.round_current_bet = round_current_bet
+        end 
+    end 
+
+    def update_bet_round_data_for_each_player 
+        players.each do |player| 
+            player.folded_players = folded_players 
+            player.player_with_highest_bet = update_player_with_highest_bet
+            player.round_current_bet = round_current_bet
+        end 
+    end 
+
+    def increase_pot(amount) 
+        @pot += amount 
+    end 
+
+    def get_current_player_idx 
+        players.each_with_index { |player, idx| return idx if player == current_player }
+    end 
+
+    def player_allowed_to_take_turn?(player) 
+        player.alive && player.fold == false 
+    end 
+
+    def current_player_is_player_with_highest_bet? 
+        current_player == player_with_highest_bet
+    end 
+
+    def choice_is_call?(choice)
+        choice == 'c'
+    end 
+
+    def choice_is_raise?(choice)
+        choice == 'r'
+    end 
+
+    def choice_is_fold?(choice)
+        choice == 'f'
+    end     
+
+    def bet_is_higher_than_highest_bet?(bet)
+        bet > highest_bet
     end 
 
     def toggle_bet_round1_finished_and_already_bet
@@ -256,31 +321,6 @@ class Poker
         winner_of_tie == nil
     end 
 
-    def sort_hand_values_of_winning_players_of_round
-        winning_players_of_round.each { |player| player.hand_values.sort!.reverse! }
-    end 
-
-    def sort_two_pair_hand_values_of_winning_players_of_round
-        winning_players_of_round.each { |player| player.hand_values = sort_values_for_two_pairs(player.hand_values) } 
-    end 
-
-    def sort_one_pair_hand_values_of_winning_players_of_round
-        winning_players_of_round.each { |player| player.hand_values = sort_values_for_one_pair(player.hand_values) } 
-    end 
-
-    def sort_values_for_two_pairs(values)
-        arr_of_two_pairs = get_arr_of_pairs(values) 
-        fifth_card = get_fifth_card(values, arr_of_two_pairs)
-        arr_of_two_pairs << fifth_card
-    end 
-
-    def sort_values_for_one_pair(values)
-        arr_of_one_pair = get_arr_of_pairs(values) 
-        arr_of_three_other_cards = get_arr_of_three_other_cards(values, arr_of_one_pair) 
-        arr_of_three_other_cards.each { |value| arr_of_one_pair << value }
-        arr_of_one_pair
-    end 
-
     def get_arr_of_pairs(values)
         pairs = []
         
@@ -304,6 +344,31 @@ class Poker
         three_other_values = []
         values.each { |value| three_other_values << value unless pair.include?(value) }
         three_other_values.sort.reverse 
+    end 
+
+    def sort_hand_values_of_winning_players_of_round
+        winning_players_of_round.each { |player| player.hand_values.sort!.reverse! }
+    end 
+
+    def sort_two_pair_hand_values_of_winning_players_of_round
+        winning_players_of_round.each { |player| player.hand_values = sort_values_for_two_pairs(player.hand_values) } 
+    end 
+
+    def sort_one_pair_hand_values_of_winning_players_of_round
+        winning_players_of_round.each { |player| player.hand_values = sort_values_for_one_pair(player.hand_values) } 
+    end 
+
+    def sort_values_for_two_pairs(values)
+        arr_of_two_pairs = get_arr_of_pairs(values) 
+        fifth_card = get_fifth_card(values, arr_of_two_pairs)
+        arr_of_two_pairs << fifth_card
+    end 
+
+    def sort_values_for_one_pair(values)
+        arr_of_one_pair = get_arr_of_pairs(values) 
+        arr_of_three_other_cards = get_arr_of_three_other_cards(values, arr_of_one_pair) 
+        arr_of_three_other_cards.each { |value| arr_of_one_pair << value }
+        arr_of_one_pair
     end 
 
     def evaluate_winner_by_suit
@@ -411,70 +476,6 @@ class Poker
         false 
     end 
 
-    def update_player_with_highest_bet
-        if player_with_highest_bet 
-            player_with_highest_bet.name
-        else 
-            nil 
-        end 
-    end 
-
-    def update_pot_and_round_current_bet_for_players       
-        players.each do |player| 
-            player.pot = pot 
-            player.round_current_bet = round_current_bet
-        end 
-    end 
-
-    def update_bet_round_data_for_each_player 
-        players.each do |player| 
-            player.folded_players = folded_players 
-            player.player_with_highest_bet = update_player_with_highest_bet
-            player.round_current_bet = round_current_bet
-        end 
-    end 
-
-    def current_player_is_player_with_highest_bet? 
-        current_player == player_with_highest_bet
-    end 
-
-    def choice_is_call?(choice)
-        choice == 'c'
-    end 
-
-    def choice_is_raise?(choice)
-        choice == 'r'
-    end 
-
-    def choice_is_fold?(choice)
-        choice == 'f'
-    end     
-
-    def bet_is_higher_than_highest_bet?(bet)
-        bet > highest_bet
-    end 
-
-    def increase_pot(amount) 
-        @pot += amount 
-    end 
-
-    def set_round_current_bet(amount)
-        @round_current_bet = amount 
-    end 
-
-    def set_highest_bet_and_player_with_highest_bet(bet, player)
-        @highest_bet = bet 
-        @player_with_highest_bet = player
-    end 
-
-    def get_current_player_idx 
-        players.each_with_index { |player, idx| return idx if player == current_player }
-    end 
-
-    def player_allowed_to_take_turn?(player) 
-        player.alive && player.fold == false 
-    end 
-
     def switch_turn 
         current_player_idx = get_current_player_idx
 
@@ -521,7 +522,7 @@ class Poker
     def print_players_status 
         players.each do |player| 
             print "#{player.name} - "
-            if player.eliminated?
+            if player.no_chips?
                 print "Eliminated"
             elsif player.fold
                 print "Folded"
@@ -552,68 +553,3 @@ class Poker
     end 
 
 end 
-
-
-
-# SUIT RANK 
-# spades hearts diamonds clubs
-
-# def award_pot(player)
-#     player.chips += pot 
-#     pot -= 8 
-# end 
-
-
-
-#the method for award_pot should probably be able to take in 2 parameters. B/c you can have 1 winner....but you can also have a case where the pot needs to be split. So maybe this method takes in an array of players.
-
-# NEED TO ACCOUNT FOR SITUATIONS LIKE THIS....THERE WILL NEED TO BE A SECOND TEST....IMAGINE TWO 5S VS TWO 8S....NEED TO APPLY THIS ACROSS ALL HANDS
-#  it 'ranks a higher one pair hand over a lower one pair hand' do 
-#     allow(higher_one_pair_hand).to receive(:calculate).and return(8)
-#     allow(lower_one_pair_hand).to receive(:calculate).and return(8)
-#     expect(game.compare_get_winning_players).to eq(higher_one_pair_hand)
-# end 
-
-
-
-#the below code was in bet_round.....
- # if round_current_bet == player_with_highest_bet.bet 
-#     bet_round_over = true 
-# else 
-#     choice_of_player_with_highest_bet = next_turn 
-#     if choice_of_player_with_highest_bet[0] == 's'
-#         @pot += choice_of_player_with_highest_bet[1]
-#         bet_round_over = true 
-#     elsif choice_of_player_with_highest_bet[0] == 'r'
-#         @pot += choice_of_player_with_highest_bet[1]
-#         set_highest_bet_and_player_with_highest_bet(choice_of_player_with_highest_bet) if choice_of_player_with_highest_bet[1] > highest_bet
-#     elsif choice_of_player_with_highest_bet[0] == 'f'
-#         bet_round_over = true 
-#     end 
-# end 
-
-
-###method before modifying it...
-#   def bet_round 
-#         first_turn 
-
-#         bet_round_over = false 
-#         while !bet_round_over
-#             if three_players_folded? 
-#                 bet_round_over = true 
-#             else 
-#                 update_pot_and_round_current_bet_for_players
-#                 switch_turn
-#                 if current_player_is_player_with_highest_bet? 
-#                     bet_round_over = true 
-#                 else 
-#                     choice_of_next_player = next_turn  
-#                     increase_pot(choice_of_next_player[1]) 
-#                     if choice_of_next_player_is_raise?(choice_of_next_player[0]) 
-#                         set_round_current_bet(choice_of_next_player[1])
-#                         set_highest_bet_and_player_with_highest_bet(choice_of_next_player[1]) if bet_is_higher_than_highest_bet?(choice_of_next_player[1]) 
-#                     end 
-#                 end 
-#             end 
-#         end  
-#     end 

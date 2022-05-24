@@ -1,39 +1,10 @@
 require 'rspec'
 require 'hand'
-require 'byebug'
 
 describe Hand do 
     let(:deck) { double('deck') }
     subject(:test_hand) { Hand.new(deck) }  
     before(:each) { allow(deck).to receive(:deal).with(5) } 
-
-    describe '#remove_card' do 
-        it 'removes a card' do 
-            test_hand.hand = [
-                ace_of_diamonds = Card.new("A", "♢", 14), 
-                king_of_diamonds = Card.new("K", "♢", 13),
-                queen_of_diamonds = Card.new("Q", "♢", 12),
-                jack_of_diamonds = Card.new("J", "♢", 11),
-                five_of_diamonds = Card.new("5", "♢", 5)
-            ]
-            test_hand.remove_card(4)
-            expect(test_hand.hand).to eq([ace_of_diamonds, king_of_diamonds, queen_of_diamonds, jack_of_diamonds])
-        end 
-    end 
-
-    describe '#add_card' do 
-        it 'adds a card' do 
-            eight_of_diamonds = Card.new("8", "♢", 8)
-            test_hand.hand = [
-                ace_of_diamonds = Card.new("A", "♢", 14), 
-                king_of_diamonds = Card.new("K", "♢", 13),
-                queen_of_diamonds = Card.new("Q", "♢", 12),
-                jack_of_diamonds = Card.new("J", "♢", 11)
-            ]
-            test_hand.add_card(eight_of_diamonds)
-            expect(test_hand.hand).to eq([ace_of_diamonds, king_of_diamonds, queen_of_diamonds, jack_of_diamonds, eight_of_diamonds])
-        end 
-    end 
 
     describe '#high_card_rank' do 
         it 'returns the rank of the highest card in a hand' do 

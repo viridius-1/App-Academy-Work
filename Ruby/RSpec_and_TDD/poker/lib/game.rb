@@ -1,5 +1,6 @@
 require_relative 'deck'
 require_relative 'player'
+require 'byebug'
 
 class Poker 
 
@@ -553,3 +554,10 @@ class Poker
     end 
 
 end 
+
+
+if __FILE__ == $PROGRAM_NAME
+ 	g = Poker.new
+    g.play 
+end
+

@@ -1,5 +1,3 @@
-require 'byebug'
-
 def chop_add(num1, num2)
     num1 = num1 / 5.0 
     num2 = num2 / 5.0

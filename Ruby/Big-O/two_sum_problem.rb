@@ -1,6 +1,5 @@
 require_relative 'stack_queue'
 require_relative 'my_stack'
-require 'byebug'
 
 arr = [0, 1, 5, 7]
 

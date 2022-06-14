@@ -31,24 +31,23 @@ class IntSet
 
   def insert(num)
     bucket = get_bucket(num)
-    store[bucket] << num unless store[bucket].include?(num)
+    self[bucket] << num unless self[bucket].include?(num)
   end
 
   def remove(num)
     bucket = get_bucket(num)
-    store[bucket].delete(num)
+    self[bucket].delete(num)
   end
 
   def include?(num)
     bucket = get_bucket(num)
-    store[bucket].include?(num)
+    self[bucket].include?(num)
   end
 
   private
 
   def [](num)
-    #store[num]
-    # optional but useful; return the bucket corresponding to `num`
+    store[num]
   end
 
   def num_buckets

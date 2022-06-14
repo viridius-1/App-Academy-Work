@@ -13,10 +13,6 @@ class LRUCache
       lru_cache.length 
    end
 
-   def cache_length_is_4_and_no_els_are_nil
-      count == 4 && !lru_cache.any? { |el| el == nil }
-   end 
-
    def add(el)
       delete_lru_el if cache_length_is_4_and_no_els_are_nil
 
@@ -88,6 +84,10 @@ class LRUCache
       end 
 
       false 
+   end 
+
+   def cache_length_is_4_and_no_els_are_nil
+      count == 4 && !lru_cache.any? { |el| el == nil }
    end 
 
 end

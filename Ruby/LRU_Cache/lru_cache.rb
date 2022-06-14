@@ -109,7 +109,6 @@ johnny_cache.add(:ring_of_fire)
 johnny_cache.add("I walk the line")
 johnny_cache.add({a: 1, b: 2, c: 3})
 
-
 johnny_cache.show
 
 

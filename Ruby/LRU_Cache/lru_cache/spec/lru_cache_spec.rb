@@ -42,4 +42,22 @@ describe LRUCache do
       end 
    end 
 
+   describe '#show' do 
+      it 'prints the correct output after a series of cache adds' do 
+         johnny_cache.add("I walk the line")
+         johnny_cache.add(5)
+         johnny_cache.add([1,2,3])
+         johnny_cache.add(5)
+         johnny_cache.add(-5)
+         johnny_cache.add({a: 1, b: 2, c: 3})
+         johnny_cache.add([1,2,3,4])
+         johnny_cache.add("I walk the line")
+         johnny_cache.add(:ring_of_fire)
+         johnny_cache.add("I walk the line")
+         johnny_cache.add({a: 1, b: 2, c: 3})
+
+         expect(johnny_cache.show).to eq([[1, 2, 3, 4], :ring_of_fire, "I walk the line", {:a=>1, :b=>2, :c=>3}])
+      end 
+   end 
+
 end 

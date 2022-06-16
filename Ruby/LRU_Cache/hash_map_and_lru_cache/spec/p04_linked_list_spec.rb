@@ -1,5 +1,6 @@
 require 'rspec'
 require 'p04_linked_list'
+require 'byebug'
 
 describe LinkedList do
   let(:k_v_pairs) do
@@ -58,6 +59,7 @@ describe LinkedList do
     it "enumerates over the nodes and yields each successive node" do
       list_vals_ordered = k_v_pairs.values
       list_vals_yielded = []
+      
       list.each do |node|
         list_vals_yielded << node.val
       end

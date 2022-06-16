@@ -1,5 +1,3 @@
-require 'byebug'
-
 class Node
 
   attr_reader :key
@@ -79,7 +77,7 @@ class LinkedList
   end 
 
   def include?(key)
-    return true if find(key)
+    return true if get(key)
     false 
   end
 

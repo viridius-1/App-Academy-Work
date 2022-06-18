@@ -188,8 +188,8 @@ describe DynamicArray do
       end
       expect(arr).to eq(real_arr)
       expect(arr).to eq(other_dyna)
-
-      real_arr[2] = 4
+       
+      real_arr[2] = 4 
       expect(arr).not_to eq(real_arr)
     end
 

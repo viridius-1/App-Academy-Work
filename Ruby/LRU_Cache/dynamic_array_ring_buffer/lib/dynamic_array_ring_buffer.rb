@@ -51,7 +51,12 @@ class DynamicArray
   end
 
   def []=(i, val)
-    @store.store[i] = val 
+    if i < 0 
+      real_i = count + i     
+      @store.store[real_i] = val 
+    else 
+      @store.store[i] = val 
+    end 
   end
 
   def capacity

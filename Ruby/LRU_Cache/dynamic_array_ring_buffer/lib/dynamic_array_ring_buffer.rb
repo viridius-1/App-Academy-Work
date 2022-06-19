@@ -31,16 +31,22 @@ end
 class DynamicArray
   include Enumerable
 
-  attr_accessor :count, :store 
+  attr_accessor :count, :start_idx, :store 
 
   def initialize(capacity = 8)
     @store = StaticArray.new(capacity)
     @count = 0
+    @start_idx = 0
   end
 
   def [](i)
-    delete_nil_from_array if i < 0 
-    store.store[i]
+    if start_idx == 0 
+      arr = store.store[0..count - 1]
+      arr[i]
+    else 
+      arr = store.store[start_idx..start_idx] + store.store[0..count - 2]
+      arr[i] 
+    end 
   end
 
   def []=(i, val)
@@ -48,7 +54,7 @@ class DynamicArray
   end
 
   def capacity
-    @store.length
+    store.length 
   end
 
   def include?(val)
@@ -56,39 +62,54 @@ class DynamicArray
   end
 
   def push(val)
-    resize! unless store.store.include?(nil)
+    resize! if count == capacity 
     @store.store[count] = val 
     @count += 1 
   end
 
   def unshift(val)
-    @store.store.unshift(val)
+    resize! if count == capacity 
+    @count += 1 
+    @start_idx -= 1 
+    @start_idx = start_idx % capacity 
+    @store[start_idx] = val 
   end
 
   def pop
-    delete_nil_from_array
-    @count -= 1 
-    store.store.pop
+    @count -= 1
+    popped_el = store.store[count]
+    @store.store[count] = nil 
+    popped_el
   end
 
   def shift
-    @count -= 1 if count > 0 
-    shifted_el = store.store.shift
-    store.store << nil 
+    shifted_el = store.store[start_idx]
+    @store.store[start_idx] = nil 
+
+    @count -= 1 
+    @start_idx += 1 
+
     shifted_el
   end
 
   def first
-    store.store[0]
+    if start_idx == 0 
+      store.store[0]
+    else 
+      store.store[start_idx]
+    end 
   end
 
   def last
-    delete_nil_from_array
-    store.store[-1]
+    if start_idx == 0 
+      store.store[count - 1]
+    else 
+      store.store[start_idx - 1]
+    end  
   end
 
   def each(&prc)
-    store.store.each { |el| prc.call(el) } 
+    store.store.each { |el| prc.call(el) }  
   end
 
   def to_s
@@ -124,10 +145,6 @@ class DynamicArray
     end 
   end
 
-  def delete_nil_from_array 
-    @store.store.delete(nil)
-  end 
-
   alias_method :<<, :push
   [:length, :size].each { |method| alias_method method, :count }
 
@@ -137,7 +154,7 @@ class DynamicArray
     @count = 0 
     store_copy = store.store.dup 
     @store = StaticArray.new(capacity * 2)
-    store_copy.each { |el| push(el) }  
+    store_copy.each { |el| push(el) }   
   end
 
 end

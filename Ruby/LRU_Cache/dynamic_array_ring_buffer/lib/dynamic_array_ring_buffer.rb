@@ -44,7 +44,8 @@ class DynamicArray
       arr = store.store[0..count - 1]
       arr[i]
     else 
-      arr = store.store[start_idx..start_idx] + store.store[0..count - 2]
+      wrap_ct = (start_idx + count) % capacity
+      arr = store.store[start_idx..start_idx + count] + store.store[0...wrap_ct]
       arr[i] 
     end 
   end
@@ -61,9 +62,10 @@ class DynamicArray
     store.store.include?(val)
   end
 
-  def push(val)
+  def push(val) 
     resize! if count == capacity 
-    @store.store[count] = val 
+    idx_for_push = (start_idx + count) % capacity 
+    @store.store[idx_for_push] = val 
     @count += 1 
   end
 
@@ -152,6 +154,7 @@ class DynamicArray
 
   def resize!
     @count = 0 
+    @start_idx = 0 
     store_copy = store.store.dup 
     @store = StaticArray.new(capacity * 2)
     store_copy.each { |el| push(el) }   

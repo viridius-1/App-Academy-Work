@@ -4,10 +4,11 @@ class HashMap
   
   include Enumerable
 
-  attr_accessor :count, :store 
+  attr_accessor :count, :linked_hash_map, :store 
 
   def initialize(num_buckets = 8)
     @store = Array.new(num_buckets) { LinkedList.new }
+    @linked_hash_map = LinkedList.new 
     @count = 0
   end
 
@@ -24,9 +25,11 @@ class HashMap
     if include?(key) 
       node = linked_list.find(key)
       node.val = val 
+      linked_hash_map.update(key, val)
     else 
       linked_list.append(key, val)
       @count += 1 
+      linked_hash_map.append(key, val)
     end 
   end
 
@@ -46,6 +49,10 @@ class HashMap
       linked_list.each { |node| prc.call(node.key, node.val) } 
     end 
   end
+
+  def print_insertion_order 
+    linked_hash_map.each { |node| puts "Key - #{node.key}, Value - #{node.val}" } 
+  end 
 
   def to_s
     pairs = inject([]) do |strs, (k, v)|

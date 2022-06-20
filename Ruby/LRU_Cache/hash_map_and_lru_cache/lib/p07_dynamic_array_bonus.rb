@@ -1,5 +1,3 @@
-require 'byebug'
-
 class StaticArray
   attr_reader :store
 
@@ -31,64 +29,105 @@ end
 class DynamicArray
   include Enumerable
 
-  attr_accessor :count, :store 
+  attr_accessor :count, :start_idx, :store 
 
   def initialize(capacity = 8)
     @store = StaticArray.new(capacity)
     @count = 0
+    @start_idx = 0
   end
 
   def [](i)
-    delete_nil_from_array if i < 0 
-    store.store[i]
+    if start_idx == 0 
+      arr = array_with_start_idx_at_0
+      arr[i]
+    else 
+      wrap_ct = get_wrap_ct
+      arr = array_with_start_idx_outside_0(wrap_ct)
+      arr[i] 
+    end 
   end
 
   def []=(i, val)
-    @store.store[i] = val 
+    if i >= capacity 
+      if start_idx == 0 
+        arr = array_with_start_idx_at_0
+        set_over_index_array(i, val, arr)
+      else 
+        wrap_ct = get_wrap_ct
+        arr = array_with_start_idx_outside_0(wrap_ct)
+        set_over_index_array(i, val, arr)
+      end 
+    end 
+
+    if i < 0 
+      real_i = count + i   
+      increase_count if array_index_is_nil?(real_i)
+      set_index_and_value(real_i, val)
+    else
+      increase_count if array_index_is_nil?(i)
+      set_index_and_value(i, val)
+    end 
   end
 
   def capacity
-    @store.length
+    store.length 
   end
 
   def include?(val)
     store.store.include?(val)
   end
 
-  def push(val)
-    resize! unless store.store.include?(nil)
-    @store.store[count] = val 
-    @count += 1 
+  def push(val) 
+    resize! if count == capacity 
+    idx_for_push = (start_idx + count) % capacity 
+    set_index_and_value(idx_for_push, val)
+    increase_count
   end
 
   def unshift(val)
-    @store.store.unshift(val)
+    resize! if count == capacity 
+    increase_count
+    @start_idx -= 1 
+    @start_idx = start_idx % capacity 
+    @store[start_idx] = val 
   end
 
   def pop
-    delete_nil_from_array
-    @count -= 1 
-    store.store.pop
+    decrease_count
+    popped_el = store.store[count]
+    @store.store[count] = nil 
+    popped_el
   end
 
   def shift
-    @count -= 1 if count > 0 
-    shifted_el = store.store.shift
-    store.store << nil 
+    shifted_el = store.store[start_idx]
+    @store.store[start_idx] = nil 
+
+    decrease_count if shifted_el != nil 
+    @start_idx += 1 
+
     shifted_el
   end
 
   def first
-    store.store[0]
+    if start_idx == 0 
+      store.store[0]
+    else 
+      store.store[start_idx]
+    end 
   end
 
   def last
-    delete_nil_from_array
-    store.store[-1]
+    if start_idx == 0 
+      store.store[count - 1]
+    else 
+      store.store[start_idx - 1]
+    end  
   end
 
   def each(&prc)
-    store.store.each { |el| prc.call(el) } 
+    store.store.each { |el| prc.call(el) }  
   end
 
   def to_s
@@ -124,10 +163,6 @@ class DynamicArray
     end 
   end
 
-  def delete_nil_from_array 
-    @store.store.delete(nil)
-  end 
-
   alias_method :<<, :push
   [:length, :size].each { |method| alias_method method, :count }
 
@@ -135,10 +170,44 @@ class DynamicArray
 
   def resize!
     @count = 0 
+    @start_idx = 0 
     store_copy = store.store.dup 
     @store = StaticArray.new(capacity * 2)
-    store_copy.each { |el| push(el) }  
+    store_copy.each { |el| push(el) }   
   end
 
-end
+  def set_over_index_array(i, val, arr)
+    @store = StaticArray.new(arr.length)
+    arr.each_with_index { |el, idx| @store.store[idx] = el }
+    @store.store[i] = val 
+  end 
 
+  def set_index_and_value(idx, val)
+    @store.store[idx] = val 
+  end 
+
+  def array_with_start_idx_at_0 
+    store.store[0..count - 1]
+  end 
+
+  def array_with_start_idx_outside_0(wrap_ct)
+    store.store[start_idx..start_idx + count] + store.store[0...wrap_ct]
+  end
+
+  def get_wrap_ct 
+    (start_idx + count) % capacity
+  end 
+
+  def array_index_is_nil?(idx)
+    store.store[idx] == nil 
+  end 
+
+  def increase_count
+    @count += 1 
+  end 
+
+  def decrease_count 
+    @count -= 1 
+  end 
+
+end

@@ -1,5 +1,3 @@
-require 'byebug'
-
 class StaticArray
   attr_reader :store
 
@@ -41,21 +39,34 @@ class DynamicArray
 
   def [](i)
     if start_idx == 0 
-      arr = store.store[0..count - 1]
+      arr = array_with_start_idx_at_0
       arr[i]
     else 
-      wrap_ct = (start_idx + count) % capacity
-      arr = store.store[start_idx..start_idx + count] + store.store[0...wrap_ct]
+      wrap_ct = get_wrap_ct
+      arr = array_with_start_idx_outside_0(wrap_ct)
       arr[i] 
     end 
   end
 
   def []=(i, val)
+    if i >= capacity 
+      if start_idx == 0 
+        arr = array_with_start_idx_at_0
+        set_over_index_array(i, val, arr)
+      else 
+        wrap_ct = get_wrap_ct
+        arr = array_with_start_idx_outside_0(wrap_ct)
+        set_over_index_array(i, val, arr)
+      end 
+    end 
+
     if i < 0 
-      real_i = count + i     
-      @store.store[real_i] = val 
-    else 
-      @store.store[i] = val 
+      real_i = count + i   
+      increase_count if array_index_is_nil?(real_i)
+      set_index_and_value(real_i, val)
+    else
+      increase_count if array_index_is_nil?(i)
+      set_index_and_value(i, val)
     end 
   end
 
@@ -70,20 +81,20 @@ class DynamicArray
   def push(val) 
     resize! if count == capacity 
     idx_for_push = (start_idx + count) % capacity 
-    @store.store[idx_for_push] = val 
-    @count += 1 
+    set_index_and_value(idx_for_push, val)
+    increase_count
   end
 
   def unshift(val)
     resize! if count == capacity 
-    @count += 1 
+    increase_count
     @start_idx -= 1 
     @start_idx = start_idx % capacity 
     @store[start_idx] = val 
   end
 
   def pop
-    @count -= 1
+    decrease_count
     popped_el = store.store[count]
     @store.store[count] = nil 
     popped_el
@@ -93,7 +104,7 @@ class DynamicArray
     shifted_el = store.store[start_idx]
     @store.store[start_idx] = nil 
 
-    @count -= 1 
+    decrease_count if shifted_el != nil 
     @start_idx += 1 
 
     shifted_el
@@ -165,5 +176,41 @@ class DynamicArray
     store_copy.each { |el| push(el) }   
   end
 
+  def set_over_index_array(i, val, arr)
+    @store = StaticArray.new(arr.length)
+    arr.each_with_index { |el, idx| @store.store[idx] = el }
+    @store.store[i] = val 
+  end 
+
+  def set_index_and_value(idx, val)
+    @store.store[idx] = val 
+  end 
+
+  def array_with_start_idx_at_0 
+    store.store[0..count - 1]
+  end 
+
+  def array_with_start_idx_outside_0(wrap_ct)
+    store.store[start_idx..start_idx + count] + store.store[0...wrap_ct]
+  end
+
+  def get_wrap_ct 
+    (start_idx + count) % capacity
+  end 
+
+  def array_index_is_nil?(idx)
+    store.store[idx] == nil 
+  end 
+
+  def increase_count
+    @count += 1 
+  end 
+
+  def decrease_count 
+    @count -= 1 
+  end 
+
 end
+
+
 

@@ -4,31 +4,17 @@ require 'byebug'
 
 class Game 
 
-<<<<<<< HEAD:Ruby/Object_Oriented_Programming/chess_v1/game.rb
     attr_reader :board, :current_player, :display, :player1, :player2
     attr_accessor :starting_piece 
-=======
-    attr_reader :board, :captured_piece, :computer, :computer_end_pos, :computer_piece, :computer_start_pos, :current_player, :display, :player, :starting_piece
->>>>>>> 3c9486decd92af696d7f63936b7ea5c0545d7b61:Ruby/Object_Oriented_Programming/chess_ai/game.rb
 
     def initialize(name1, name2)
         introduction 
         @board = Board.new
         @display = Display.new(board)
         @starting_piece = nil 
-<<<<<<< HEAD:Ruby/Object_Oriented_Programming/chess_v1/game.rb
         @player1 = HumanPlayer.new(name1, :white)
         @player2 = HumanPlayer.new(name2, :black) 
         @current_player = player1 
-=======
-        @player = HumanPlayer.new(name1, :white)
-        @computer = ComputerPlayer.new('Computer', :black, board) 
-        @computer_piece = nil 
-        @computer_start_pos = nil 
-        @computer_end_pos = nil 
-        @current_player = player
-        @captured_piece = nil 
->>>>>>> 3c9486decd92af696d7f63936b7ea5c0545d7b61:Ruby/Object_Oriented_Programming/chess_ai/game.rb
     end 
 
     def play 
@@ -62,17 +48,12 @@ class Game
         "#{current_player.name}, select a piece."
     end 
 
-<<<<<<< HEAD:Ruby/Object_Oriented_Programming/chess_v1/game.rb
     def select_position_prompt
         "#{current_player.name}, select a square to move the #{starting_piece.color.capitalize} #{starting_piece.class}."
     end 
 
     def check_prompt
         puts "#{current_player.color.capitalize} is in check." if board.in_check?(current_player.color)
-=======
-    def computer_move
-        @computer_piece, @computer_start_pos, @computer_end_pos, @captured_piece = computer.move 
->>>>>>> 3c9486decd92af696d7f63936b7ea5c0545d7b61:Ruby/Object_Oriented_Programming/chess_ai/game.rb
     end 
 
     #method lets player move cursor through board until they hit enter or space 
@@ -136,39 +117,11 @@ class Game
         display.render 
     end 
 
-<<<<<<< HEAD:Ruby/Object_Oriented_Programming/chess_v1/game.rb
     def clear 
         system("clear")
-=======
-    def computer_move_prompt
-        if !computer.at_start && !board.checkmate?(computer.color)
-            if captured_piece 
-                puts "Black took your #{captured_piece} by moving their #{computer_piece} from #{display.letter_hash[computer_start_pos.first]}#{computer_start_pos.last} to #{display.letter_hash[computer_end_pos.first]}#{computer_end_pos.last}."
-            else 
-                puts "Black moved their #{computer_piece} from #{display.letter_hash[computer_start_pos.first]}#{computer_start_pos.last} to #{display.letter_hash[computer_end_pos.first]}#{computer_end_pos.last}."
-            end 
-        end 
-    end 
-
-    def select_piece_prompt 
-        "#{current_player.name}, select a piece."
-    end 
-
-    def select_position_prompt
-        "#{current_player.name}, select a square to move the #{starting_piece.color.capitalize} #{starting_piece.class}."
-    end 
-
-    def null_piece_prompt 
-        "That is not a piece."
-    end 
-
-    def wrong_color_prompt 
-        "That isn't your color. Please select a #{current_player.color.capitalize} piece."
-    end 
-
-    def check_prompt
-        puts "#{current_player.color.capitalize} is in check." if board.in_check?(current_player.color)
->>>>>>> 3c9486decd92af696d7f63936b7ea5c0545d7b61:Ruby/Object_Oriented_Programming/chess_ai/game.rb
     end 
 
 end 
+
+g = Game.new('Jake', 'Ann')
+g.play

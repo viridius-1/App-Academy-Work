@@ -35,6 +35,9 @@ end
 def larger_than_russia
   # List each country name where the population is larger than 'Russia'.
   execute(<<-SQL)
+    SELECT 
+    FROM
+    WHERE 
   SQL
 end
 

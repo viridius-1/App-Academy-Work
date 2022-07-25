@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>FLOAT</title>
+    <style>
+        h1 {
+            display: block;
+            background: yellow;
+        }
+
+        p { 
+            display: block;
+            background: orange;
+        }
+
+        article { 
+            margin: 50px;
+            background: blue;
+            border: 10px solid red;
+
+            clear: left;
+        }
+
+        img {
+            display: block;
+            width: 300px;
+            height: 400px;
+
+            float: left;
+
+            opacity: 0.8;
+        }
+
+        .stop-float { 
+            background: green;
+
+            display: block;
+            clear: both;
+        }
+
+        /* This is a class we can put on any container where we want to clear something */
+        /* We use :after b/c we want to inject something at the end. */
+        .pseudo-stop-float:after { 
+            content: "STOP THE FLOAT";
+            background: green;
+
+            display: block;
+            clear: both;
+        }
+
+        /* This is usually referred to as .clearfix */
+        .group:after { 
+            content: ""; 
+            display: block;
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+    <article class="group">
+        <h1>Cats</h1>
+
+        <img src="cat.jpeg" alt="Cat">
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+        aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+        aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+    </article>
+
+    <article class="group"> 
+        <h1>Lasers</h1>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+        aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </article>
+    
+</body>
+
+</html>

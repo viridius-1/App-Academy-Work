@@ -52,7 +52,7 @@ header ul, footer ul {
     align-items: center;
 }
 
-/* for all screens that are greater than or equal to 600px */
+/* for all screens w/ a width greater than or equal to 600px */
 @media all and (min-width: 600px) {
     aside {
             flex: 1;

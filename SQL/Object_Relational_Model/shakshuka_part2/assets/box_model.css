@@ -1,0 +1,115 @@
+/* Introduction to Cascading Style Sheets */
+
+/* set inline-block displays  */
+ul li, a, header>img, header>nav, section, aside {
+  display: inline-block;
+}
+
+/* This selector selects ALL anchor tag children of ALL list elements that
+are children of an Unordered List element */
+ul li a,
+figcaption a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* This selector selects only IMMEDIATE (1 level deep) image element children
+of the header element */
+header>img {
+  width: 100px;
+}
+
+/* Selects all elements with the class attribute "ingredients-list" */
+.ingredients-list {
+
+  /* The list style property is shorthand for multiple list-style properties*/
+  list-style: square inside;
+}
+
+a {
+  padding: 20px;
+}
+
+aside {
+  margin-right: 15px;
+  vertical-align: top;
+  width: 180px;
+}
+
+body {
+  /* If the user cannot load the Arial font, the sans-serif font is used */
+  font-family: Arial, sans-serif;
+  background-color: #FEFFF1;
+
+  width: 900px; 
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 38px;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+h2+.user_review {
+  border-top: 1px solid black;
+}
+
+input { 
+  display: inline;
+  width: 12%;
+}
+
+input[type="submit"] {
+  display: inline;
+  width: 15%;
+}
+
+input[type="radio"] {
+  -webkit-appearance: none;
+  width: 27px;
+  height: 27px;
+  background-image: url(../assets/stars.png);
+  vertical-align: bottom;
+}
+
+input[type="radio"]:checked {
+  background-position: 30px 30px;
+}
+
+input:last-child {
+  background: gold;
+}
+
+input:last-child:hover {
+  -webkit-filter: brightness(90%);
+}
+
+ol {
+  list-style: upper-roman inside;
+}
+
+ol li:nth-of-type(2n) {
+  background-color: whitesmoke;
+}
+
+section {
+  width: 700px;
+}
+
+textarea {
+  width: 22.5%;
+}
+
+ul li, ol li { 
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.user_review h4 {
+  font-size: 18px;
+  font-weight: bold;
+}
+

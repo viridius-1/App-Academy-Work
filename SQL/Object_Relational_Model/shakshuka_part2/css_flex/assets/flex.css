@@ -1,0 +1,109 @@
+/* Introduction to Cascading Style Sheets */
+
+aside ul li {
+  list-style: square inside;
+  padding-bottom: 5px;
+}
+
+body {
+  /* If the user cannot load the Arial font, the sans-serif font is used */
+  font-family: Arial, sans-serif;
+  background-color: #FEFFF1;
+
+  width: 80%;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 38px;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+h2+.user_review {
+  border-top: 1px solid black;
+}
+
+/* This selector selects only IMMEDIATE (1 level deep) image element children
+of the header element */
+header>img {
+  width: 100px;
+}
+
+header, nav ul { 
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Selects all elements with the class attribute "ingredients-list" */
+.ingredients-list {
+  /* The list style property is shorthand for multiple list-style properties*/
+  list-style: square inside;
+}
+
+input[id="name"] {
+  width: 80px;
+}
+
+input[type="radio"] {
+  -webkit-appearance: none;
+  width: 27px;
+  height: 27px;
+  background-image: url(./stars.png);
+  vertical-align: bottom;
+}
+
+input[type="radio"]:checked {
+  background-position: 30px 30px;
+}
+
+input:last-child {
+  background: gold;
+}
+
+input:last-child:hover {
+  -webkit-filter: brightness(90%);
+}
+
+.main { 
+  display: flex;
+}
+
+nav ul { 
+  width: 400px;
+  margin-top: 15px;
+}
+
+ol {
+  list-style: upper-roman inside;
+}
+
+ol li:nth-of-type(2n) {
+  background-color: whitesmoke;
+}
+
+section ol li { 
+  list-style: upper-roman inside;
+  padding-bottom: 15px;
+}
+
+textarea {
+  width: 226px;
+}
+
+/* This selector selects ALL anchor tag children of ALL list elements that
+are children of an Unordered List element */
+ul li a, figcaption a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.user_review h4 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
+

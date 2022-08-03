@@ -20,10 +20,23 @@ class User
         User.new(user_data[0])
     end 
 
+    def self.find_by_name(fname, lname)
+        user_data = QuestionsDatabase.instance.execute("SELECT * FROM users WHERE fname = '#{fname}' AND lname = '#{lname}'") 
+        User.new(user_data[0])
+    end 
+
     def initialize(user)
         @id = user['id']
         @fname = user['fname']
         @lname = user['lname']
+    end 
+
+    def authored_questions 
+        Question.find_by_author_id(id) 
+    end 
+
+    def authored_replies 
+        Reply.find_by_user_id(id)
     end 
 end 
 
@@ -35,11 +48,24 @@ class Question
         Question.new(question_data[0])  
     end 
 
+    def self.find_by_author_id(author)
+        question_data = QuestionsDatabase.instance.execute("SELECT * FROM questions WHERE author = #{author}")
+        Question.new(question_data[0])  
+    end 
+
     def initialize(question)
         @id = question['id']
         @title = question['title']
         @body = question['body']
         @author = question['author']
+    end 
+
+    def get_author 
+        author
+    end 
+
+    def replies
+        Reply.find_by_question_id(id)
     end 
 end 
 
@@ -81,11 +107,49 @@ class Reply
         Reply.new(reply_data[0])
     end 
 
+    def self.find_by_user_id(user_id)
+        reply_data = QuestionsDatabase.instance.execute("SELECT * FROM replies WHERE author_id = #{user_id}")
+        reply_data.map { |datum| Reply.new(datum) }
+    end 
+
+    def self.find_by_question_id(question_id)
+        reply_data = QuestionsDatabase.instance.execute("SELECT * FROM replies WHERE question_id = #{question_id}")
+        reply_data.map { |datum| Reply.new(datum) }
+    end 
+
     def initialize(reply)
         @id = reply['id'] 
         @question_id = reply['question_id']
         @parent_reply_id = reply['parent_reply_id']
         @author_id = reply['author_id']
         @body = reply['body']
+    end 
+
+    def author 
+        author_id
+    end 
+
+    def question 
+        question_id 
+    end 
+
+    def parent_reply 
+        parent_reply_id
+    end 
+
+    def child_replies 
+        reply_data = QuestionsDatabase.instance.execute("
+            SELECT 
+                *
+            FROM 
+                replies 
+            WHERE 
+                parent_reply_id IS NOT NULL 
+                AND 
+                parent_reply_id = #{self.id} 
+            LIMIT 
+                1  
+            ") 
+        Reply.new(reply_data[0])  
     end 
 end 

@@ -38,6 +38,10 @@ class User
     def authored_replies 
         Reply.find_by_user_id(id)
     end 
+
+    def followed_questions 
+        QuestionFollow.followed_questions_for_user_id(id)
+    end 
 end 
 
 class Question
@@ -67,6 +71,10 @@ class Question
     def replies
         Reply.find_by_question_id(id)
     end 
+
+    def followers 
+        QuestionFollow.followers_for_question_id(id)
+    end 
 end 
 
 class QuestionFollow
@@ -75,6 +83,32 @@ class QuestionFollow
     def self.find_by_id(id)
         question_follow_data = QuestionsDatabase.instance.execute("SELECT * FROM question_follows WHERE id = #{id}") 
         QuestionFollow.new(question_follow_data[0])
+    end 
+
+    def self.followers_for_question_id(question_id)
+        question_follow_data = QuestionsDatabase.instance.execute("
+            SELECT 
+                user_id, fname, lname, question_id
+            FROM 
+                question_follows
+            JOIN 
+                users ON question_follows.user_id = users.id 
+            WHERE 
+                question_id = #{question_id}
+        ") 
+    end 
+
+    def self.followed_questions_for_user_id(user_id)
+        question_follow_data = QuestionsDatabase.instance.execute("
+            SELECT 
+                questions.id, title, body, author, user_id
+            FROM 
+                questions 
+            JOIN 
+                question_follows ON questions.id = question_id 
+            WHERE 
+                user_id = #{user_id} 
+        ")
     end 
 
     def initialize(question_follow)

@@ -52,7 +52,7 @@ CREATE TABLE question_follows (
     FOREIGN KEY (question_id) REFERENCES questions(id) 
 );
 
-INSERT INTO 
+INSERT INTO                                                               
     question_follows (user_id, question_id)
 VALUES 
     ((SELECT id FROM users WHERE fname = 'Jake' AND lname = 'Shapiro'), (SELECT id FROM questions WHERE title = 'Jake Question')), 

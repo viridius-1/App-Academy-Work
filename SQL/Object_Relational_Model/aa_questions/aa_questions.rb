@@ -15,6 +15,11 @@ end
 class User
     attr_accessor :fname, :id, :lname
 
+    def self.all 
+        data = QuestionsDatabase.instance.execute("SELECT * FROM users")
+        data.map { |datum| User.new(datum) }
+    end 
+
     def self.find_by_id(id)
         user_data = QuestionsDatabase.instance.execute("SELECT * FROM users WHERE id = #{id}") 
         User.new(user_data[0])
@@ -29,6 +34,37 @@ class User
         @id = user['id']
         @fname = user['fname']
         @lname = user['lname']
+    end 
+
+    def save 
+        unless id 
+            create 
+        else 
+            update 
+        end 
+    end 
+
+    def create
+        raise "#{self} already in database" if id 
+        QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname) 
+        INSERT INTO 
+            users (fname, lname)
+        VALUES 
+            (?, ?)
+        SQL
+        @id = QuestionsDatabase.instance.last_insert_row_id
+    end 
+
+    def update 
+        raise "#{self} not in database" unless @id 
+        QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname, @id)
+        UPDATE 
+            users 
+        SET 
+            fname = ?, lname = ? 
+        WHERE 
+            id = ?
+        SQL
     end 
 
     def authored_questions 
@@ -119,6 +155,14 @@ class Question
         @author = question['author']
     end 
 
+    def save 
+        unless id  
+            create 
+        else 
+            update 
+        end 
+    end 
+
     def create 
         raise "#{self} already in database" if @id 
         QuestionsDatabase.instance.execute(<<-SQL, @title, @body, @author)
@@ -129,7 +173,6 @@ class Question
         SQL
         @id = QuestionsDatabase.instance.last_insert_row_id
     end 
-
 
     def update 
         raise "#{self} not in database" unless @id 
@@ -312,6 +355,11 @@ end
 class Reply
     attr_accessor :author_id, :body, :id, :parent_reply_id, :question_id
 
+    def self.all 
+        data = QuestionsDatabase.instance.execute("SELECT * FROM replies")
+        data.map { |datum| Reply.new(datum) }
+    end 
+
     def self.find_by_id(id)
         reply_data = QuestionsDatabase.instance.execute("SELECT * FROM replies WHERE id = #{id}")
         Reply.new(reply_data[0])
@@ -333,6 +381,37 @@ class Reply
         @parent_reply_id = reply['parent_reply_id']
         @author_id = reply['author_id']
         @body = reply['body']
+    end 
+
+    def save 
+        unless id 
+            create
+        else 
+            update 
+        end 
+    end 
+
+    def create
+        raise "#{self} already in database" if id
+        QuestionsDatabase.instance.execute(<<-SQL, @question_id, @parent_reply_id, @author_id, @body)
+        INSERT INTO
+            replies (question_id, parent_reply_id, author_id, body)
+        VALUES 
+            (?, ?, ?, ?)
+        SQL
+        @id = QuestionsDatabase.instance.last_insert_row_id
+    end 
+
+    def update 
+        raise "#{self} not in database" unless id
+        QuestionsDatabase.instance.execute(<<-SQL, @question_id, @parent_reply_id, @author_id, @body, @id)
+        UPDATE
+            replies 
+        SET
+            question_id = ?, parent_reply_id = ?, author_id = ?, body = ? 
+        WHERE
+            id = ?
+        SQL
     end 
 
     def author 

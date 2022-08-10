@@ -1,5 +1,6 @@
 require 'sqlite3'
 require 'singleton'
+require 'active_support/inflector'
 require 'byebug'
 
 class QuestionsDatabase < SQLite3::Database 
@@ -12,17 +13,44 @@ class QuestionsDatabase < SQLite3::Database
     end 
 end 
 
+class ModelBase 
+
+    def self.all(table, class_origin)
+        data = QuestionsDatabase.instance.execute("SELECT * FROM #{table}")
+        data.map { |datum| class_origin.new(datum) }
+    end 
+    
+    def self.find_by_id(table, id, class_origin)
+        data = QuestionsDatabase.instance.execute(<<-SQL, id) 
+            SELECT 
+                *
+            FROM
+                #{table}
+            WHERE 
+                id = ?  
+        SQL
+        class_origin.new(data[0])
+    end 
+
+    def self.save(id, object)
+        unless id 
+            object.create
+        else 
+            object.update 
+        end 
+    end 
+
+end 
+
 class User
     attr_accessor :fname, :id, :lname
 
     def self.all 
-        data = QuestionsDatabase.instance.execute("SELECT * FROM users")
-        data.map { |datum| User.new(datum) }
+        ModelBase.all(self.to_s.tableize, self) 
     end 
 
     def self.find_by_id(id)
-        user_data = QuestionsDatabase.instance.execute("SELECT * FROM users WHERE id = #{id}") 
-        User.new(user_data[0])
+         ModelBase.find_by_id(self.to_s.tableize, id, self)
     end 
 
     def self.find_by_name(fname, lname)
@@ -36,12 +64,8 @@ class User
         @lname = user['lname']
     end 
 
-    def save 
-        unless id 
-            create 
-        else 
-            update 
-        end 
+    def save
+        ModelBase.save(id, self) 
     end 
 
     def create
@@ -126,13 +150,11 @@ class Question
     attr_accessor :author, :body, :id, :question, :title
 
     def self.all 
-        data = QuestionsDatabase.instance.execute("SELECT * FROM questions")
-        data.map { |datum| Question.new(datum) }
+        ModelBase.all(self.to_s.tableize, self)
     end 
 
     def self.find_by_id(id)
-        question_data = QuestionsDatabase.instance.execute("SELECT * FROM questions WHERE id = #{id}") 
-        Question.new(question_data[0])  
+        ModelBase.find_by_id(self.to_s.tableize, id, self)
     end 
 
     def self.find_by_author_id(author)
@@ -156,11 +178,7 @@ class Question
     end 
 
     def save 
-        unless id  
-            create 
-        else 
-            update 
-        end 
+        ModelBase.save(id, self) 
     end 
 
     def create 
@@ -211,8 +229,7 @@ class QuestionFollow
     attr_accessor :id, :question_id, :user_id
 
     def self.find_by_id(id)
-        question_follow_data = QuestionsDatabase.instance.execute("SELECT * FROM question_follows WHERE id = #{id}") 
-        QuestionFollow.new(question_follow_data[0])
+         ModelBase.find_by_id(self.to_s.tableize, id, self)
     end 
 
     def self.followers_for_question_id(question_id)
@@ -269,13 +286,11 @@ class QuestionLike
     attr_accessor :id, :question_id, :user_id
 
     def self.all 
-        data = QuestionsDatabase.instance.execute("SELECT * FROM question_likes")
-        data.map { |datum| QuestionLike.new(datum) }
+        ModelBase.all(self.to_s.tableize, self)
     end 
 
     def self.find_by_id(id)
-        question_like_data = QuestionsDatabase.instance.execute("SELECT * FROM question_likes WHERE id = #{id}")
-        QuestionLike.new(question_like_data[0])
+        ModelBase.find_by_id(self.to_s.tableize, id, self)
     end 
 
     def self.likers_for_question_id(question_id)
@@ -356,13 +371,11 @@ class Reply
     attr_accessor :author_id, :body, :id, :parent_reply_id, :question_id
 
     def self.all 
-        data = QuestionsDatabase.instance.execute("SELECT * FROM replies")
-        data.map { |datum| Reply.new(datum) }
+        ModelBase.all(self.to_s.tableize, self)
     end 
 
     def self.find_by_id(id)
-        reply_data = QuestionsDatabase.instance.execute("SELECT * FROM replies WHERE id = #{id}")
-        Reply.new(reply_data[0])
+         ModelBase.find_by_id(self.to_s.tableize, id, self)
     end 
 
     def self.find_by_user_id(user_id)
@@ -384,11 +397,7 @@ class Reply
     end 
 
     def save 
-        unless id 
-            create
-        else 
-            update 
-        end 
+        ModelBase.save(id, self) 
     end 
 
     def create
@@ -442,3 +451,6 @@ class Reply
         Reply.new(reply_data[0])  
     end 
 end 
+
+
+

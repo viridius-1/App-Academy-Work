@@ -40,6 +40,26 @@ class ModelBase
         end 
     end 
 
+    def self.where(table, options, class_origin)
+        if options.is_a?(Hash)
+            where_line = options.keys.map { |key| "#{key} = ?" }.join(" AND ")
+            vals = options.values 
+        else 
+            where_line = options   
+            vals = []
+        end 
+
+        data = QuestionsDatabase.instance.execute(<<-SQL, *vals)
+            SELECT 
+                *
+            FROM 
+                #{table}
+            WHERE 
+                #{where_line}
+        SQL
+        data.map { |datum| class_origin.new(datum) }
+    end 
+
 end 
 
 class User
@@ -57,6 +77,14 @@ class User
         user_data = QuestionsDatabase.instance.execute("SELECT * FROM users WHERE fname = '#{fname}' AND lname = '#{lname}'") 
         User.new(user_data[0])
     end 
+
+    def self.find_by(options)
+        where(options)
+    end 
+
+    def self.where(options)
+        ModelBase.where(self.to_s.tableize, options, self)
+    end
 
     def initialize(user)
         @id = user['id']
@@ -162,12 +190,20 @@ class Question
         Question.new(question_data[0])  
     end 
 
+    def self.find_by(options) 
+        where(options)
+    end 
+
     def self.most_followed(n)
         QuestionFollow.most_followed_questions(n)[n - 1]
     end 
 
     def self.most_liked(n)
         QuestionLike.most_liked_questions(n)
+    end 
+
+    def self.where(options)
+        ModelBase.where(self.to_s.tableize, options, self)
     end 
 
     def initialize(question)
@@ -386,6 +422,10 @@ class Reply
     def self.find_by_question_id(question_id)
         reply_data = QuestionsDatabase.instance.execute("SELECT * FROM replies WHERE question_id = #{question_id}")
         reply_data.map { |datum| Reply.new(datum) }
+    end 
+
+    def self.find_by(options)
+        ModelBase.where(self.to_s.tableize, options, self)
     end 
 
     def initialize(reply)

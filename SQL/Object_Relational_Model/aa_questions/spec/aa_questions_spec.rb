@@ -2,7 +2,6 @@ require 'rspec'
 require 'active_support/inflector'
 require 'aa_questions'
 
-
 describe User do 
 
     describe "find_by_name" do 

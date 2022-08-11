@@ -1,7 +1,7 @@
 require 'rspec'
 require 'active_support/inflector'
 require 'aa_questions'
-require 'questions.db'
+require 'questions'
 
 describe User do 
 

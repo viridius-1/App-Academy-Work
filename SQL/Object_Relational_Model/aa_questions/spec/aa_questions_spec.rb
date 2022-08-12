@@ -1,6 +1,6 @@
 require 'rspec'
 require 'active_support/inflector'
-require 'aa_questions'
+require_relative '../aa_questions'
 
 describe User do 
 

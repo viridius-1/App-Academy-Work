@@ -4,13 +4,41 @@ require 'active_support/inflector'
 require 'byebug'
 
 class QuestionsDatabase < SQLite3::Database 
+    #attr_accessor :database
+
     include Singleton
 
-    def initialize 
-        super('questions.db')
-        self.type_translation = true 
-        self.results_as_hash = true 
+    SQL_FILE = File.join(File.dirname(__FILE__), 'import_db.sql')
+    DB_FILE = File.join(File.dirname(__FILE__), 'questions.db')
+
+    def self.open
+        @database = super(DB_FILE)
+        @database.type_translation = true 
+        @database.results_as_hash = true 
     end 
+
+    def self.instance
+        if @database 
+            @database 
+        else 
+            reset! 
+        end 
+    end 
+
+    def self.execute(*args)
+        instance.execute(*args)
+    end 
+
+    def self.reset! 
+        commands = [
+            "rm '#{DB_FILE}'", 
+            "cat '#{SQL_FILE}' | sqlite3 '#{DB_FILE}'"
+        ]
+
+        commands.each { |command| `#{command}` }
+        QuestionsDatabase.open 
+    end 
+
 end 
 
 class ModelBase 

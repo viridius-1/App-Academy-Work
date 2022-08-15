@@ -1,10 +1,9 @@
 require 'sqlite3'
 require 'singleton'
 require 'active_support/inflector'
-require 'byebug'
 
 class QuestionsDatabase < SQLite3::Database 
-    #attr_accessor :database
+    attr_reader :db_hits 
 
     include Singleton
 
@@ -18,6 +17,8 @@ class QuestionsDatabase < SQLite3::Database
     end 
 
     def self.instance
+        @db_hits += 1
+
         if @database 
             @database 
         else 
@@ -26,7 +27,7 @@ class QuestionsDatabase < SQLite3::Database
     end 
 
     def self.execute(*args)
-        instance.execute(*args)
+        instance.execute(*args) 
     end 
 
     def self.reset! 
@@ -37,6 +38,11 @@ class QuestionsDatabase < SQLite3::Database
 
         commands.each { |command| `#{command}` }
         QuestionsDatabase.open 
+        @db_hits = 0 
+    end 
+
+    def self.database_hits 
+        @db_hits
     end 
 
 end 
@@ -98,7 +104,7 @@ class User
     end 
 
     def self.find_by_id(id)
-         ModelBase.find_by_id(self.to_s.tableize, id, self)
+        ModelBase.find_by_id(self.to_s.tableize, id, self)
     end 
 
     def self.find_by_name(fname, lname)
@@ -215,7 +221,7 @@ class Question
 
     def self.find_by_author_id(author)
         question_data = QuestionsDatabase.instance.execute("SELECT * FROM questions WHERE author = #{author}")
-        Question.new(question_data[0])  
+        question_data.map { |datum| Question.new(datum) }
     end 
 
     def self.find_by(options) 
@@ -373,7 +379,7 @@ class QuestionLike
     def self.num_likes_for_question_id(question_id)
         question_like_data = QuestionsDatabase.instance.execute("
             SELECT 
-                COUNT(user_id)
+                COUNT(user_id) AS num_likes
             FROM 
                 users
             JOIN
@@ -512,11 +518,9 @@ class Reply
             WHERE 
                 parent_reply_id IS NOT NULL 
                 AND 
-                parent_reply_id = #{self.id} 
-            LIMIT 
-                1  
+                parent_reply_id = #{self.id}  
             ") 
-        Reply.new(reply_data[0])  
+        reply_data.map { |datum| Reply.new(datum) } 
     end 
 end 
 

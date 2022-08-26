@@ -6,10 +6,20 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Dog.destroy_all 
-dog1 = Dog.create(name: "Clifford the Big Red Dog")
-dog2 = Dog.create(name: "Snoopy")
+require 'faker'
 
+p "Creating Houses"
+House.destroy_all 
+house1 = House.create(name: "Mutt Mansion")
+house2 = House.create(name: "Bone Boutique")
+
+p "Creating Dogs"
+Dog.destroy_all 
+dog1 = Dog.create(name: "Clifford the Big Red Dog", house_id: house1.id)
+dog2 = Dog.create(name: "Snoopy", house_id: house2.id)
+100_000.times { Dog.create(name: Faker::Name.first_name, house_id: house1.id) } 
+
+p "Creating Toys"
 Toy.destroy_all 
 toy1 = Toy.create(name: "big bone", color: "white", dog_id: dog1.id)
 toy2 = Toy.create(name: "towel", color: "green", dog_id: dog1.id)

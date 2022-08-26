@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 2022_08_26_030906) do
   enable_extension "plpgsql"
 
   create_table "dogs", force: :cascade do |t|
-    t.string "name", null: false
-    t.integer "house_id", null: false
+    t.string "name", null: false 
+    t.integer "house_id", null: false #add index!
     t.index ["name"], name: "index_dogs_on_name"
   end
 
@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 2022_08_26_030906) do
   end
 
   create_table "toys", force: :cascade do |t|
-    t.string "name", null: false
-    t.integer "dog_id", null: false
+    t.string "name", null: false #add index!
+    t.integer "dog_id", null: false #add index! 
     t.string "color", null: false
   end
 

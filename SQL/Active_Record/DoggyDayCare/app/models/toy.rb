@@ -13,7 +13,7 @@ class Toy < ApplicationRecord
         foreign_key: :dog_id, #Toy's table 
         class_name: :Dog 
     
-    has_many :houses,  
+    has_one :house,  
         through: :dog, 
         source: :house 
 end 

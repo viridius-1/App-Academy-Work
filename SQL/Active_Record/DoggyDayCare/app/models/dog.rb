@@ -7,7 +7,7 @@
 #  house_id :integer(4)      not null
 
 class Dog < ApplicationRecord 
-    validates :name, presence: true 
+    validates :name, presence: true, uniqueness: true 
     validate :check_name_length
 
     belongs_to :house,

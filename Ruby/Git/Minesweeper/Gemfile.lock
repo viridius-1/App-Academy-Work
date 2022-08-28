@@ -1,0 +1,17 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    colorize (0.8.1)
+    psych (4.0.4)
+      stringio
+    stringio (0.0.1)
+
+PLATFORMS
+  x86_64-darwin-21
+
+DEPENDENCIES
+  colorize
+  psych
+
+BUNDLED WITH
+   2.3.5

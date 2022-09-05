@@ -16,6 +16,10 @@ class ShortenedUrl < ApplicationRecord
     validates :long_url, :user_id, presence: true 
     validates :short_url, uniqueness: true 
     
+    #Write custom validations to: 
+        #prevent users from submitting more than 5 urls in 1 minute...this is the custom validation method #no_spamming. provide an informative error message if the validation fails. 
+        #limit the number of total urls non-premium users can submit to 5...this is the custom validation method #nonpremium_max. you have to add a "premium" boolean column to your Users table. if a boolean isnt given the column should default to false. 
+
     #factory method 
     def self.shorten_url(user, long_url) 
         ShortenedUrl.create!(
@@ -50,6 +54,16 @@ class ShortenedUrl < ApplicationRecord
         -> { distinct },
         through: :visits, 
         source: :visitor  
+
+    has_many :taggings, 
+        primary_key: :id, 
+        foreign_key: :shortened_url_id, #taggings table  
+        class_name: :Tagging 
+
+    has_many :tag_topics, 
+        -> { distinct },
+        through: :taggings,
+        source: :tag_topic  
 
     def num_clicks
         visits.length 

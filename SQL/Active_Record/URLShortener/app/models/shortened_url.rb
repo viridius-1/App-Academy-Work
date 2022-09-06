@@ -15,11 +15,8 @@ require 'securerandom'
 class ShortenedUrl < ApplicationRecord 
     validates :long_url, :user_id, presence: true 
     validates :short_url, uniqueness: true 
+    validate :no_spamming, :nonpremium_max
     
-    #Write custom validations to: 
-        #prevent users from submitting more than 5 urls in 1 minute...this is the custom validation method #no_spamming. provide an informative error message if the validation fails. 
-        #limit the number of total urls non-premium users can submit to 5...this is the custom validation method #nonpremium_max. you have to add a "premium" boolean column to your Users table. if a boolean isnt given the column should default to false. 
-
     #factory method 
     def self.shorten_url(user, long_url) 
         ShortenedUrl.create!(
@@ -75,6 +72,18 @@ class ShortenedUrl < ApplicationRecord
 
     def num_recent_uniques
         Visit.select(:user_id).distinct.where(created_at: 10.minutes.ago..Time.current).length 
+    end 
+
+    def no_spamming
+        if ShortenedUrl.where(created_at: 1.minute.ago..Time.current, user_id: user_id).length == 5 
+            errors[:message] << "Can't create more than 5 urls per minute."
+        end 
+    end 
+
+    def nonpremium_max 
+        if ShortenedUrl.where(user_id: user_id).length >= 11
+            errors[:message] << "Can't submit more than 11 urls for non-premium users."
+        end 
     end 
 end 
 

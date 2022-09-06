@@ -26,3 +26,6 @@ class User < ApplicationRecord
         through: :visits, 
         source: :shortened_url
 end 
+
+
+

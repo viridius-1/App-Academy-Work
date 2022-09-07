@@ -37,6 +37,25 @@ class ShortenedUrl < ApplicationRecord
         short_url_string
     end 
 
+    #deletes shortened urls that haven't been visited in last n minutes 
+    def self.prune(n)
+        #get visited urls older than n minutes and remove them from database 
+        Visit.all.each do |visit| 
+            #debugger 
+            next if !ShortenedUrl.exists?(visit.shortened_url_id) || visit.visitor.premium
+            if visit.created_at < n.minutes.ago
+                ShortenedUrl.find(visit.shortened_url_id).destroy
+            end 
+        end 
+        
+        #get urls that haven't been visited and remove them from database if they are older than n minutes 
+        ShortenedUrl.all.each do |shortened_url| 
+            if !Visit.exists?(shortened_url_id: shortened_url.id) && !shortened_url.submitter.premium
+                shortened_url.destroy if shortened_url.created_at < n.minutes.ago 
+            end 
+        end 
+    end 
+
     belongs_to :submitter, 
         primary_key: :id,  
         foreign_key: :user_id, #shortened_urls table  
@@ -45,7 +64,8 @@ class ShortenedUrl < ApplicationRecord
     has_many :visits, 
         primary_key: :id, 
         foreign_key: :shortened_url_id, #visits table  
-        class_name: :Visit 
+        class_name: :Visit, 
+        dependent: :destroy 
 
     has_many :visitors, 
         -> { distinct },
@@ -55,7 +75,8 @@ class ShortenedUrl < ApplicationRecord
     has_many :taggings, 
         primary_key: :id, 
         foreign_key: :shortened_url_id, #taggings table  
-        class_name: :Tagging 
+        class_name: :Tagging, 
+        dependent: :destroy
 
     has_many :tag_topics, 
         -> { distinct },
@@ -81,8 +102,8 @@ class ShortenedUrl < ApplicationRecord
     end 
 
     def nonpremium_max 
-        if ShortenedUrl.where(user_id: user_id).length >= 11
-            errors[:message] << "Can't submit more than 11 urls for non-premium users."
+        if ShortenedUrl.where(user_id: user_id).length >= 5
+            errors[:message] << "Can't submit more than 5 urls for non-premium users."
         end 
     end 
 end 

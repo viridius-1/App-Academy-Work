@@ -6,6 +6,8 @@
 #  email      :string          not null
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
+#  premium    :boolean         default("false")
+#
 
 
 class User < ApplicationRecord 

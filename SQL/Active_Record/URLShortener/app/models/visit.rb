@@ -12,6 +12,14 @@
 class Visit < ApplicationRecord 
     validates :user_id, :shortened_url_id, presence: true 
 
+    #factory method 
+    def self.record_visit!(user, shortened_url)
+        Visit.create!(
+            user_id: user.id, 
+            shortened_url_id: shortened_url.id 
+        )
+    end 
+
     belongs_to :visitor, 
         primary_key: :id, 
         foreign_key: :user_id, #visits table 
@@ -21,13 +29,5 @@ class Visit < ApplicationRecord
         primary_key: :id, 
         foreign_key: :shortened_url_id, #visits table  
         class_name: :ShortenedUrl
-
-    #factory method 
-    def self.record_visit!(user, shortened_url)
-        Visit.create!(
-            user_id: user.id, 
-            shortened_url_id: shortened_url.id 
-        )
-    end 
 end 
 

@@ -92,3 +92,9 @@ Tagging.create!(user_id: 3, tag_topic_id: tag2.id, shortened_url_id: url13.id)
 Tagging.create!(user_id: 3, tag_topic_id: tag3.id, shortened_url_id: url13.id)
 Tagging.create!(user_id: 3, tag_topic_id: tag5.id, shortened_url_id: url14.id)
 Tagging.create!(user_id: 3, tag_topic_id: tag6.id, shortened_url_id: url15.id)
+
+
+Word.destroy_all 
+#words = STDIN.gets('dictionary.txt')
+words = File.readlines('dictionary.txt')
+words.each { |word| Word.new(word: word.chomp) }  

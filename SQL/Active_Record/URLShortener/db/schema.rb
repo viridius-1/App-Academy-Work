@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_06_021513) do
+ActiveRecord::Schema.define(version: 2022_09_07_043012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,11 @@ ActiveRecord::Schema.define(version: 2022_09_06_021513) do
     t.datetime "updated_at", null: false
     t.index ["shortened_url_id"], name: "index_visits_on_shortened_url_id"
     t.index ["user_id"], name: "index_visits_on_user_id"
+  end
+
+  create_table "words", force: :cascade do |t|
+    t.string "word", null: false
+    t.index ["word"], name: "index_words_on_word"
   end
 
 end

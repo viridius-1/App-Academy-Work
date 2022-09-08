@@ -7,7 +7,6 @@
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
 #  premium    :boolean         default("false")
-#
 
 
 class User < ApplicationRecord 
@@ -20,7 +19,7 @@ class User < ApplicationRecord
 
     has_many :visits, 
         primary_key: :id,
-        foreign_key: :user_id, 
+        foreign_key: :user_id, #visits table
         class_name: :Visit 
 
     has_many :visited_urls, 

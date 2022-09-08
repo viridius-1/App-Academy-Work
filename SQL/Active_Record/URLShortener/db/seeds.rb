@@ -6,10 +6,17 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Word.destroy_all 
+words = File.readlines Rails.root.join("db/dictionary.txt")
+words.each { |word| Word.create!(word: word.chomp) }  
+
+
 User.destroy_all 
 user1 = User.create!(email: "jshap83@icloud.com", premium: true)
 user2 = User.create!(email: "george@yahoo.com")
 user3 = User.create!(email: "ann@yahoo.com")
+user4 = User.create!(email: "mary@yahoo.com")
+
 
 ShortenedUrl.destroy_all
 #user1's urls 
@@ -30,6 +37,18 @@ url12 = ShortenedUrl.shorten_url(user3, "https://www.foxnews.com/lifestyle/this-
 url13 = ShortenedUrl.shorten_url(user3, "https://www.pbs.org/video/september-4-2022-pbs-news-weekend-full-episode-1662305362/")
 url14 = ShortenedUrl.shorten_url(user3, "https://www.nba.com/watch/video/how-does-trading-for-donovan-mitchell-improve-the-cavs-title-chances")
 url15 = ShortenedUrl.shorten_url(user3, "https://www.bet.com/episodes/kxbzx7/haus-of-vicious-vicious-lies-season-1-ep-3")
+
+
+Vote.destroy_all 
+#3 votes for url1 
+Vote.cast_vote(user2, url1)
+Vote.cast_vote(user3, url1)
+Vote.cast_vote(user4, url1)
+#2 votes for url9 
+Vote.cast_vote(user1, url9)
+Vote.cast_vote(user3, url9)
+#1 vote for url2 
+Vote.cast_vote(user2, url2)
 
 
 Visit.destroy_all 
@@ -92,3 +111,20 @@ Tagging.create!(user_id: 3, tag_topic_id: tag2.id, shortened_url_id: url13.id)
 Tagging.create!(user_id: 3, tag_topic_id: tag3.id, shortened_url_id: url13.id)
 Tagging.create!(user_id: 3, tag_topic_id: tag5.id, shortened_url_id: url14.id)
 Tagging.create!(user_id: 3, tag_topic_id: tag6.id, shortened_url_id: url15.id)
+
+
+<<<<<<< HEAD
+
+
+
+
+
+
+
+
+=======
+Word.destroy_all 
+#words = STDIN.gets('dictionary.txt')
+words = File.readlines('dictionary.txt')
+words.each { |word| Word.new(word: word.chomp) }  
+>>>>>>> 5291bfb (Add Word model & words table. Add dictionary.txt to db dir. Add code to seeds.rb to try to seed database with dictionary words)

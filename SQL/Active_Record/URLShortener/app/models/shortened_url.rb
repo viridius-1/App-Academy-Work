@@ -19,11 +19,19 @@ class ShortenedUrl < ApplicationRecord
     
     #factory method 
     def self.shorten_url(user, long_url) 
-        ShortenedUrl.create!(
-            long_url: long_url, 
-            short_url: self.random_code, 
-            user_id: user.id 
-        )
+        if user.premium 
+            ShortenedUrl.create!(
+                long_url: long_url, 
+                short_url: Word.all.sample.word + Word.all.sample.word + Word.all.sample.word,
+                user_id: user.id 
+            )
+        else 
+            ShortenedUrl.create!(
+                long_url: long_url, 
+                short_url: self.random_code, 
+                user_id: user.id 
+            )
+        end 
     end 
 
     def self.random_code 
@@ -41,7 +49,6 @@ class ShortenedUrl < ApplicationRecord
     def self.prune(n)
         #get visited urls older than n minutes and remove them from database 
         Visit.all.each do |visit| 
-            #debugger 
             next if !ShortenedUrl.exists?(visit.shortened_url_id) || visit.visitor.premium
             if visit.created_at < n.minutes.ago
                 ShortenedUrl.find(visit.shortened_url_id).destroy
@@ -54,6 +61,41 @@ class ShortenedUrl < ApplicationRecord
                 shortened_url.destroy if shortened_url.created_at < n.minutes.ago 
             end 
         end 
+    end 
+
+    #returns shortened urls by by most votes to least votes 
+    def self.top 
+        shortened_urls = {}
+
+        ShortenedUrl.all.each do |shortened_url| 
+            if Vote.exists?(shortened_url_id: shortened_url.id)
+                shortened_urls[shortened_url] = Vote.where(shortened_url_id: shortened_url.id).length 
+            end 
+        end 
+
+        sort_urls_by_vote(shortened_urls)
+    end 
+
+    #returns shortened urls with votes in last n minutes. ordered from most votes to least votes. 
+    def self.hot(n)
+        recently_voted_urls = {}
+        range = n.minutes.ago..Time.current 
+
+        ShortenedUrl.top.each do |shortened_url_data| 
+            votes_of_shortened_url = Vote.where(shortened_url_id: shortened_url_data.first.id)
+            votes_of_shortened_url.each do |vote| 
+                if range.include?(vote.created_at)
+                    recently_voted_urls[shortened_url_data.first] = shortened_url_data.last  
+                    break 
+                end 
+            end 
+        end 
+
+        sort_urls_by_vote(recently_voted_urls)
+    end 
+
+    def self.sort_urls_by_vote(urls)
+        urls.sort_by { |shortened_url, votes| votes }.reverse 
     end 
 
     belongs_to :submitter, 
@@ -95,6 +137,8 @@ class ShortenedUrl < ApplicationRecord
         Visit.select(:user_id).distinct.where(created_at: 10.minutes.ago..Time.current).length 
     end 
 
+    private 
+
     def no_spamming
         if ShortenedUrl.where(created_at: 1.minute.ago..Time.current, user_id: user_id).length == 5 
             errors[:message] << "Can't create more than 5 urls per minute."
@@ -107,4 +151,3 @@ class ShortenedUrl < ApplicationRecord
         end 
     end 
 end 
-

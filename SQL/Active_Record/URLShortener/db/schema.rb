@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_06_021513) do
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 2022_09_08_024630) do
+=======
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 2022_09_08_024630) do
+=======
+ActiveRecord::Schema.define(version: 2022_09_07_043012) do
+>>>>>>> 5291bfb (Add Word model & words table. Add dictionary.txt to db dir. Add code to seeds.rb to try to seed database with dictionary words)
+>>>>>>> 88ef3aff14aeca3308f8a05cbfae2665ad340e28
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +61,28 @@ ActiveRecord::Schema.define(version: 2022_09_06_021513) do
     t.datetime "updated_at", null: false
     t.index ["shortened_url_id"], name: "index_visits_on_shortened_url_id"
     t.index ["user_id"], name: "index_visits_on_user_id"
+  end
+
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 88ef3aff14aeca3308f8a05cbfae2665ad340e28
+  create_table "votes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "shortened_url_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "shortened_url_id"], name: "index_votes_on_user_id_and_shortened_url_id"
+  end
+
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 5291bfb (Add Word model & words table. Add dictionary.txt to db dir. Add code to seeds.rb to try to seed database with dictionary words)
+>>>>>>> 88ef3aff14aeca3308f8a05cbfae2665ad340e28
+  create_table "words", force: :cascade do |t|
+    t.string "word", null: false
+    t.index ["word"], name: "index_words_on_word"
   end
 
 end

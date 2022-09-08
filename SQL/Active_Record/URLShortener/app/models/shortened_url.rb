@@ -19,11 +19,19 @@ class ShortenedUrl < ApplicationRecord
     
     #factory method 
     def self.shorten_url(user, long_url) 
-        ShortenedUrl.create!(
-            long_url: long_url, 
-            short_url: self.random_code, 
-            user_id: user.id 
-        )
+        if user.premium 
+            ShortenedUrl.create!(
+                long_url: long_url, 
+                short_url: Word.all.sample.word + Word.all.sample.word + Word.all.sample.word,
+                user_id: user.id 
+            )
+        else 
+            ShortenedUrl.create!(
+                long_url: long_url, 
+                short_url: self.random_code, 
+                user_id: user.id 
+            )
+        end 
     end 
 
     def self.random_code 

@@ -6,10 +6,16 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Word.destroy_all 
+words = File.readlines Rails.root.join("db/dictionary.txt")
+words.each { |word| Word.create!(word: word.chomp) }  
+
+
 User.destroy_all 
 user1 = User.create!(email: "jshap83@icloud.com", premium: true)
 user2 = User.create!(email: "george@yahoo.com")
 user3 = User.create!(email: "ann@yahoo.com")
+
 
 ShortenedUrl.destroy_all
 #user1's urls 
@@ -92,3 +98,16 @@ Tagging.create!(user_id: 3, tag_topic_id: tag2.id, shortened_url_id: url13.id)
 Tagging.create!(user_id: 3, tag_topic_id: tag3.id, shortened_url_id: url13.id)
 Tagging.create!(user_id: 3, tag_topic_id: tag5.id, shortened_url_id: url14.id)
 Tagging.create!(user_id: 3, tag_topic_id: tag6.id, shortened_url_id: url15.id)
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+
+
+
+
+>>>>>>> 257b92a (URLShortener bonus phase 1 complete)

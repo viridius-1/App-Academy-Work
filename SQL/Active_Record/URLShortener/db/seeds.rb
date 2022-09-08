@@ -99,7 +99,10 @@ Tagging.create!(user_id: 3, tag_topic_id: tag3.id, shortened_url_id: url13.id)
 Tagging.create!(user_id: 3, tag_topic_id: tag5.id, shortened_url_id: url14.id)
 Tagging.create!(user_id: 3, tag_topic_id: tag6.id, shortened_url_id: url15.id)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 257b92a89c73931ab5496af8c45a4fe3dd0a2d1d
 
 
 
@@ -110,4 +113,7 @@ Tagging.create!(user_id: 3, tag_topic_id: tag6.id, shortened_url_id: url15.id)
 
 
 
+<<<<<<< HEAD
 >>>>>>> 257b92a (URLShortener bonus phase 1 complete)
+=======
+>>>>>>> 257b92a89c73931ab5496af8c45a4fe3dd0a2d1d

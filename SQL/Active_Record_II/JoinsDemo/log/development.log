@@ -194,3 +194,538 @@ Migrating to CreateComments (20171219010736)
   [1m[36mComment Load (1.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
   [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
   [1m[36mComment Load (1.4ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ? LIMIT ?[0m  [["user_name", "tamboer"], ["LIMIT", 11]]
+  [1m[36mUser Load (2.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (0.6ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ? LIMIT ?[0m  [["user_name", "tamboer"], ["LIMIT", 11]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (2.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ? LIMIT ?[0m  [["user_name", "tamboer"], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ? LIMIT ?[0m  [["user_name", "tamboer"], ["LIMIT", 11]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ? LIMIT ?[0m  [["user_name", "tamboer"], ["LIMIT", 11]]
+  [1m[36mComment Load (0.6ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ?[0m  [["user_name", "tamboer"]]
+  [1m[36mComment Load (0.8ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ? LIMIT ?[0m  [["user_name", "tamboer"], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ? LIMIT ?[0m  [["user_name", "tamboer"], ["LIMIT", 11]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ? LIMIT ?[0m  [["user_name", "tamboer"], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ?[0m  [["user_name", "tamboer"]]
+  [1m[36mComment Load (1.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ? LIMIT ?[0m  [["user_name", "tamboer"], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ? LIMIT ?[0m  [["user_name", "tamboer"], ["LIMIT", 11]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ?[0m  [["user_name", "tamboer"]]
+  [1m[36mComment Load (1.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ? LIMIT ?[0m  [["user_name", "tamboer"], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ? LIMIT ?[0m  [["user_name", "tamboer"], ["LIMIT", 11]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ? LIMIT ?[0m  [["user_name", "tamboer"], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ?[0m  [["user_name", "tamboer"]]
+  [1m[36mComment Load (0.8ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ? LIMIT ?[0m  [["user_name", "tamboer"], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ? LIMIT ?[0m  [["user_name", "tamboer"], ["LIMIT", 11]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ? LIMIT ?[0m  [["user_name", "tamboer"], ["LIMIT", 11]]
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ?[0m  [["user_name", "tamboer"]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ? LIMIT ?[0m  [["user_name", "tamboer"], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ? LIMIT ?[0m  [["user_name", "tamboer"], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ?[0m  [["user_name", "tamboer"]]
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE (users.user_name = 'tamboer') LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE (users.user_name = 'tamboer') LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE (users.user_name = 'tamboer')[0m
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ? LIMIT ?[0m  [["user_name", "tamboer"], ["LIMIT", 11]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ?[0m  [["user_name", "tamboer"]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "users"."user_name" = ? LIMIT ?[0m  [["user_name", "tamboer"], ["LIMIT", 11]]
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id"[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id"[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (11.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "posts" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "posts" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (0.5ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "posts" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 1], ["LIMIT", 11]]
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mComment Load (3.5ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "posts" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "posts" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "posts" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 1], ["LIMIT", 11]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mComment Load (1.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "posts" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 1], ["LIMIT", 11]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "posts" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 1], ["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (5.5ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id"[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id"[0m
+  [1m[36mUser Load (6.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id"[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id"[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id"[0m
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id"[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id"[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mComment Load (1.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "posts" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "posts" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ?[0m  [["author_id", 1]]
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id"[0m
+  [1m[36mComment Load (0.8ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" ORDER BY "comments"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id"[0m
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id"[0m
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id"[0m
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id"[0m
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id"[0m
+  [1m[36mPost Load (0.8ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mComment Load (0.6ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."post_id" = ? LIMIT ?[0m  [["post_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."post_id" = ? LIMIT ?[0m  [["post_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."post_id" = ? LIMIT ?[0m  [["post_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (0.6ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "comments"."post_id" = ? LIMIT ?[0m  [["post_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (1.9ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "comments"."post_id" = ? LIMIT ?[0m  [["post_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "comments"."post_id" = ? LIMIT ?[0m  [["post_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "comments"."post_id" = ? LIMIT ?[0m  [["post_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "comments"."post_id" = ? LIMIT ?[0m  [["post_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."post_id" = ? LIMIT ?[0m  [["post_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "comments"."post_id" = ? LIMIT ?[0m  [["post_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."post_id" = ? LIMIT ?[0m  [["post_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "comments"."post_id" = ? LIMIT ?[0m  [["post_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."post_id" = ? LIMIT ?[0m  [["post_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "comments"."post_id" = ? LIMIT ?[0m  [["post_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (1.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "users" ON "users"."id" = "comments"."author_id" WHERE "comments"."post_id" = ?[0m  [["post_id", 1]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = ?[0m  [["post_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "comments" ON "comments"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "comments" ON "comments"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (5.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (5.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (7.9ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (6.1ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (3.4ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (7.9ms)[0m  [1m[34mSELECT  users.*, posts.created_at as post_creation_time FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  users.*, posts.created_at as post_creation_time FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT users.*, posts.created_at as post_creation_time FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (7.7ms)[0m  [1m[34mSELECT  users.*, posts.created_at as post_creation_time FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT users.*, posts.created_at as post_creation_time FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (3.8ms)[0m  [1m[34mSELECT  users.*, posts.created_at as post_creation_time FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (2.4ms)[0m  [1m[34mSELECT users.*, posts.created_at as post_creation_time FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (7.4ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (4.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (5.7ms)[0m  [1m[34mSELECT users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (3.1ms)[0m  [1m[34mSELECT  users.*, posts.created_at as post_creation_time FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  users.*, posts.created_at as post_creation_time FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  users.*, posts.created_at as post_creation_time FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT users.*, posts.created_at as post_creation_time FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  users.*, posts.created_at as post_creation_time FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  users.*, posts.created_at as post_creation_time FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT users.*, posts.created_at as post_creation_time FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mPost Load (3.4ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mPost Load (0.7ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" ORDER BY "posts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" ORDER BY "posts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mComment Load (0.9ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."post_id" = ? LIMIT ?[0m  [["post_id", 1], ["LIMIT", 11]]
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 1], ["LIMIT", 11]]
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  users.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  users.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  users.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  user.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mPost Load (2.4ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (1.6ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT users.id, posts.id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT users.id, posts.id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (38.1ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  1, 2, 3 FROM "users" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  1 as id, 2 as foo_id FROM "users" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  1 as id, 2 as foo_id FROM "users" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  1 as id, 2 as foo_id FROM "users" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  1 as id, 2 as foo_id FROM "users" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  1 as id, 2 as foo_id FROM "users" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  1 as id, 2 as foo_id, 3 as id FROM "users" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  1 as id, 2 as foo_id, 3 as id FROM "users" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  1 as id, 2 as foo_id, 3 as id FROM "users" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  1 as id, 2 as foo_id, 3 as id FROM "users" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (2.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.6ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "posts" WHERE "posts"."author_id" = ?[0m  [["author_id", 1]]
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" = ?[0m  [["author_id", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "posts" WHERE "posts"."author_id" = ?[0m  [["author_id", 3]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" = ?[0m  [["author_id", 3]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "posts" WHERE "posts"."author_id" = ?[0m  [["author_id", 1]]
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" = ?[0m  [["author_id", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "posts" WHERE "posts"."author_id" = ?[0m  [["author_id", 3]]
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" = ?[0m  [["author_id", 3]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  users.*, posts.id as post_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  users.*, posts.id as post_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  users.*, posts.id as post_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT users.*, posts.id as post_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  users.*, posts.*, posts.id as post_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  users.*, posts.id as post_id, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  users.*, posts.id as post_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  users.*, posts.id as post_id, posts.title, posts.body, posts.author_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  users.*, posts.id as post_id, posts.title, posts.body, posts.author_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT users.*, posts.id as post_id, posts.title, posts.body, posts.author_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35mSQL (7.1ms)[0m  [1m[34mSELECT  DISTINCT "users"."id" FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35mSQL (0.3ms)[0m  [1m[34mSELECT "users"."id" AS t0_r0, "users"."user_name" AS t0_r1, "users"."first_name" AS t0_r2, "users"."last_name" AS t0_r3, "users"."created_at" AS t0_r4, "users"."updated_at" AS t0_r5, "posts"."id" AS t1_r0, "posts"."title" AS t1_r1, "posts"."body" AS t1_r2, "posts"."author_id" AS t1_r3, "posts"."created_at" AS t1_r4, "posts"."updated_at" AS t1_r5 FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" WHERE "users"."id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (2.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (5.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (8.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (4.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (12.4ms)[0m  [1m[34mSELECT  users.*, posts.id as [posts_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  users.*, posts.id as posts_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  users.*, posts.id as posts_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  users.*, posts.id as posts_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT users.*, posts.id as posts_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  users.*, posts.id as posts_id, posts.title, posts.body, posts.author_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  users.*, posts.id as posts_id, posts.title, posts.body, posts.author_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT users.*, posts.id as posts_id, posts.title, posts.body, posts.author_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  users.*, posts.id as posts_id, posts.title, posts.body, posts.author_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT users.*, posts.id as posts_id, posts.title, posts.body, posts.author_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (4.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (5.6ms)[0m  [1m[34mSELECT  users.*, posts.id as posts_id, posts.title, posts.body, posts.author_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  users.*, posts.id as posts_id, posts.title, posts.body, posts.author_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT users.*, posts.id as posts_id, posts.title, posts.body, posts.author_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mComment Load (2.0ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+  [1m[36mPost Load (0.6ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 1], ["LIMIT", 11]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mPost Load (2.7ms)[0m  [1m[34mSELECT "posts".* FROM "posts"[0m
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."post_id" = ? LIMIT ?[0m  [["post_id", 1], ["LIMIT", 11]]
+  [1m[36mUser Load (2.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 1], ["LIMIT", 11]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 1], ["LIMIT", 11]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 1], ["LIMIT", 11]]
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = 1[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = 1[0m
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = 1[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" = ?[0m  [["author_id", 1]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = 1[0m
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = 1[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = 2[0m
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = 2[0m
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" = ?[0m  [["author_id", 3]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = 2[0m
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = 2[0m
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" = ?[0m  [["author_id", 3]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."post_id" = ? LIMIT ?[0m  [["post_id", 2], ["LIMIT", 11]]
+  [1m[36mComment Load (4.9ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = ?[0m  [["post_id", 2]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" = ?[0m  [["author_id", 3]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = 2[0m
+  [1m[36mComment Load (1.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (1.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 2[0m
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 2[0m
+  [1m[36mComment Load (1.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."id" = 3[0m
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 2[0m
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."id" = 3[0m
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 2[0m
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."id" = 3[0m
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."author_id" = ?[0m  [["author_id", 3]]
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 2[0m
+  [1m[36mComment Load (0.5ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."id" = 3[0m
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 2[0m
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."id" = 3[0m
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."author_id" = ?[0m  [["author_id", 3]]
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 2[0m
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."id" = 3[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = 2[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = 2[0m
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN (4, 3)[0m
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."id" = 3[0m
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = 2[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN (4, 3)[0m
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."id" = 3[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" = ?[0m  [["author_id", 3]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = 2[0m
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN (4, 3)[0m
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."id" = 3[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = 2[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN (4, 3)[0m
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."id" = 3[0m
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" = ?[0m  [["author_id", 3]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = 2[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN (4, 3)[0m
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."id" = 3[0m
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = 2[0m
+  [1m[36mUser Load (4.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN (4, 3)[0m
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."id" = 3[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" = ?[0m  [["author_id", 3]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = 2[0m
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN (4, 3)[0m
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."id" = 3[0m
+  [1m[36mPost Load (2.8ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = 2[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" = ?[0m  [["author_id", 3]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = 2[0m
+  [1m[36mPost Load (3.0ms)[0m  [1m[34mSELECT  posts.* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (14.2ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (6.6ms)[0m  [1m[34mSELECT  posts.* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (3.8ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comments_count FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comments_count FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (2.1ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comments_count FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (1.2ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comments_count FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  posts.* FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comments_count FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comments_count FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT posts.*, COUNT(*) AS comments_count FROM "posts" WHERE "posts"."author_id" = ?[0m  [["author_id", 3]]
+  [1m[36mPost Load (1.8ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comments_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comments_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT posts.*, COUNT(*) AS comments_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ?[0m  [["author_id", 3]]
+  [1m[36mComment Load (1.8ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."post_id" = ? LIMIT ?[0m  [["post_id", 2], ["LIMIT", 11]]
+  [1m[36mPost Load (1.2ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comments_count FROM "posts" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT posts.*, COUNT(*) AS comments_count FROM "posts" WHERE "posts"."author_id" = ?[0m  [["author_id", 3]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comments_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT posts.*, COUNT(*) AS comments_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ?[0m  [["author_id", 3]]
+  [1m[36mPost Load (2.5ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comments_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT posts.*, COUNT(*) AS comments_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id[0m  [["author_id", 3]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comments_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT posts.*, COUNT(*) AS comments_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id[0m  [["author_id", 3]]
+  [1m[36mPost Load (0.7ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comments_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (4.6ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comments_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (1.2ms)[0m  [1m[34mSELECT posts.*, COUNT(*) AS comments_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id[0m  [["author_id", 3]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."post_id" = ? LIMIT ?[0m  [["post_id", 2], ["LIMIT", 11]]
+  [1m[36mPost Load (0.8ms)[0m  [1m[34mSELECT posts.*, COUNT(*) AS comments_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id[0m  [["author_id", 3]]
+  [1m[36mPost Load (17.5ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comments_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT posts.*, COUNT(*) AS comments_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id[0m  [["author_id", 3]]
+  [1m[36mPost Load (1.0ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comments_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (5.9ms)[0m  [1m[34mSELECT posts.*, COUNT(*) AS comments_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id[0m  [["author_id", 3]]
+  [1m[36mPost Load (22.3ms)[0m  [1m[34mSELECT posts.*, COUNT(*) AS comments_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id[0m  [["author_id", 3]]
+  [1m[36mPost Load (19.0ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comments_count FROM "posts" LEFT OUTER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (15.3ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comments_count FROM "posts" LEFT OUTER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (7.3ms)[0m  [1m[34mSELECT posts.*, COUNT(*) AS comments_count FROM "posts" LEFT OUTER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id[0m  [["author_id", 3]]
+  [1m[36mPost Load (15.8ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comments_count FROM "posts" LEFT OUTER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mUser Load (2.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (1.2ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comments_count FROM "posts" LEFT OUTER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id LIMIT ?[0m  [["author_id", 3], ["LIMIT", 11]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT posts.*, COUNT(*) AS comments_count FROM "posts" LEFT OUTER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id[0m  [["author_id", 3]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."post_id" = ? LIMIT ?[0m  [["post_id", 2], ["LIMIT", 11]]
+  [1m[36mUser Load (3.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35mSQL (0.2ms)[0m  [1m[34mSELECT  DISTINCT "users"."id" FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35mSQL (0.6ms)[0m  [1m[34mSELECT "users"."id" AS t0_r0, "users"."user_name" AS t0_r1, "users"."first_name" AS t0_r2, "users"."last_name" AS t0_r3, "users"."created_at" AS t0_r4, "users"."updated_at" AS t0_r5, "posts"."id" AS t1_r0, "posts"."title" AS t1_r1, "posts"."body" AS t1_r2, "posts"."author_id" AS t1_r3, "posts"."created_at" AS t1_r4, "posts"."updated_at" AS t1_r5 FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" WHERE "users"."id" IN (1, 2, 3, 4)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[34mSELECT "users"."id" AS t0_r0, "users"."user_name" AS t0_r1, "users"."first_name" AS t0_r2, "users"."last_name" AS t0_r3, "users"."created_at" AS t0_r4, "users"."updated_at" AS t0_r5, "posts"."id" AS t1_r0, "posts"."title" AS t1_r1, "posts"."body" AS t1_r2, "posts"."author_id" AS t1_r3, "posts"."created_at" AS t1_r4, "posts"."updated_at" AS t1_r5 FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35mSQL (0.2ms)[0m  [1m[34mSELECT  DISTINCT "users"."id" FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35mSQL (0.3ms)[0m  [1m[34mSELECT "users"."id" AS t0_r0, "users"."user_name" AS t0_r1, "users"."first_name" AS t0_r2, "users"."last_name" AS t0_r3, "users"."created_at" AS t0_r4, "users"."updated_at" AS t0_r5, "posts"."id" AS t1_r0, "posts"."title" AS t1_r1, "posts"."body" AS t1_r2, "posts"."author_id" AS t1_r3, "posts"."created_at" AS t1_r4, "posts"."updated_at" AS t1_r5 FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" WHERE "users"."id" IN (1, 2, 3, 4)[0m
+  [1m[35mSQL (1.5ms)[0m  [1m[34mSELECT  DISTINCT "users"."id" FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35mSQL (1.0ms)[0m  [1m[34mSELECT "users"."id" AS t0_r0, "users"."user_name" AS t0_r1, "users"."first_name" AS t0_r2, "users"."last_name" AS t0_r3, "users"."created_at" AS t0_r4, "users"."updated_at" AS t0_r5, "posts"."id" AS t1_r0, "posts"."title" AS t1_r1, "posts"."body" AS t1_r2, "posts"."author_id" AS t1_r3, "posts"."created_at" AS t1_r4, "posts"."updated_at" AS t1_r5 FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" WHERE "users"."id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35mSQL (0.3ms)[0m  [1m[34mSELECT  DISTINCT "users"."id" FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35mSQL (5.2ms)[0m  [1m[34mSELECT "users"."id" AS t0_r0, "users"."user_name" AS t0_r1, "users"."first_name" AS t0_r2, "users"."last_name" AS t0_r3, "users"."created_at" AS t0_r4, "users"."updated_at" AS t0_r5, "posts"."id" AS t1_r0, "posts"."title" AS t1_r1, "posts"."body" AS t1_r2, "posts"."author_id" AS t1_r3, "posts"."created_at" AS t1_r4, "posts"."updated_at" AS t1_r5 FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" WHERE "users"."id" IN (1, 2, 3, 4)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[34mSELECT "users"."id" AS t0_r0, "users"."user_name" AS t0_r1, "users"."first_name" AS t0_r2, "users"."last_name" AS t0_r3, "users"."created_at" AS t0_r4, "users"."updated_at" AS t0_r5, "posts"."id" AS t1_r0, "posts"."title" AS t1_r1, "posts"."body" AS t1_r2, "posts"."author_id" AS t1_r3, "posts"."created_at" AS t1_r4, "posts"."updated_at" AS t1_r5 FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (5.9ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."author_id" IN (1, 2, 3, 4)[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[34mSELECT  DISTINCT "users"."id" FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35mSQL (0.4ms)[0m  [1m[34mSELECT "users"."id" AS t0_r0, "users"."user_name" AS t0_r1, "users"."first_name" AS t0_r2, "users"."last_name" AS t0_r3, "users"."created_at" AS t0_r4, "users"."updated_at" AS t0_r5, "posts"."id" AS t1_r0, "posts"."title" AS t1_r1, "posts"."body" AS t1_r2, "posts"."author_id" AS t1_r3, "posts"."created_at" AS t1_r4, "posts"."updated_at" AS t1_r5 FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" WHERE "users"."id" IN (1, 2, 3, 4)[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[34mSELECT  DISTINCT "users"."id" FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35mSQL (0.4ms)[0m  [1m[34mSELECT users.*, posts.*, "users"."id" AS t0_r0, "users"."user_name" AS t0_r1, "users"."first_name" AS t0_r2, "users"."last_name" AS t0_r3, "users"."created_at" AS t0_r4, "users"."updated_at" AS t0_r5, "posts"."id" AS t1_r0, "posts"."title" AS t1_r1, "posts"."body" AS t1_r2, "posts"."author_id" AS t1_r3, "posts"."created_at" AS t1_r4, "posts"."updated_at" AS t1_r5 FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" WHERE "users"."id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (9.5ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  users.*, posts.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  users.*, posts.id as post_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35mSQL (0.2ms)[0m  [1m[34mSELECT  DISTINCT "users"."id" FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35mSQL (0.4ms)[0m  [1m[34mSELECT users.*, posts.id as post_id, "users"."id" AS t0_r0, "users"."user_name" AS t0_r1, "users"."first_name" AS t0_r2, "users"."last_name" AS t0_r3, "users"."created_at" AS t0_r4, "users"."updated_at" AS t0_r5, "posts"."id" AS t1_r0, "posts"."title" AS t1_r1, "posts"."body" AS t1_r2, "posts"."author_id" AS t1_r3, "posts"."created_at" AS t1_r4, "posts"."updated_at" AS t1_r5 FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" WHERE "users"."id" IN (1, 2, 3, 4)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[34mSELECT  DISTINCT "users"."id" FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35mSQL (0.6ms)[0m  [1m[34mSELECT users.*, posts.id as post_id, "users"."id" AS t0_r0, "users"."user_name" AS t0_r1, "users"."first_name" AS t0_r2, "users"."last_name" AS t0_r3, "users"."created_at" AS t0_r4, "users"."updated_at" AS t0_r5, "posts"."id" AS t1_r0, "posts"."title" AS t1_r1, "posts"."body" AS t1_r2, "posts"."author_id" AS t1_r3, "posts"."created_at" AS t1_r4, "posts"."updated_at" AS t1_r5 FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" WHERE "users"."id" IN (1, 2, 3, 4)[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[34mSELECT users.*, posts.id as post_id, "users"."id" AS t0_r0, "users"."user_name" AS t0_r1, "users"."first_name" AS t0_r2, "users"."last_name" AS t0_r3, "users"."created_at" AS t0_r4, "users"."updated_at" AS t0_r5, "posts"."id" AS t1_r0, "posts"."title" AS t1_r1, "posts"."body" AS t1_r2, "posts"."author_id" AS t1_r3, "posts"."created_at" AS t1_r4, "posts"."updated_at" AS t1_r5 FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[34mSELECT  DISTINCT "users"."id" FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35mSQL (0.3ms)[0m  [1m[34mSELECT users.*, posts.id AS post_id, "users"."id" AS t0_r0, "users"."user_name" AS t0_r1, "users"."first_name" AS t0_r2, "users"."last_name" AS t0_r3, "users"."created_at" AS t0_r4, "users"."updated_at" AS t0_r5, "posts"."id" AS t1_r0, "posts"."title" AS t1_r1, "posts"."body" AS t1_r2, "posts"."author_id" AS t1_r3, "posts"."created_at" AS t1_r4, "posts"."updated_at" AS t1_r5 FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" WHERE "users"."id" IN (1, 2, 3, 4)[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[34mSELECT users.*, posts.id AS post_id, "users"."id" AS t0_r0, "users"."user_name" AS t0_r1, "users"."first_name" AS t0_r2, "users"."last_name" AS t0_r3, "users"."created_at" AS t0_r4, "users"."updated_at" AS t0_r5, "posts"."id" AS t1_r0, "posts"."title" AS t1_r1, "posts"."body" AS t1_r2, "posts"."author_id" AS t1_r3, "posts"."created_at" AS t1_r4, "posts"."updated_at" AS t1_r5 FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  users.*, posts.id AS post_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT users.*, posts.id AS post_id FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[34mSELECT  DISTINCT "users"."id" FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35mSQL (0.4ms)[0m  [1m[34mSELECT "users"."id" AS t0_r0, "users"."user_name" AS t0_r1, "users"."first_name" AS t0_r2, "users"."last_name" AS t0_r3, "users"."created_at" AS t0_r4, "users"."updated_at" AS t0_r5, "posts"."id" AS t1_r0, "posts"."title" AS t1_r1, "posts"."body" AS t1_r2, "posts"."author_id" AS t1_r3, "posts"."created_at" AS t1_r4, "posts"."updated_at" AS t1_r5 FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" WHERE "users"."id" IN (1, 2, 3, 4)[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[34mSELECT  DISTINCT "users"."id" FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35mSQL (0.3ms)[0m  [1m[34mSELECT "users"."id" AS t0_r0, "users"."user_name" AS t0_r1, "users"."first_name" AS t0_r2, "users"."last_name" AS t0_r3, "users"."created_at" AS t0_r4, "users"."updated_at" AS t0_r5, "posts"."id" AS t1_r0, "posts"."title" AS t1_r1, "posts"."body" AS t1_r2, "posts"."author_id" AS t1_r3, "posts"."created_at" AS t1_r4, "posts"."updated_at" AS t1_r5 FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" WHERE "users"."id" IN (1, 2, 3, 4)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[34mSELECT  DISTINCT "users"."id" FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35mSQL (1.2ms)[0m  [1m[34mSELECT "users"."id" AS t0_r0, "users"."user_name" AS t0_r1, "users"."first_name" AS t0_r2, "users"."last_name" AS t0_r3, "users"."created_at" AS t0_r4, "users"."updated_at" AS t0_r5, "posts"."id" AS t1_r0, "posts"."title" AS t1_r1, "posts"."body" AS t1_r2, "posts"."author_id" AS t1_r3, "posts"."created_at" AS t1_r4, "posts"."updated_at" AS t1_r5 FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" WHERE "users"."id" IN (1, 2, 3, 4)[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[34mSELECT  DISTINCT "users"."id" FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35mSQL (0.4ms)[0m  [1m[34mSELECT "users"."id" AS t0_r0, "users"."user_name" AS t0_r1, "users"."first_name" AS t0_r2, "users"."last_name" AS t0_r3, "users"."created_at" AS t0_r4, "users"."updated_at" AS t0_r5, "posts"."id" AS t1_r0, "posts"."title" AS t1_r1, "posts"."body" AS t1_r2, "posts"."author_id" AS t1_r3, "posts"."created_at" AS t1_r4, "posts"."updated_at" AS t1_r5 FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" WHERE "users"."id" IN (1, 2, 3, 4)[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[34mSELECT  DISTINCT "users"."id" FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35mSQL (0.4ms)[0m  [1m[34mSELECT "users"."id" AS t0_r0, "users"."user_name" AS t0_r1, "users"."first_name" AS t0_r2, "users"."last_name" AS t0_r3, "users"."created_at" AS t0_r4, "users"."updated_at" AS t0_r5, "posts"."id" AS t1_r0, "posts"."title" AS t1_r1, "posts"."body" AS t1_r2, "posts"."author_id" AS t1_r3, "posts"."created_at" AS t1_r4, "posts"."updated_at" AS t1_r5 FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" WHERE "users"."id" IN (1, 2, 3, 4)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[34mSELECT  DISTINCT "users"."id" FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35mSQL (0.5ms)[0m  [1m[34mSELECT "users"."id" AS t0_r0, "users"."user_name" AS t0_r1, "users"."first_name" AS t0_r2, "users"."last_name" AS t0_r3, "users"."created_at" AS t0_r4, "users"."updated_at" AS t0_r5, "posts"."id" AS t1_r0, "posts"."title" AS t1_r1, "posts"."body" AS t1_r2, "posts"."author_id" AS t1_r3, "posts"."created_at" AS t1_r4, "posts"."updated_at" AS t1_r5 FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" WHERE "users"."id" IN (1, 2, 3, 4)[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[34mSELECT "users"."id" AS t0_r0, "users"."user_name" AS t0_r1, "users"."first_name" AS t0_r2, "users"."last_name" AS t0_r3, "users"."created_at" AS t0_r4, "users"."updated_at" AS t0_r5, "posts"."id" AS t1_r0, "posts"."title" AS t1_r1, "posts"."body" AS t1_r2, "posts"."author_id" AS t1_r3, "posts"."created_at" AS t1_r4, "posts"."updated_at" AS t1_r5 FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id"[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[34mSELECT  DISTINCT "users"."id" FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35mSQL (3.9ms)[0m  [1m[34mSELECT "users"."id" AS t0_r0, "users"."user_name" AS t0_r1, "users"."first_name" AS t0_r2, "users"."last_name" AS t0_r3, "users"."created_at" AS t0_r4, "users"."updated_at" AS t0_r5, "posts"."id" AS t1_r0, "posts"."title" AS t1_r1, "posts"."body" AS t1_r2, "posts"."author_id" AS t1_r3, "posts"."created_at" AS t1_r4, "posts"."updated_at" AS t1_r5 FROM "users" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "users"."id" WHERE "users"."id" IN (1, 2, 3, 4)[0m
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  distinct users.* FROM "users" INNER JOIN "posts" ON "posts"."author_id" = "users"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mPost Load (3.7ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comment_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" GROUP BY posts.id ORDER BY comment_count DESC LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comment_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" GROUP BY posts.id ORDER BY comment_count DESC LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT posts.*, COUNT(*) AS comment_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" GROUP BY posts.id ORDER BY comment_count DESC[0m
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comment_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" GROUP BY posts.id ORDER BY comment_count DESC LIMIT ?[0m  [["LIMIT", 2]]
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comment_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" GROUP BY posts.id ORDER BY comment_count DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comment_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" GROUP BY posts.id ORDER BY comment_count DESC LIMIT ?[0m  [["LIMIT", 5]]
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comment_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id ORDER BY comment_count DESC LIMIT ?[0m  [["author_id", 1], ["LIMIT", 11]]
+  [1m[36mPost Load (0.8ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comment_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id ORDER BY comment_count DESC LIMIT ?[0m  [["author_id", 1], ["LIMIT", 1]]

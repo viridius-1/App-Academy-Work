@@ -729,3 +729,76 @@ Migrating to CreateComments (20171219010736)
   [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
   [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comment_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id ORDER BY comment_count DESC LIMIT ?[0m  [["author_id", 1], ["LIMIT", 11]]
   [1m[36mPost Load (0.8ms)[0m  [1m[34mSELECT  posts.*, COUNT(*) AS comment_count FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? GROUP BY posts.id ORDER BY comment_count DESC LIMIT ?[0m  [["author_id", 1], ["LIMIT", 1]]
+  [1m[36mComment Load (3.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = ? LIMIT ?[0m  [["id", 12], ["LIMIT", 1]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."body" = ? LIMIT ?[0m  [["body", "Great job!"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."body" = ? LIMIT ?[0m  [["body", "Great job first posting!"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."body" = ? LIMIT ?[0m  [["body", "Great job first posting!"], ["LIMIT", 1]]
+  [1m[36mComment Load (3.9ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (9.7ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" ORDER BY author_id ASC LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" ORDER BY author_id ASC LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" ORDER BY author_id ASC LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" ORDER BY author_id ASC LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mPost Load (1.8ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mPost Load (1.0ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mPost Load (0.9ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" GROUP BY "posts"."author_id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mPost Load (2.7ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" GROUP BY "posts"."author_id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mPost Load (7.9ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" INNER JOIN "comments" ON "comments"."post_id" = "posts"."id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (1.5ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (1.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.parent_comment_id LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (2.0ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.parent_comment_id[0m
+  [1m[36mComment Load (4.5ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.parent_comment_id LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (1.6ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.author_id LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (0.5ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.author_id[0m
+  [1m[36mComment Load (1.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.parent_comment_id[0m
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.body[0m
+  [1m[36mComment Load (2.6ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (0.7ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.body[0m
+  [1m[36mComment Load (3.7ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.body[0m
+  [1m[36mComment Load (6.6ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.body HAVING (COUNT(*) > 5)[0m
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.body HAVING (COUNT(*) > 2)[0m
+  [1m[36mComment Load (1.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.body HAVING (COUNT(*) > 1)[0m
+  [1m[36mComment Load (5.9ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.body HAVING (COUNT(*) = 1)[0m
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.body HAVING (COUNT(*) == 1)[0m
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.body HAVING (COUNT(*) == 2)[0m
+  [1m[36mComment Load (0.8ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.body HAVING (COUNT(*) = 2)[0m
+  [1m[36mComment Load (0.9ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.body HAVING (COUNT(*) > 2)[0m
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.body HAVING (COUNT(*) >= 2)[0m
+  [1m[36mComment Load (2.8ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.body HAVING (COUNT(*) = 2)[0m
+  [1m[36mComment Load (2.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.body HAVING (COUNT(*) = 1)[0m
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.body HAVING (COUNT(*) >= 1)[0m
+  [1m[36mComment Load (3.9ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.body HAVING (COUNT(*) >= 2)[0m
+  [1m[36mComment Load (9.6ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" GROUP BY comments.body HAVING (COUNT(*) = 1)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "comments"[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "comments"[0m
+  [1m[36mComment Load (6.0ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT SUM("comments"."post_id") FROM "comments"[0m
+  [1m[36mComment Load (3.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (1.7ms)[0m  [1m[34mSELECT * FROM comments[0m
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT * FROM comments SORT BY author_id[0m
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT * FROM comments ORDER BY author_id[0m
+  [1m[36mComment Load (21.6ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (23.7ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."parent_coment_id" IS NULL LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."parent_comment_id" IS NULL LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE ("users"."id" != ?) LIMIT ?[0m  [["id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (9.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."parent_comment_id" IS NULL LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (83.0ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE ("users"."id" != ?) LIMIT ?[0m  [["id", 1], ["LIMIT", 11]]
+  [1m[36mComment Load (2.7ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."parent_comment_id" IS NULL LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (74.4ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."parent_comment_id" IS NULL LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mComment Load (24.6ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE ("comments"."parent_comment_id" IS NOT NULL) LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (19.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "users"."user_name" FROM "users"[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "users"."user_name", "users"."first_name" FROM "users"[0m
+  [1m[35m (6.4ms)[0m  [1m[34mSELECT DISTINCT "users"."user_name", "users"."first_name" FROM "users"[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT DISTINCT "users"."user_name", "users"."first_name" FROM "users"[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]

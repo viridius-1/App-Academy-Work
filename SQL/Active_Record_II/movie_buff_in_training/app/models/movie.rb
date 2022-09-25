@@ -13,6 +13,7 @@ class Movie < ApplicationRecord
   # class_name: 'Casting',
   # foreign_key: :movie_id,
   # primary_key: :id
+  
   has_many :actors, through: :castings
   # shorthand for:
   # has_many :actors,

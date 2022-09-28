@@ -7,3 +7,14 @@ one:
 two:
   model: MyString
   route_id: 1
+# == Schema Information
+#
+# Table name: buses
+#
+#  id         :integer(8)      not null, primary key
+#  model      :string          not null
+#  route_id   :integer
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#
+

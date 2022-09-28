@@ -5,3 +5,14 @@ one:
 
 two:
   address: MyString
+# == Schema Information
+#
+# Table name: gardeners
+#
+#  id         :integer(8)      not null, primary key
+#  name       :string          not null
+#  house_id   :integer
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#
+

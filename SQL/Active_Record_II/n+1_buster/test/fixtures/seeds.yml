@@ -7,3 +7,14 @@ one:
 two:
   count: 1
   plant_id: 1
+# == Schema Information
+#
+# Table name: seeds
+#
+#  id         :integer(8)      not null, primary key
+#  count      :integer         not null
+#  plant_id   :integer
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#
+

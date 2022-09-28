@@ -5,3 +5,14 @@ one:
 
 two:
   gardener_id: 1
+# == Schema Information
+#
+# Table name: plants
+#
+#  id          :integer(8)      not null, primary key
+#  gardener_id :integer
+#  species     :string          not null
+#  created_at  :datetime        not null
+#  updated_at  :datetime        not null
+#
+

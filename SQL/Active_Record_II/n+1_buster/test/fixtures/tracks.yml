@@ -7,3 +7,14 @@ one:
 two:
   title: MyString
   album_id: 1
+# == Schema Information
+#
+# Table name: tracks
+#
+#  id         :integer(8)      not null, primary key
+#  title      :string          not null
+#  album_id   :integer
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#
+

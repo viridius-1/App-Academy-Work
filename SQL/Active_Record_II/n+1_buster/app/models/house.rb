@@ -1,7 +1,16 @@
+# == Schema Information
+#
+# Table name: houses
+#
+#  id         :integer(8)      not null, primary key
+#  address    :string
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+
 class House < ApplicationRecord
   has_many :gardeners,
     class_name: 'Gardener',
-    foreign_key: :house_id,
+    foreign_key: :house_id, #gardeners table 
     primary_key: :id
 
   has_many :plants,
@@ -18,7 +27,13 @@ class House < ApplicationRecord
     seeds
   end
 
+  #creates an array of all the seeds within a given house. solves n + 1 problem.
   def better_seeds_query
-    # TODO: your code here
+    seeds = []
+    plants_in_house = plants.includes(:seeds)
+    plants_in_house.each { |plant| seeds << plant.seeds }
+    seeds 
   end
 end
+
+

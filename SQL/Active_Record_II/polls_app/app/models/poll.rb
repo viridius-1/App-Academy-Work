@@ -5,7 +5,6 @@
 #  id      :integer(8)      not null, primary key
 #  title   :string          not null
 #  user_id :integer(4)      not null
-#
 
 class Poll < ApplicationRecord 
     validates :title, presence: true 

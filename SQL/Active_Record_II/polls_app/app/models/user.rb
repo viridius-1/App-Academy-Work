@@ -6,8 +6,7 @@
 #  username :string          not null
 
 class User < ApplicationRecord 
-
-    
+    validates :username, uniqueness: true, presence: true 
 end 
 
 

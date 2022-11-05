@@ -67,5 +67,3 @@ response12 = Response.create!(user_id: user3.id, question_id: question3.id, answ
 response13 = Response.create!(user_id: user3.id, question_id: question4.id, answer_choice_id: answer_choice12.id)
 
 
-
-

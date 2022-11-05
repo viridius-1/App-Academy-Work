@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2022_10_15_052212) do
 
   create_table "polls", force: :cascade do |t|
     t.string "title", null: false
-    t.integer "user_id", null: false
+    t76 .integer "user_id", null: false
     t.index ["title"], name: "index_polls_on_title"
   end
 

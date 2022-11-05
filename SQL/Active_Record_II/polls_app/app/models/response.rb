@@ -10,6 +10,7 @@
 class Response < ApplicationRecord 
     validates :user_id, :question_id, :answer_choice_id, presence: true 
     validate :not_duplicate_response, :does_not_respond_to_own_poll, :does_not_respond_to_own_poll_version2
+    after_destroy :log_destroy_action 
 
     belongs_to :answer_choice, 
         class_name: :AnswerChoice, 
@@ -24,6 +25,10 @@ class Response < ApplicationRecord
     has_one :question, 
         through: :answer_choice,  
         source: :question  
+
+    def log_destroy_action
+        puts "Response destroyed."
+    end 
 
     def responses 
         question.responses

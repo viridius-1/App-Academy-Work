@@ -12,11 +12,12 @@ class Question < ApplicationRecord
     has_many :answer_choices,
         class_name: :AnswerChoice, 
         foreign_key: :question_id, #answer_choices table
-        primary_key: :id 
+        primary_key: :id, 
+        dependent: :destroy 
 
     has_many :responses, 
         through: :answer_choices, 
-        source: :responses 
+        source: :responses
 
     belongs_to :poll, 
         class_name: :Poll, 
@@ -52,6 +53,10 @@ class Question < ApplicationRecord
         answers = answer_choices.select(:text, 'COUNT(responses) AS response_ct').left_outer_joins(:responses).group('text, responses')
         answers.each { |answer_choice| results_hash[answer_choice.text] = answer_choice.response_ct }
         results_hash
+    end 
+
+    def delete
+        self.destroy 
     end 
 end 
 

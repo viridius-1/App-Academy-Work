@@ -23,6 +23,7 @@ question3 = Question.create!(text: "In the future, what will be the most powerfu
 question4 = Question.create!(text: "What country would you most like to visit?", poll_id: poll2.id)
 question5 = Question.create!(text: "What is your favorite food?", poll_id: poll3.id)
 question6 = Question.create!(text: "What is your favorite drink?", poll_id: poll3.id)
+question7 = Question.create!(text: "What is your favorite kind of yogurt?", poll_id: poll3.id)
 
 AnswerChoice.destroy_all
 answer_choice1 = AnswerChoice.create!(text: "Donald Trump", question_id: question1.id)
@@ -43,6 +44,9 @@ answer_choice15 = AnswerChoice.create!(text: "Sushi", question_id: question5.id)
 answer_choice16 = AnswerChoice.create!(text: "Water", question_id: question6.id)
 answer_choice17 = AnswerChoice.create!(text: "Milk", question_id: question6.id)
 answer_choice18 = AnswerChoice.create!(text: "Coffee", question_id: question6.id)
+answer_choice19 = AnswerChoice.create!(text: "Greek", question_id: question7.id)
+answer_choice20 = AnswerChoice.create!(text: "Plain", question_id: question7.id)
+answer_choice21 = AnswerChoice.create!(text: "Blended", question_id: question7.id)
 
 Response.destroy_all
 #user1 responses
@@ -50,16 +54,17 @@ response1 = Response.create!(user_id: user1.id, question_id: question3.id, answe
 response2 = Response.create!(user_id: user1.id, question_id: question4.id, answer_choice_id: answer_choice10.id)
 response3 = Response.create!(user_id: user1.id, question_id: question5.id, answer_choice_id: answer_choice15.id)
 response4 = Response.create!(user_id: user1.id, question_id: question6.id, answer_choice_id: answer_choice16.id)
+response5 = Response.create!(user_id: user1.id, question_id: question7.id, answer_choice_id: answer_choice19.id)
 #user2 responses
-response5 = Response.create!(user_id: user2.id, question_id: question1.id, answer_choice_id: answer_choice1.id)
-response6 = Response.create!(user_id: user2.id, question_id: question2.id, answer_choice_id: answer_choice4.id)
-response7 = Response.create!(user_id: user2.id, question_id: question5.id, answer_choice_id: answer_choice15.id)
-response8 = Response.create!(user_id: user2.id, question_id: question6.id, answer_choice_id: answer_choice16.id)
+response6 = Response.create!(user_id: user2.id, question_id: question1.id, answer_choice_id: answer_choice1.id)
+response7 = Response.create!(user_id: user2.id, question_id: question2.id, answer_choice_id: answer_choice4.id)
+response8 = Response.create!(user_id: user2.id, question_id: question5.id, answer_choice_id: answer_choice15.id)
+response9 = Response.create!(user_id: user2.id, question_id: question6.id, answer_choice_id: answer_choice16.id)
 #user3 responses
-response9 = Response.create!(user_id: user3.id, question_id: question1.id, answer_choice_id: answer_choice2.id)
-response10 = Response.create!(user_id: user3.id, question_id: question2.id, answer_choice_id: answer_choice5.id)
-response11 = Response.create!(user_id: user3.id, question_id: question3.id, answer_choice_id: answer_choice7.id)
-response12 = Response.create!(user_id: user3.id, question_id: question4.id, answer_choice_id: answer_choice12.id)
+response10 = Response.create!(user_id: user3.id, question_id: question1.id, answer_choice_id: answer_choice2.id)
+response11 = Response.create!(user_id: user3.id, question_id: question2.id, answer_choice_id: answer_choice5.id)
+response12 = Response.create!(user_id: user3.id, question_id: question3.id, answer_choice_id: answer_choice7.id)
+response13 = Response.create!(user_id: user3.id, question_id: question4.id, answer_choice_id: answer_choice12.id)
 
 
 

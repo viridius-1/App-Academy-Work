@@ -73,3 +73,5 @@ dry_cat.save
 dry_dog = Dry::Dog.new
 dry_dog.save 
 
+p dry_cat.class 
+

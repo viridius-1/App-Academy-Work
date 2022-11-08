@@ -75,6 +75,8 @@ class SnackBox
 end
 
 class CorgiSnacks
+  attr_reader :box_id, :snack_box
+
   def initialize(snack_box, box_id)
     @snack_box = snack_box
     @box_id = box_id
@@ -88,28 +90,44 @@ end
 
 
 class MetaCorgiSnacks
+
   def initialize(snack_box, box_id)
     @snack_box = snack_box
     @box_id = box_id
   end
 
-  def method_missing(name, *args)
-    if name == :bone
-      info = @snack_box.send(:get_bone_info, @box_id)
-      tastiness = @snack_box.send(:get_bone_tastiness, @box_id)
-    elsif name == :kibble
-      info = @snack_box.send(:get_kibble_info, @box_id)
-      tastiness = @snack_box.send(:get_kibble_tastiness, @box_id)
-    elsif name == :treat
-      info = @snack_box.send(:get_treat_info, @box_id)
-      tastiness = @snack_box.send(:get_treat_tastiness, @box_id)
-    end 
-    result = "#{name.to_s.capitalize}: #{info}: #{tastiness} "
-    tastiness > 30 ? "* #{result}" : result
-  end
-
+  # def method_missing(name, *args)
+  #   if name == :bone
+  #     info = @snack_box.send(:get_bone_info, @box_id)
+  #     tastiness = @snack_box.send(:get_bone_tastiness, @box_id)
+  #   elsif name == :kibble
+  #     info = @snack_box.send(:get_kibble_info, @box_id)
+  #     tastiness = @snack_box.send(:get_kibble_tastiness, @box_id)
+  #   elsif name == :treat
+  #     info = @snack_box.send(:get_treat_info, @box_id)
+  #     tastiness = @snack_box.send(:get_treat_tastiness, @box_id)
+  #   end 
+  #   result = "#{name.to_s.capitalize}: #{info}: #{tastiness} "
+  #   tastiness > 30 ? "* #{result}" : result
+  # end
 
   def self.define_snack(name)
-    # Your code goes here...
+
+    define_method(name) do 
+      corgi_snack_box = CorgiSnacks.new(@snack_box, @box_id)
+      if name == 'bone'
+        info = corgi_snack_box.snack_box.send(:get_bone_info, corgi_snack_box.box_id)
+        tastiness = corgi_snack_box.snack_box.send(:get_bone_tastiness, corgi_snack_box.box_id)
+      elsif name == 'kibble'
+        info = corgi_snack_box.snack_box.send(:get_kibble_info, corgi_snack_box.box_id)
+        tastiness = corgi_snack_box.snack_box.send(:get_kibble_tastiness, corgi_snack_box.box_id)
+      elsif name == 'treat'
+        info = corgi_snack_box.snack_box.send(:get_treat_info, corgi_snack_box.box_id)
+        tastiness = corgi_snack_box.snack_box.send(:get_treat_tastiness, corgi_snack_box.box_id)
+      end 
+      result = "#{name.to_s.capitalize}: #{info}: #{tastiness} "
+      tastiness > 30 ? "* #{result}" : result
+    end   
   end
+
 end

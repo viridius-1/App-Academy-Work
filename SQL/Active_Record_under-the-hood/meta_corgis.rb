@@ -1,5 +1,3 @@
-require 'byebug'
-
 class SnackBox
   SNACK_BOX_DATA = {
     1 => {

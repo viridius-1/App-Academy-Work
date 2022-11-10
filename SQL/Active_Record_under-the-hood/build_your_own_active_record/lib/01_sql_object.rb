@@ -5,7 +5,20 @@ require 'active_support/inflector'
 
 class SQLObject
   def self.columns
-    # ...
+    if @columns.nil? 
+      cats_table_data =
+      DBConnection.execute2(<<-SQL)
+        SELECT 
+          id, name, owner_id
+        FROM 
+          cats
+        LIMIT 
+          1
+      SQL
+      @columns = cats_table_data[0].map(&:to_sym)
+    else 
+      @columns 
+    end 
   end
 
   def self.finalize!
@@ -13,10 +26,6 @@ class SQLObject
 
   def self.table_name=(table_name)
     @table_name = table_name
-
-    # sets the table 
-    #Since our SQLObject class is itself an object (an instance of Class, 
-      #we can store that as a instance variable on the class #everythingisanobject.
   end
 
   def self.table_name
@@ -25,11 +34,6 @@ class SQLObject
     else 
       @table_name
     end    
-    # gets the name of the table for the class
-    #It would also be nice if, in the absence of an explicitly set table name, 
-      #we would have ::table_name by default convert the class name to snake_case and pluralize:
-      #ActiveSupport (part of Rails) has an inflector library that adds methods to String to help you do this.
-      # In particular, look at the String#tableize method. You can require the inflector with require 'active_support/inflector'
   end
 
   def self.all
@@ -68,3 +72,8 @@ class SQLObject
     # ...
   end
 end
+
+
+
+
+

@@ -57,7 +57,16 @@ class SQLObject
   end
 
   def self.find(id)
-    # ...
+    hash_object = 
+    DBConnection.execute(<<-SQL)
+        SELECT 
+          cats.*
+        FROM 
+          cats
+        WHERE 
+          id = "#{id}"
+      SQL
+    self.parse_all(hash_object).first
   end
 
   def initialize(params = {})

@@ -123,13 +123,13 @@ describe SQLObject do
         # We have to set method expectations on the cat object *before*
         # #initialize gets called, so we use ::allocate to create a
         # blank Cat object first and then call #initialize manually.
-        cat_instance = Cat.allocate
+        c = Cat.allocate
         #debugger 
-        expect(cat_instance).to receive(:name=).with('Don Frye')
-        expect(cat_instance).to receive(:id=).with(100)
-        expect(cat_instance).to receive(:owner_id=).with(4)
+        expect(c).to receive(:name=).with('Don Frye')
+        expect(c).to receive(:id=).with(100)
+        expect(c).to receive(:owner_id=).with(4)
 
-        cat_instance.send(:initialize, {name: 'Don Frye', id: 100, owner_id: 4})
+        c.send(:initialize, {name: 'Don Frye', id: 100, owner_id: 4})
       end
 
       it 'throws an error when given an unknown attribute' do
@@ -173,9 +173,9 @@ describe SQLObject do
 
     describe '::find' do
       it 'fetches single objects by id' do
-        cat_instance = Cat.find(1)
-        expect(cat_instance).to be_instance_of(Cat)
-        expect(cat_instance.id).to eq(1)
+        c = Cat.find(1)
+        expect(c).to be_instance_of(Cat)
+        expect(c.id).to eq(1)
       end
 
       it 'returns nil if no object has the given id' do

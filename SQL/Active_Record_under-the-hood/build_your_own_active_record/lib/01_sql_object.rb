@@ -84,11 +84,24 @@ class SQLObject
   end
 
   def attribute_values
-    # ...
+    self.class.columns.map { |column| self.send(column) }
   end
 
   def insert
-    # ...
+    #debugger 
+    col_names = self.class.columns[1..-1]
+    col_names_string = col_names.join(', ')
+
+    question_marks = (["?"] * col_names.length)
+    question_marks_string = question_marks.join(', ')
+
+    DBConnection.execute(<<-SQL, *attribute_values[1..-1])
+      INSERT INTO
+        cats (#{col_names_string})
+      VALUES
+        (#{question_marks_string})
+    SQL
+    self.id = DBConnection.last_insert_row_id
   end
 
   def update

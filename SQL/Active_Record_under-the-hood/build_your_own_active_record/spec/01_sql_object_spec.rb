@@ -123,13 +123,13 @@ describe SQLObject do
         # We have to set method expectations on the cat object *before*
         # #initialize gets called, so we use ::allocate to create a
         # blank Cat object first and then call #initialize manually.
-        c = Cat.allocate
+        cat_instance = Cat.allocate
+        #debugger 
+        expect(cat_instance).to receive(:name=).with('Don Frye')
+        expect(cat_instance).to receive(:id=).with(100)
+        expect(cat_instance).to receive(:owner_id=).with(4)
 
-        expect(c).to receive(:name=).with('Don Frye')
-        expect(c).to receive(:id=).with(100)
-        expect(c).to receive(:owner_id=).with(4)
-
-        c.send(:initialize, {name: 'Don Frye', id: 100, owner_id: 4})
+        cat_instance.send(:initialize, {name: 'Don Frye', id: 100, owner_id: 4})
       end
 
       it 'throws an error when given an unknown attribute' do

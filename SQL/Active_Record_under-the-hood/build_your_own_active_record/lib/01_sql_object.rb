@@ -22,6 +22,10 @@ class SQLObject
   end
 
   def self.finalize!
+      self.columns.each do |column|
+        define_method("#{column}=") { |value| attributes("#{column}", value) } 
+        define_method("#{column}") { attributes["#{column}"] }  
+      end 
   end
 
   def self.table_name=(table_name)
@@ -52,8 +56,13 @@ class SQLObject
     # ...
   end
 
-  def attributes
-    # ...
+  def attributes(key=nil, value=nil)
+    if @attributes.nil? 
+      @attributes ||= {}
+    else     
+      @attributes[key] = value 
+    end 
+    @attributes
   end
 
   def attribute_values
@@ -71,6 +80,8 @@ class SQLObject
   def save
     # ...
   end
+
+  self.finalize! #create getter and setter methods for each column 
 end
 
 

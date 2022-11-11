@@ -23,8 +23,8 @@ class SQLObject
 
   def self.finalize!
       self.columns.each do |column|
-        define_method("#{column}=") { |value| @attributes[column] = value } 
-        define_method("#{column}") { @attributes[column] }  
+        define_method("#{column}=") { |value| attributes[column] = value } 
+        define_method(column) { attributes[column] }  
       end 
   end
 
@@ -53,11 +53,14 @@ class SQLObject
   end
 
   def initialize(params = {})
-    # ...
+    params.each do |column, value| 
+      
+      
+    end 
   end
 
   def attributes
-    @attributes ||= {}
+    @attributes ||= {} 
   end
 
   def attribute_values

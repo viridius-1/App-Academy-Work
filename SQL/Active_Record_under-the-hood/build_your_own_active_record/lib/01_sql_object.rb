@@ -41,11 +41,19 @@ class SQLObject
   end
 
   def self.all
-    # ...
+    database_hash_objects = 
+    DBConnection.execute(<<-SQL)
+        SELECT 
+          cats.*
+        FROM 
+          cats
+      SQL
+
+    self.parse_all(database_hash_objects)
   end
 
   def self.parse_all(results)
-    # ...
+    results.map { |hash_object| self.new(hash_object) } 
   end
 
   def self.find(id)

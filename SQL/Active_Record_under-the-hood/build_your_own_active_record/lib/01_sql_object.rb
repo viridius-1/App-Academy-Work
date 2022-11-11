@@ -23,8 +23,8 @@ class SQLObject
 
   def self.finalize!
       self.columns.each do |column|
-        define_method("#{column}=") { |value| attributes("#{column}", value) } 
-        define_method("#{column}") { attributes["#{column}"] }  
+        define_method("#{column}=") { |value| @attributes[column] = value } 
+        define_method("#{column}") { @attributes[column] }  
       end 
   end
 
@@ -56,13 +56,8 @@ class SQLObject
     # ...
   end
 
-  def attributes(key=nil, value=nil)
-    if @attributes.nil? 
-      @attributes ||= {}
-    else     
-      @attributes[key] = value 
-    end 
-    @attributes
+  def attributes
+    @attributes ||= {}
   end
 
   def attribute_values

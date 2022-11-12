@@ -6,7 +6,7 @@ require 'byebug'
 
 class SQLObject
   def self.columns 
-    if @columns.nil? && self != SQLObject
+    if @columns.nil?
       table_data =
       DBConnection.execute2(<<-SQL)
         SELECT 
@@ -23,11 +23,9 @@ class SQLObject
   end
 
   def self.finalize!
-      if self != SQLObject
-        self.columns.each do |column|
-          define_method("#{column}=") { |value| attributes[column] = value } 
-          define_method(column) { attributes[column] }  
-        end 
+      self.columns.each do |column|
+        define_method("#{column}=") { |value| attributes[column] = value } 
+        define_method(column) { attributes[column] }  
       end 
   end
 
@@ -126,8 +124,6 @@ class SQLObject
   def save
     self.id.nil? ? self.insert : self.update 
   end
-
-  self.finalize! #create getter and setter methods for each column 
 end
 
 

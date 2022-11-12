@@ -10,23 +10,27 @@ class AssocOptions
   )
 
   def model_class
-    # ...
+    @class_name.constantize
   end
 
   def table_name
-    # ...
+    model_class.table_name
   end
 end
 
 class BelongsToOptions < AssocOptions
   def initialize(name, options = {})
-    # ...
+    @primary_key = options.has_key?(:primary_key) ? options[:primary_key] : :id 
+    @foreign_key = options.has_key?(:foreign_key) ? options[:foreign_key] : "#{name}Id".underscore.to_sym
+    @class_name = options.has_key?(:class_name) ? options[:class_name] : name.camelize
   end
 end
 
 class HasManyOptions < AssocOptions
   def initialize(name, self_class_name, options = {})
-    # ...
+    @primary_key = options.has_key?(:primary_key) ? options[:primary_key] : :id 
+    @foreign_key = options.has_key?(:foreign_key) ? options[:foreign_key] : "#{self_class_name}Id".underscore.to_sym
+    @class_name = options.has_key?(:class_name) ? options[:class_name] : name.singularize.capitalize
   end
 end
 

@@ -124,7 +124,7 @@ class SQLObject
   end
 
   def save
-    # ...
+    self.id.nil? ? self.insert : self.update 
   end
 
   self.finalize! #create getter and setter methods for each column 

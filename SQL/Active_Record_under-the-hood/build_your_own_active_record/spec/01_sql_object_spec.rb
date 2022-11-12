@@ -124,7 +124,7 @@ describe SQLObject do
         # #initialize gets called, so we use ::allocate to create a
         # blank Cat object first and then call #initialize manually.
         c = Cat.allocate
-        #debugger 
+
         expect(c).to receive(:name=).with('Don Frye')
         expect(c).to receive(:id=).with(100)
         expect(c).to receive(:owner_id=).with(4)
@@ -219,6 +219,7 @@ describe SQLObject do
 
         human.fname = 'Matthew'
         human.lname = 'von Rubens'
+    
         human.update
 
         # pull the human again

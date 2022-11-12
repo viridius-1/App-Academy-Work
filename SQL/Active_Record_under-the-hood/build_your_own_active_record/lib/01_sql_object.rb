@@ -1,30 +1,33 @@
 require_relative 'db_connection'
 require 'active_support/inflector'
+require 'byebug'
 # NB: the attr_accessor we wrote in phase 0 is NOT used in the rest
 # of this project. It was only a warm up.
 
 class SQLObject
-  def self.columns
-    if @columns.nil? 
-      cats_table_data =
+  def self.columns 
+    if @columns.nil? && self != SQLObject
+      table_data =
       DBConnection.execute2(<<-SQL)
         SELECT 
-          id, name, owner_id
+          *
         FROM 
-          cats
+          #{self.table_name}
         LIMIT 
           1
       SQL
-      @columns = cats_table_data[0].map(&:to_sym)
+      @columns = table_data[0].map(&:to_sym)
     else 
       @columns 
     end 
   end
 
   def self.finalize!
-      self.columns.each do |column|
-        define_method("#{column}=") { |value| attributes[column] = value } 
-        define_method(column) { attributes[column] }  
+      if self != SQLObject
+        self.columns.each do |column|
+          define_method("#{column}=") { |value| attributes[column] = value } 
+          define_method(column) { attributes[column] }  
+        end 
       end 
   end
 
@@ -44,9 +47,9 @@ class SQLObject
     database_hash_objects = 
     DBConnection.execute(<<-SQL)
         SELECT 
-          cats.*
+          *
         FROM 
-          cats
+          #{self.table_name}
       SQL
 
     self.parse_all(database_hash_objects)
@@ -60,9 +63,9 @@ class SQLObject
     hash_object = 
     DBConnection.execute(<<-SQL)
         SELECT 
-          cats.*
+          *
         FROM 
-          cats
+          #{self.table_name}
         WHERE 
           id = "#{id}"
       SQL
@@ -88,7 +91,6 @@ class SQLObject
   end
 
   def insert
-    #debugger 
     col_names = self.class.columns[1..-1]
     col_names_string = col_names.join(', ')
 
@@ -97,7 +99,7 @@ class SQLObject
 
     DBConnection.execute(<<-SQL, *attribute_values[1..-1])
       INSERT INTO
-        cats (#{col_names_string})
+        #{self.class.table_name} (#{col_names_string})
       VALUES
         (#{question_marks_string})
     SQL
@@ -105,7 +107,20 @@ class SQLObject
   end
 
   def update
-    # ...
+    #make SET line 
+    set_line_arr = []
+    columns = self.class.columns[1..-1]
+    columns.each { |column| set_line_arr << "#{column} = ?" }  
+    set_line_string = set_line_arr.join(', ')
+
+    DBConnection.execute(<<-SQL, *attribute_values[1..-1], self.id)
+      UPDATE
+        #{self.class.table_name} 
+      SET
+        #{set_line_string}
+      WHERE
+        id = ? 
+    SQL
   end
 
   def save

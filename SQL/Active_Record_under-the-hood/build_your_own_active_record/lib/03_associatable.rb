@@ -1,5 +1,6 @@
 require_relative '02_searchable'
 require 'active_support/inflector'
+require 'byebug'
 
 # Phase IIIa
 class AssocOptions
@@ -37,11 +38,23 @@ end
 module Associatable
   # Phase IIIb
   def belongs_to(name, options = {})
-    # ...
+    options = BelongsToOptions.new(name.to_s, options) 
+    define_method(name) do
+      foreign_key = options.send(:foreign_key)
+      class_name = options.model_class
+      record = class_name.where(id: self.send(foreign_key))
+      record[0]
+    end 
   end
 
   def has_many(name, options = {})
-    # ...
+    options = HasManyOptions.new(name.to_s, self, options)
+    define_method(name) do 
+      foreign_key = options.send(:foreign_key)
+      class_name = options.model_class
+      human_id = self.send(:id) 
+      records = class_name.where(foreign_key => human_id)
+    end 
   end
 
   def assoc_options
@@ -50,5 +63,7 @@ module Associatable
 end
 
 class SQLObject
-  # Mixin Associatable here...
+  extend Associatable
 end
+
+

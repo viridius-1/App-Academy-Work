@@ -9,19 +9,17 @@ module Searchable
     keys.each { |key| where_line_arr << "#{key} = ?" }
     where_line_string = where_line_arr.join(' AND ')
 
-    if self.class != SQLObject 
-      hash_objects = 
-      DBConnection.execute(<<-SQL, *params.values)
-          SELECT 
-            *
-          FROM 
-            #{self.table_name}
-          WHERE 
-            #{where_line_string}
-        SQL
-      self.parse_all(hash_objects)
-    end 
-  end
+    hash_objects = 
+    DBConnection.execute(<<-SQL, *params.values)
+        SELECT 
+          *
+        FROM 
+          #{self.table_name}
+        WHERE 
+          #{where_line_string}
+      SQL
+    self.parse_all(hash_objects)
+end
 end
 
 class SQLObject

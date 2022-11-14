@@ -52,8 +52,7 @@ module Associatable
     define_method(name) do 
       foreign_key = options.send(:foreign_key)
       class_name = options.model_class
-      human_id = self.send(:id) 
-      records = class_name.where(foreign_key => human_id)
+      records = class_name.where(foreign_key => self.send(:id))
     end 
   end
 

@@ -178,7 +178,7 @@ PLATFORMS
   x86_64-darwin-22
 
 DEPENDENCIES
-  annotate
+  annotate (= 3.2.0)
   better_errors
   binding_of_caller
   byebug
@@ -186,7 +186,7 @@ DEPENDENCIES
   pg (~> 1.1)
   pry-rails
   puma (~> 5.0)
-  rails (~> 7.0.3)
+  rails (~> 7.0.4.1)
   sprockets-rails
   tzinfo-data
 

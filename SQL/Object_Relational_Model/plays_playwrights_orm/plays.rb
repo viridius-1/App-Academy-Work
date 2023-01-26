@@ -12,7 +12,7 @@ class PlayDBConnection < SQLite3::Database
 end 
 
 
-class Play 
+class Play
     attr_accessor :id, :playwright_id, :title, :year
 
     def self.all 

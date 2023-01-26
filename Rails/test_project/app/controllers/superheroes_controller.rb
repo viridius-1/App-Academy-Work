@@ -34,5 +34,5 @@ class SuperheroesController < ApplicationController
     def superhero_params 
         params.require(:superhero).permit(:name, :secret_identity, :power)
     end 
-    
+
 end 

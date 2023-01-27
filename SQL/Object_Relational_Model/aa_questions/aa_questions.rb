@@ -170,7 +170,7 @@ class User
     end 
 
     def average_karma 
-        #get data of the number of questions per user 
+        #get data of number of questions per user 
         user_num_questions_data = QuestionsDatabase.instance.execute("
             SELECT 
                 COUNT(DISTINCT question_id) AS num_questions 

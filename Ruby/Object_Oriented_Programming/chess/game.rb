@@ -242,3 +242,5 @@ class Game
     end 
 
 end 
+
+Game.new

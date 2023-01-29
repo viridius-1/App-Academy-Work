@@ -250,7 +250,7 @@ class ComputerPlayer < Player
     end 
 
     def take_player_piece?
-        if black_can_take_player_piece? 
+        if black_can_take_player_piece?
             black_take_player_hash = get_black_take_player_hash 
             black_take_player_arr = sort_by_white_piece_score(black_take_player_hash)
             return true if valid_take_player_piece_move?(black_take_player_arr)

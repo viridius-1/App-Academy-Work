@@ -1771,3 +1771,550 @@ Migrating to CreateSuperheroes (20230121054256)
   [1m[36mTRANSACTION (5.4ms)[0m  [1m[35mCOMMIT[0m
   [1m[36mSuperhero Load (0.4ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes"[0m
   [1m[36mSuperhero Load (57.9ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes"[0m
+Started GET "/silly" for ::1 at 2023-01-27 18:22:37 -0800
+  [1m[36mActiveRecord::SchemaMigration Pluck (6.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SillyController#fun as HTML
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms | Allocations: 395)
+
+
+Started GET "/superheroes" for ::1 at 2023-01-27 18:22:58 -0800
+Processing by SuperheroesController#index as HTML
+  [1m[36mSuperhero Load (87.3ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes"[0m
+  ↳ app/controllers/superheroes_controller.rb:4:in `index'
+Completed 200 OK in 226ms (Views: 19.3ms | ActiveRecord: 199.4ms | Allocations: 6534)
+
+
+  [1m[36mSuperhero Load (0.6ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes"[0m
+Started GET "/superheroes" for ::1 at 2023-01-27 18:33:12 -0800
+  [1m[36mActiveRecord::SchemaMigration Pluck (3.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SuperheroesController#index as HTML
+  [1m[36mSuperhero Load (0.6ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes"[0m
+  ↳ app/controllers/superheroes_controller.rb:4:in `index'
+Completed 200 OK in 18ms (Views: 9.3ms | ActiveRecord: 5.1ms | Allocations: 6762)
+
+
+Started GET "/superheroes" for ::1 at 2023-01-27 18:33:16 -0800
+Processing by SuperheroesController#index as */*
+  [1m[36mSuperhero Load (0.2ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes"[0m
+  ↳ app/controllers/superheroes_controller.rb:4:in `index'
+Completed 200 OK in 8ms (Views: 7.7ms | ActiveRecord: 0.2ms | Allocations: 1038)
+
+
+Started GET "/superheroes/1" for ::1 at 2023-01-27 18:45:53 -0800
+Processing by SuperheroesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mSuperhero Load (5.1ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:8:in `show'
+Completed 200 OK in 142ms (Views: 1.6ms | ActiveRecord: 16.5ms | Allocations: 8628)
+
+
+Started GET "/superheroes/1" for ::1 at 2023-01-27 18:46:00 -0800
+Processing by SuperheroesController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mSuperhero Load (0.7ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:8:in `show'
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.7ms | Allocations: 688)
+
+
+Started GET "/superheroes/2" for ::1 at 2023-01-27 19:16:50 -0800
+Processing by SuperheroesController#show as */*
+  Parameters: {"id"=>"2"}
+  [1m[36mSuperhero Load (41.0ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:8:in `show'
+Completed 200 OK in 456ms (Views: 5.3ms | ActiveRecord: 213.8ms | Allocations: 3510)
+
+
+Started GET "/superheroes/2" for ::1 at 2023-01-27 19:16:57 -0800
+Processing by SuperheroesController#show as */*
+  Parameters: {"id"=>"2"}
+  [1m[36mSuperhero Load (0.2ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:8:in `show'
+Completed 200 OK in 3ms (Views: 0.3ms | ActiveRecord: 0.2ms | Allocations: 689)
+
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 00:06:10 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"id"=>"2"}
+  [1m[36mSuperhero Load (27.9ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+Completed 400 Bad Request in 338ms (ActiveRecord: 150.4ms | Allocations: 3971)
+
+
+
+ActionController::ParameterMissing - param is missing or the value is empty: superhero:
+  app/controllers/superheroes_controller.rb:35:in `superhero_params'
+  app/controllers/superheroes_controller.rb:15:in `update'
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 00:06:24 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"id"=>"2"}
+  [1m[36mSuperhero Load (0.2ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+Completed 400 Bad Request in 2ms (ActiveRecord: 0.2ms | Allocations: 1092)
+
+
+
+ActionController::ParameterMissing - param is missing or the value is empty: superhero:
+  app/controllers/superheroes_controller.rb:35:in `superhero_params'
+  app/controllers/superheroes_controller.rb:15:in `update'
+
+Started GET "/superheroes/2" for ::1 at 2023-01-28 00:06:35 -0800
+Processing by SuperheroesController#show as */*
+  Parameters: {"id"=>"2"}
+  [1m[36mSuperhero Load (0.4ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:8:in `show'
+Completed 200 OK in 11ms (Views: 7.4ms | ActiveRecord: 0.4ms | Allocations: 677)
+
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 00:08:35 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"power"=>"200", "id"=>"2"}
+  [1m[36mSuperhero Load (10.9ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+Completed 400 Bad Request in 13ms (ActiveRecord: 10.9ms | Allocations: 1092)
+
+
+
+ActionController::ParameterMissing - param is missing or the value is empty: superhero:
+  app/controllers/superheroes_controller.rb:35:in `superhero_params'
+  app/controllers/superheroes_controller.rb:15:in `update'
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 00:08:55 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"power"=>"200", "id"=>"2"}
+  [1m[36mSuperhero Load (0.4ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+Completed 400 Bad Request in 3ms (ActiveRecord: 0.4ms | Allocations: 1092)
+
+
+
+ActionController::ParameterMissing - param is missing or the value is empty: superhero:
+  app/controllers/superheroes_controller.rb:35:in `superhero_params'
+  app/controllers/superheroes_controller.rb:15:in `update'
+
+Started PUT "/superheroes/2" for ::1 at 2023-01-28 00:09:00 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"power"=>"200", "id"=>"2"}
+  [1m[36mSuperhero Load (0.2ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+Completed 400 Bad Request in 2ms (ActiveRecord: 0.2ms | Allocations: 1092)
+
+
+
+ActionController::ParameterMissing - param is missing or the value is empty: superhero:
+  app/controllers/superheroes_controller.rb:35:in `superhero_params'
+  app/controllers/superheroes_controller.rb:15:in `update'
+
+Started GET "/superheroes/2" for ::1 at 2023-01-28 00:11:07 -0800
+Processing by SuperheroesController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mSuperhero Load (0.2ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:8:in `show'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.2ms | Allocations: 673)
+
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 00:11:51 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"power"=>"200", "id"=>"2"}
+  [1m[36mSuperhero Load (0.5ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+Completed 400 Bad Request in 10ms (ActiveRecord: 0.5ms | Allocations: 1092)
+
+
+
+ActionController::ParameterMissing - param is missing or the value is empty: superhero:
+  app/controllers/superheroes_controller.rb:35:in `superhero_params'
+  app/controllers/superheroes_controller.rb:15:in `update'
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 00:15:18 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero/power"=>"200", "id"=>"2"}
+  [1m[36mSuperhero Load (0.2ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+Completed 400 Bad Request in 4ms (ActiveRecord: 0.2ms | Allocations: 1092)
+
+
+
+ActionController::ParameterMissing - param is missing or the value is empty: superhero:
+  app/controllers/superheroes_controller.rb:35:in `superhero_params'
+  app/controllers/superheroes_controller.rb:15:in `update'
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 00:15:25 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200"}, "id"=>"2"}
+  [1m[36mSuperhero Load (0.3ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/superheroes_controller.rb:15:in `update'
+  [1m[36mSuperhero Update (68.6ms)[0m  [1m[33mUPDATE "superheroes" SET "power" = $1, "updated_at" = $2 WHERE "superheroes"."id" = $3[0m  [["power", 200], ["updated_at", "2023-01-28 08:15:25.272449"], ["id", 2]]
+  ↳ app/controllers/superheroes_controller.rb:15:in `update'
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/superheroes_controller.rb:15:in `update'
+Completed 200 OK in 266ms (Views: 0.7ms | ActiveRecord: 70.5ms | Allocations: 4095)
+
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 00:15:35 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200"}, "id"=>"2"}
+  [1m[36mSuperhero Load (0.3ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+Completed 200 OK in 53ms (Views: 0.2ms | ActiveRecord: 0.3ms | Allocations: 821)
+
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 00:24:25 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"power"=>"200", "id"=>"2"}
+  [1m[36mSuperhero Load (1.0ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+Completed 400 Bad Request in 144ms (ActiveRecord: 28.6ms | Allocations: 3952)
+
+
+
+ActionController::ParameterMissing - param is missing or the value is empty: superhero:
+  app/controllers/superheroes_controller.rb:35:in `superhero_params'
+  app/controllers/superheroes_controller.rb:15:in `update'
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 00:32:53 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200"}, "id"=>"2"}
+  [1m[36mSuperhero Load (0.9ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+Completed 200 OK in 130ms (Views: 1.4ms | ActiveRecord: 35.3ms | Allocations: 3646)
+
+
+Started PUT "/superheroes/2" for ::1 at 2023-01-28 00:33:05 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200"}, "id"=>"2"}
+  [1m[36mSuperhero Load (0.2ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+Completed 200 OK in 10ms (Views: 7.8ms | ActiveRecord: 0.2ms | Allocations: 815)
+
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 00:33:09 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200"}, "id"=>"2"}
+  [1m[36mSuperhero Load (0.4ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+Completed 200 OK in 6ms (Views: 0.5ms | ActiveRecord: 0.4ms | Allocations: 816)
+
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 00:35:29 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200"}, "id"=>"2"}
+  [1m[36mSuperhero Load (0.4ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.4ms | Allocations: 816)
+
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 14:59:31 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200", "name"=>"\"New Powdered Toast Man\""}, "id"=>"2"}
+  [1m[36mSuperhero Load (29.1ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/superheroes_controller.rb:15:in `update'
+  [1m[36mSuperhero Update (38.4ms)[0m  [1m[33mUPDATE "superheroes" SET "name" = $1, "updated_at" = $2 WHERE "superheroes"."id" = $3[0m  [["name", "\"New Powdered Toast Man\""], ["updated_at", "2023-01-28 22:59:31.985356"], ["id", 2]]
+  ↳ app/controllers/superheroes_controller.rb:15:in `update'
+  [1m[36mTRANSACTION (45.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/superheroes_controller.rb:15:in `update'
+Completed 200 OK in 646ms (Views: 4.0ms | ActiveRecord: 358.2ms | Allocations: 5443)
+
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 14:59:45 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200", "name"=>"New Powdered Toast Man"}, "id"=>"2"}
+  [1m[36mSuperhero Load (0.8ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/superheroes_controller.rb:15:in `update'
+  [1m[36mSuperhero Update (52.3ms)[0m  [1m[33mUPDATE "superheroes" SET "name" = $1, "updated_at" = $2 WHERE "superheroes"."id" = $3[0m  [["name", "New Powdered Toast Man"], ["updated_at", "2023-01-28 22:59:45.357883"], ["id", 2]]
+  ↳ app/controllers/superheroes_controller.rb:15:in `update'
+  [1m[36mTRANSACTION (40.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/superheroes_controller.rb:15:in `update'
+Completed 200 OK in 156ms (Views: 0.4ms | ActiveRecord: 94.0ms | Allocations: 2602)
+
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 15:08:12 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200", "name"=>"New Powdered Toast Man", "dfsdfg"=>"Random"}, "id"=>"2"}
+  [1m[36mSuperhero Load (0.7ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+[31mUnpermitted parameter: :dfsdfg. Context: { controller: SuperheroesController, action: update, request: #<ActionDispatch::Request:0x000000010ed11690>, params: {"superhero"=>{"power"=>"200", "name"=>"New Powdered Toast Man", "dfsdfg"=>"Random"}, "controller"=>"superheroes", "action"=>"update", "id"=>"2"} }[0m
+Completed 200 OK in 188ms (Views: 1.4ms | ActiveRecord: 68.8ms | Allocations: 3749)
+
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 15:19:41 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200", "name"=>"New Powdered Toast Man", "dfsdfg"=>"Random"}, "id"=>"2"}
+  [1m[36mSuperhero Load (1.3ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+[31mUnpermitted parameter: :dfsdfg. Context: { controller: SuperheroesController, action: update, request: #<ActionDispatch::Request:0x000000010ecb6380>, params: {"superhero"=>{"power"=>"200", "name"=>"New Powdered Toast Man", "dfsdfg"=>"Random"}, "controller"=>"superheroes", "action"=>"update", "id"=>"2"} }[0m
+Completed 200 OK in 274ms (Views: 2.3ms | ActiveRecord: 109.5ms | Allocations: 3733)
+
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 15:56:00 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200", "name"=>"New Powdered Toast Man", "dfsdfg"=>"Random"}, "id"=>"2"}
+  [1m[36mSuperhero Load (41.1ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+Completed 500 Internal Server Error in 170ms (ActiveRecord: 50.4ms | Allocations: 7012)
+
+
+
+ActiveModel::ForbiddenAttributesError - ActiveModel::ForbiddenAttributesError:
+  app/controllers/superheroes_controller.rb:15:in `update'
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 15:56:26 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200", "name"=>"New Powdered Toast Man", "dfsdfg"=>"Random"}, "id"=>"2"}
+  [1m[36mSuperhero Load (0.4ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+Completed 500 Internal Server Error in 115ms (ActiveRecord: 106.4ms | Allocations: 4340)
+
+
+
+ActiveModel::ForbiddenAttributesError - ActiveModel::ForbiddenAttributesError:
+  app/controllers/superheroes_controller.rb:15:in `update'
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 16:01:12 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200", "name"=>"New Powdered Toast Man", "dfsdfg"=>"Random"}, "id"=>"2"}
+  [1m[36mSuperhero Load (0.5ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+Completed 500 Internal Server Error in 43ms (ActiveRecord: 8.2ms | Allocations: 4298)
+
+
+
+ActiveModel::ForbiddenAttributesError - ActiveModel::ForbiddenAttributesError:
+  app/controllers/superheroes_controller.rb:15:in `update'
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 16:01:29 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200", "name"=>"New Powdered Toast Man", "dfsdfg"=>"Random"}, "id"=>"2"}
+  [1m[36mSuperhero Load (0.4ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+Completed 500 Internal Server Error in 36ms (ActiveRecord: 17.5ms | Allocations: 4291)
+
+
+
+ActiveModel::ForbiddenAttributesError - ActiveModel::ForbiddenAttributesError:
+  app/controllers/superheroes_controller.rb:15:in `update'
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 16:01:42 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200", "name"=>"New Powdered Toast Man", "dfsdfg"=>"Random"}, "id"=>"2"}
+  [1m[36mSuperhero Load (1.3ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+[31mUnpermitted parameter: :dfsdfg. Context: { controller: SuperheroesController, action: update, request: #<ActionDispatch::Request:0x000000010eb91180>, params: {"superhero"=>{"power"=>"200", "name"=>"New Powdered Toast Man", "dfsdfg"=>"Random"}, "controller"=>"superheroes", "action"=>"update", "id"=>"2"} }[0m
+Completed 200 OK in 25ms (Views: 1.8ms | ActiveRecord: 5.0ms | Allocations: 4200)
+
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 16:02:00 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200", "name"=>"New Powdered Toast Man", "dfsdfg"=>"Random"}, "id"=>"2"}
+  [1m[36mSuperhero Load (0.2ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+[31mUnpermitted parameters: :power, :name, :dfsdfg. Context: { controller: SuperheroesController, action: update, request: #<ActionDispatch::Request:0x000000010f172310>, params: {"superhero"=>{"power"=>"200", "name"=>"New Powdered Toast Man", "dfsdfg"=>"Random"}, "controller"=>"superheroes", "action"=>"update", "id"=>"2"} }[0m
+Completed 200 OK in 11ms (Views: 0.2ms | ActiveRecord: 3.1ms | Allocations: 4153)
+
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 16:02:02 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200", "name"=>"New Powdered Toast Man", "dfsdfg"=>"Random"}, "id"=>"2"}
+  [1m[36mSuperhero Load (0.1ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+[31mUnpermitted parameters: :power, :name, :dfsdfg. Context: { controller: SuperheroesController, action: update, request: #<ActionDispatch::Request:0x000000010f1f7f88>, params: {"superhero"=>{"power"=>"200", "name"=>"New Powdered Toast Man", "dfsdfg"=>"Random"}, "controller"=>"superheroes", "action"=>"update", "id"=>"2"} }[0m
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.1ms | Allocations: 868)
+
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 16:02:22 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200", "name"=>"Cool Powdered Toast Man", "dfsdfg"=>"Random"}, "id"=>"2"}
+  [1m[36mSuperhero Load (0.1ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+[31mUnpermitted parameters: :power, :name, :dfsdfg. Context: { controller: SuperheroesController, action: update, request: #<ActionDispatch::Request:0x000000010f23f5b8>, params: {"superhero"=>{"power"=>"200", "name"=>"Cool Powdered Toast Man", "dfsdfg"=>"Random"}, "controller"=>"superheroes", "action"=>"update", "id"=>"2"} }[0m
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.1ms | Allocations: 868)
+
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 16:02:23 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200", "name"=>"Cool Powdered Toast Man", "dfsdfg"=>"Random"}, "id"=>"2"}
+  [1m[36mSuperhero Load (0.5ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+[31mUnpermitted parameters: :power, :name, :dfsdfg. Context: { controller: SuperheroesController, action: update, request: #<ActionDispatch::Request:0x000000010f236cd8>, params: {"superhero"=>{"power"=>"200", "name"=>"Cool Powdered Toast Man", "dfsdfg"=>"Random"}, "controller"=>"superheroes", "action"=>"update", "id"=>"2"} }[0m
+Completed 200 OK in 10ms (Views: 0.3ms | ActiveRecord: 0.5ms | Allocations: 869)
+
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 16:02:35 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200", "name"=>"Cool Powdered Toast Man", "dfsdfg"=>"Random"}, "id"=>"2"}
+  [1m[36mSuperhero Load (0.2ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+[31mUnpermitted parameter: :dfsdfg. Context: { controller: SuperheroesController, action: update, request: #<ActionDispatch::Request:0x000000010e05a780>, params: {"superhero"=>{"power"=>"200", "name"=>"Cool Powdered Toast Man", "dfsdfg"=>"Random"}, "controller"=>"superheroes", "action"=>"update", "id"=>"2"} }[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/superheroes_controller.rb:15:in `update'
+  [1m[36mSuperhero Update (49.1ms)[0m  [1m[33mUPDATE "superheroes" SET "name" = $1, "updated_at" = $2 WHERE "superheroes"."id" = $3[0m  [["name", "Cool Powdered Toast Man"], ["updated_at", "2023-01-29 00:02:36.202001"], ["id", 2]]
+  ↳ app/controllers/superheroes_controller.rb:15:in `update'
+  [1m[36mTRANSACTION (2.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/superheroes_controller.rb:15:in `update'
+Completed 200 OK in 73ms (Views: 0.4ms | ActiveRecord: 54.6ms | Allocations: 6066)
+
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 16:02:46 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200", "name"=>"New Powdered Toast Man", "dfsdfg"=>"Random"}, "id"=>"2"}
+  [1m[36mSuperhero Load (0.2ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+[31mUnpermitted parameter: :dfsdfg. Context: { controller: SuperheroesController, action: update, request: #<ActionDispatch::Request:0x000000010f0d9d90>, params: {"superhero"=>{"power"=>"200", "name"=>"New Powdered Toast Man", "dfsdfg"=>"Random"}, "controller"=>"superheroes", "action"=>"update", "id"=>"2"} }[0m
+  [1m[36mTRANSACTION (8.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/superheroes_controller.rb:15:in `update'
+  [1m[36mSuperhero Update (40.3ms)[0m  [1m[33mUPDATE "superheroes" SET "name" = $1, "updated_at" = $2 WHERE "superheroes"."id" = $3[0m  [["name", "New Powdered Toast Man"], ["updated_at", "2023-01-29 00:02:46.091265"], ["id", 2]]
+  ↳ app/controllers/superheroes_controller.rb:15:in `update'
+  [1m[36mTRANSACTION (41.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/superheroes_controller.rb:15:in `update'
+Completed 200 OK in 98ms (Views: 0.7ms | ActiveRecord: 89.8ms | Allocations: 2682)
+
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 16:11:23 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200", "name"=>"New Powdered Toast Man", "dfsdfg"=>"Random"}, "id"=>"2"}
+  [1m[36mSuperhero Load (0.9ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+Completed 500 Internal Server Error in 78ms (ActiveRecord: 10.2ms | Allocations: 6947)
+
+
+
+ArgumentError - When assigning attributes, you must pass a hash as an argument, Symbol passed.:
+  app/controllers/superheroes_controller.rb:15:in `update'
+
+Started PATCH "/superheroes/2" for ::1 at 2023-01-28 16:11:45 -0800
+Processing by SuperheroesController#update as */*
+  Parameters: {"superhero"=>{"power"=>"200", "name"=>"New Powdered Toast Man", "dfsdfg"=>"Random"}, "id"=>"2"}
+  [1m[36mSuperhero Load (0.4ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:13:in `update'
+Completed 500 Internal Server Error in 19ms (ActiveRecord: 8.5ms | Allocations: 4323)
+
+
+
+ActiveModel::ForbiddenAttributesError - ActiveModel::ForbiddenAttributesError:
+  app/controllers/superheroes_controller.rb:15:in `update'
+
+Started GET "/superheroes/" for ::1 at 2023-01-28 16:37:44 -0800
+Processing by SuperheroesController#index as */*
+  Parameters: {"superhero"=>{"power"=>"200", "name"=>"New Powdered Toast Man", "dfsdfg"=>"Random"}}
+  [1m[36mSuperhero Load (0.6ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes"[0m
+  ↳ app/controllers/superheroes_controller.rb:4:in `index'
+Completed 200 OK in 256ms (Views: 252.6ms | ActiveRecord: 32.3ms | Allocations: 3909)
+
+
+Started GET "/superheroes/2" for ::1 at 2023-01-28 16:40:57 -0800
+Processing by SuperheroesController#show as */*
+  Parameters: {"superhero"=>{"power"=>"200", "name"=>"New Powdered Toast Man", "dfsdfg"=>"Random"}, "id"=>"2"}
+  [1m[36mSuperhero Load (0.4ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:8:in `show'
+Completed 200 OK in 5ms (Views: 0.3ms | ActiveRecord: 0.6ms | Allocations: 712)
+
+
+Started GET "/superheroes/2" for ::1 at 2023-01-28 16:50:00 -0800
+Processing by SuperheroesController#show as */*
+  Parameters: {"superhero"=>{"power"=>"200", "name"=>"New Powdered Toast Man", "dfsdfg"=>"Random"}, "id"=>"2"}
+  [1m[36mSuperhero Load (0.4ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:8:in `show'
+Completed 200 OK in 170ms (Views: 5.1ms | ActiveRecord: 87.9ms | Allocations: 3509)
+
+
+Started GET "/superheroes/2" for ::1 at 2023-01-28 19:42:21 -0800
+  [1m[36mActiveRecord::SchemaMigration Pluck (4.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SuperheroesController#show as */*
+  Parameters: {"id"=>"2"}
+  [1m[36mSuperhero Load (3.3ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:8:in `show'
+Completed 200 OK in 116ms (Views: 2.0ms | ActiveRecord: 54.1ms | Allocations: 9328)
+
+
+Started POST "/superheroes/" for ::1 at 2023-01-28 19:43:29 -0800
+
+AbstractController::ActionNotFound - The action 'create' could not be found for SuperheroesController:
+
+Started POST "/superheroes/" for ::1 at 2023-01-28 20:25:46 -0800
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SuperheroesController#create as */*
+  Parameters: {"superhero"=>{"power"=>"90", "name"=>"Wonder Woman", "secret_identity"=>"Diana Prince"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/superheroes_controller.rb:15:in `create'
+  [1m[36mSuperhero Create (52.0ms)[0m  [1m[32mINSERT INTO "superheroes" ("name", "secret_identity", "power", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Wonder Woman"], ["secret_identity", "Diana Prince"], ["power", 90], ["created_at", "2023-01-29 04:25:46.859741"], ["updated_at", "2023-01-29 04:25:46.859741"]]
+  ↳ app/controllers/superheroes_controller.rb:15:in `create'
+  [1m[36mTRANSACTION (2.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/superheroes_controller.rb:15:in `create'
+Completed 200 OK in 77ms (Views: 1.0ms | ActiveRecord: 58.6ms | Allocations: 9204)
+
+
+Started POST "/superheroes/" for ::1 at 2023-01-28 20:33:51 -0800
+Processing by SuperheroesController#create as */*
+  Parameters: {"superhero"=>{"power"=>"90", "name"=>"Wonder Woman"}}
+Completed 422 Unprocessable Entity in 103ms (Views: 1.4ms | ActiveRecord: 11.0ms | Allocations: 5997)
+
+
+Started POST "/superheroes/" for ::1 at 2023-01-28 23:32:55 -0800
+  [1m[36mActiveRecord::SchemaMigration Pluck (3.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SuperheroesController#create as */*
+  Parameters: {"superhero"=>{"power"=>"90", "name"=>"Wonder Woman"}}
+Completed 422 Unprocessable Entity in 73ms (Views: 0.7ms | ActiveRecord: 46.8ms | Allocations: 8894)
+
+
+Started POST "/superheroes/" for ::1 at 2023-01-28 23:33:53 -0800
+Processing by SuperheroesController#create as */*
+  Parameters: {"superhero"=>{"power"=>"90", "name"=>"Wonder Woman", "secret_identity"=>"Diana Prince"}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/superheroes_controller.rb:15:in `create'
+  [1m[36mSuperhero Create (57.5ms)[0m  [1m[32mINSERT INTO "superheroes" ("name", "secret_identity", "power", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Wonder Woman"], ["secret_identity", "Diana Prince"], ["power", 90], ["created_at", "2023-01-29 07:33:53.596086"], ["updated_at", "2023-01-29 07:33:53.596086"]]
+  ↳ app/controllers/superheroes_controller.rb:15:in `create'
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/superheroes_controller.rb:15:in `create'
+Completed 200 OK in 77ms (Views: 0.3ms | ActiveRecord: 59.0ms | Allocations: 3554)
+
+
+Started GET "/superheroes/" for ::1 at 2023-01-28 23:34:04 -0800
+Processing by SuperheroesController#index as */*
+  Parameters: {"superhero"=>{"power"=>"90", "name"=>"Wonder Woman", "secret_identity"=>"Diana Prince"}}
+  [1m[36mSuperhero Load (41.2ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes"[0m
+  ↳ app/controllers/superheroes_controller.rb:4:in `index'
+Completed 200 OK in 45ms (Views: 3.4ms | ActiveRecord: 41.2ms | Allocations: 1419)
+
+
+Started DELETE "/superheroes/5" for ::1 at 2023-01-28 23:34:21 -0800
+Processing by SuperheroesController#destroy as */*
+  Parameters: {"superhero"=>{"power"=>"90", "name"=>"Wonder Woman", "secret_identity"=>"Diana Prince"}, "id"=>"5"}
+  [1m[36mSuperhero Load (0.4ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes" WHERE "superheroes"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/superheroes_controller.rb:33:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/superheroes_controller.rb:35:in `destroy'
+  [1m[36mSuperhero Destroy (4.7ms)[0m  [1m[31mDELETE FROM "superheroes" WHERE "superheroes"."id" = $1[0m  [["id", 5]]
+  ↳ app/controllers/superheroes_controller.rb:35:in `destroy'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/superheroes_controller.rb:35:in `destroy'
+Completed 200 OK in 58ms (Views: 0.3ms | ActiveRecord: 6.0ms | Allocations: 5189)
+
+
+Started GET "/superheroes/" for ::1 at 2023-01-28 23:34:28 -0800
+Processing by SuperheroesController#index as */*
+  Parameters: {"superhero"=>{"power"=>"90", "name"=>"Wonder Woman", "secret_identity"=>"Diana Prince"}}
+  [1m[36mSuperhero Load (0.4ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes"[0m
+  ↳ app/controllers/superheroes_controller.rb:4:in `index'
+Completed 200 OK in 2ms (Views: 1.6ms | ActiveRecord: 0.4ms | Allocations: 1118)
+
+
+Started POST "/superheroes/" for ::1 at 2023-01-28 23:35:07 -0800
+Processing by SuperheroesController#create as */*
+  Parameters: {"superhero"=>{"power"=>"90", "name"=>"Wonder Woman"}}
+Completed 422 Unprocessable Entity in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 1207)
+
+
+Started GET "/superheroes/" for ::1 at 2023-01-28 23:35:22 -0800
+Processing by SuperheroesController#index as */*
+  Parameters: {"superhero"=>{"power"=>"90", "name"=>"Wonder Woman"}}
+  [1m[36mSuperhero Load (0.2ms)[0m  [1m[34mSELECT "superheroes".* FROM "superheroes"[0m
+  ↳ app/controllers/superheroes_controller.rb:4:in `index'
+Completed 200 OK in 2ms (Views: 1.6ms | ActiveRecord: 0.2ms | Allocations: 1120)
+
+

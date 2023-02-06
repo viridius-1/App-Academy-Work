@@ -9,7 +9,7 @@
 puts "Loading Users..."
 User.destroy_all 
 user1 = User.create(username: "Jake")
-user2 = User.create(username: "Jake")
+user2 = User.create(username: "Ann")
 user3 = User.create(username: "Mary")
 
 puts "Loading Artworks..."

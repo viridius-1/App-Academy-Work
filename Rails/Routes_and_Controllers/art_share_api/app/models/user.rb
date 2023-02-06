@@ -14,4 +14,13 @@ class User < ApplicationRecord
         primary_key: :id, 
         foreign_key: :artist_id, #artworks table 
         class_name: :Artwork 
+
+    has_many :views, 
+        primary_key: :id, 
+        foreign_key: :viewer_id, #artwork_shares table 
+        class_name: :ArtworkShare
+
+    has_many :shared_artworks, 
+        through: :views, 
+        source: :artwork  
 end 

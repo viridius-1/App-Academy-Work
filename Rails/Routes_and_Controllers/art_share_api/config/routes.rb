@@ -15,5 +15,9 @@ Rails.application.routes.draw do
   # put 'users/:id', to: 'users#update'
   # delete 'users/:id', to: 'users#destroy'
 
+  #routes to users controller 
   resources :users, only: [:index, :show, :create, :update, :destroy]
+
+  #routes to artworks controller 
+  resources :artworks, only: [:index, :show, :create, :update, :destroy]
 end

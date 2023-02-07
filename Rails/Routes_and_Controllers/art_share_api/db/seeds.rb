@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+
 puts "Loading Users..."
 User.destroy_all 
 user1 = User.create(username: "Jake")
@@ -53,3 +54,4 @@ artwork_share15 = ArtworkShare.create(artwork_id: artwork9.id, viewer_id: user1.
 artwork_share16 = ArtworkShare.create(artwork_id: artwork7.id, viewer_id: user2.id)
 artwork_share17 = ArtworkShare.create(artwork_id: artwork8.id, viewer_id: user2.id)
 artwork_share18 = ArtworkShare.create(artwork_id: artwork9.id, viewer_id: user2.id)
+

@@ -2,7 +2,7 @@ class ArtworksController < ApplicationController
     skip_before_action :verify_authenticity_token
 
     def index 
-        render json: Artwork.all 
+        render json: Artwork.artworks_for_user_id(params[:user_id])
     end 
 
     def create 
@@ -40,6 +40,5 @@ class ArtworksController < ApplicationController
     def artwork_params
         params.require(:artwork).permit(:title, :image_url, :artist_id)
     end 
-
 
 end 

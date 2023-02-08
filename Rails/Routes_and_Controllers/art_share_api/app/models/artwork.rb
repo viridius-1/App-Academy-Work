@@ -14,6 +14,11 @@ class Artwork < ApplicationRecord
     validates :image_url, uniqueness: true 
     validates :artist_id, uniqueness: { scope: :title, message: "Combination of Artist ID and Title must be unique." }
 
+    def self.artworks_for_user_id(user_id)
+        user = User.find(user_id)
+        user.artworks + user.shared_artworks
+    end 
+
     belongs_to :artist, 
         primary_key: :id, 
         foreign_key: :artist_id, #artworks table

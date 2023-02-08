@@ -19,5 +19,13 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show, :create, :update, :destroy]
 
   #routes to artworks controller 
-  resources :artworks, only: [:index, :show, :create, :update, :destroy]
+  resources :artworks, only: [:show, :create, :update, :destroy]
+
+  #route to get all the artworks of a user. this returns all the artworks a user owns and all the artworks that have been shared with that user. this will allow a GET request to /users/:user_id/artworks
+  resources :users do 
+    resources :artworks, only: [:index]
+  end 
+
+  #routes to artwork_shares controller 
+  resources :artwork_shares, only: [:create, :destroy]
 end

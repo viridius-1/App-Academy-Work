@@ -9,7 +9,7 @@
 #  user_id    :integer          default(0), not null
 
 class Like < ApplicationRecord 
-    validates :user_id, :post_id, presence: true 
+    #validates :user_id, :post_id, presence: true 
 
     belongs_to :user, 
         inverse_of: :likes 

@@ -22,7 +22,7 @@ class Artwork < ApplicationRecord
     belongs_to :artist, 
         primary_key: :id, 
         foreign_key: :artist_id, #artworks table
-        class_name: :User 
+        class_name: :User
 
     has_many :shares, 
         primary_key: :id,  

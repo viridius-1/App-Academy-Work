@@ -54,4 +54,3 @@ artwork_share15 = ArtworkShare.create(artwork_id: artwork9.id, viewer_id: user1.
 artwork_share16 = ArtworkShare.create(artwork_id: artwork7.id, viewer_id: user2.id)
 artwork_share17 = ArtworkShare.create(artwork_id: artwork8.id, viewer_id: user2.id)
 artwork_share18 = ArtworkShare.create(artwork_id: artwork9.id, viewer_id: user2.id)
-

@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController 
-    self.verify_authenticity_token
+    verify_authenticity_token
 
     def index 
         if params[:author_id]

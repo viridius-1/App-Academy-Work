@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    self.verify_authenticity_token
+    verify_authenticity_token
 
     def index
         render json: User.all 

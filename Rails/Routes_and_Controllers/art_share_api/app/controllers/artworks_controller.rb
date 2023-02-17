@@ -1,5 +1,5 @@
 class ArtworksController < ApplicationController
-    self.verify_authenticity_token
+    verify_authenticity_token
 
     def index 
         render json: Artwork.artworks_for_user_id(params[:user_id])

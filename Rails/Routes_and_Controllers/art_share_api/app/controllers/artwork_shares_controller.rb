@@ -1,5 +1,5 @@
 class ArtworkSharesController < ApplicationController
-    self.verify_authenticity_token
+    verify_authenticity_token
 
     def create 
         artwork_share = ArtworkShare.new(artwork_share_params)

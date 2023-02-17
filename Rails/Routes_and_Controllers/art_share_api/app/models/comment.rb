@@ -21,4 +21,10 @@ class Comment < ApplicationRecord
         primary_key: :id, 
         foreign_key: :artwork_id, #comments table
         class_name: :Artwork
+    
+    has_many :likes, as: :likeable
+
+    has_many :likers, 
+        through: :likes, 
+        source: :liker
 end 

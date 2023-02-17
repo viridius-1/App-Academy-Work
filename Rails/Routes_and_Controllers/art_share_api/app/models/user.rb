@@ -31,7 +31,28 @@ class User < ApplicationRecord
         inverse_of: :author,
         dependent: :destroy
 
+    has_many :likes, 
+        primary_key: :id, 
+        foreign_key: :user_id, #likes table 
+        class_name: :Like,  
+        inverse_of: :liker, 
+        dependent: :destroy
+
     has_many :shared_artworks, 
         through: :views, 
         source: :artwork
+    
+    def liked_items(item)
+        items_liked_by_user = []
+        likes.each { |like| items_liked_by_user << like if like.likeable_type == item } 
+        items_liked_by_user
+    end 
+
+    def liked_comments
+        liked_items("Comment")
+    end 
+
+    def liked_artworks
+        liked_items("Artwork")
+    end 
 end 

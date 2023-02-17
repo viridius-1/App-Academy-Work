@@ -81,3 +81,48 @@ comment15 = Comment.create(author_id: user3.id, artwork_id: artwork3.id, body: "
 comment16 = Comment.create(author_id: user3.id, artwork_id: artwork4.id, body: "Mary comment on Ann Art1")
 comment17 = Comment.create(author_id: user3.id, artwork_id: artwork5.id, body: "Mary comment on Ann Art2")
 comment18 = Comment.create(author_id: user3.id, artwork_id: artwork6.id, body: "Mary comment on Ann Art3")
+
+puts "Loading Likes..."
+Like.destroy_all 
+#Jake's Liked Artworks 
+like1 = Like.create(user_id: user1.id, likeable_id: artwork4.id, likeable_type: Artwork)
+like2 = Like.create(user_id: user1.id, likeable_id: artwork5.id, likeable_type: Artwork)
+like3 = Like.create(user_id: user1.id, likeable_id: artwork6.id, likeable_type: Artwork)
+like4 = Like.create(user_id: user1.id, likeable_id: artwork7.id, likeable_type: Artwork)
+like5 = Like.create(user_id: user1.id, likeable_id: artwork8.id, likeable_type: Artwork)
+like6 = Like.create(user_id: user1.id, likeable_id: artwork9.id, likeable_type: Artwork)
+#Jake's Liked Comments
+like7 = Like.create(user_id: user1.id, likeable_id: comment7.id, likeable_type: Comment)
+like8 = Like.create(user_id: user1.id, likeable_id: comment8.id, likeable_type: Comment)
+like9 = Like.create(user_id: user1.id, likeable_id: comment9.id, likeable_type: Comment)
+like10 = Like.create(user_id: user1.id, likeable_id: comment13.id, likeable_type: Comment)
+like11 = Like.create(user_id: user1.id, likeable_id: comment14.id, likeable_type: Comment)
+like12 = Like.create(user_id: user1.id, likeable_id: comment15.id, likeable_type: Comment)
+#Ann's Liked Artworks 
+like13 = Like.create(user_id: user2.id, likeable_id: artwork1.id, likeable_type: Artwork)
+like14 = Like.create(user_id: user2.id, likeable_id: artwork2.id, likeable_type: Artwork)
+like15 = Like.create(user_id: user2.id, likeable_id: artwork3.id, likeable_type: Artwork)
+like16 = Like.create(user_id: user2.id, likeable_id: artwork7.id, likeable_type: Artwork)
+like17 = Like.create(user_id: user2.id, likeable_id: artwork8.id, likeable_type: Artwork)
+like18 = Like.create(user_id: user2.id, likeable_id: artwork9.id, likeable_type: Artwork)
+#Ann's Liked Comments 
+like19 = Like.create(user_id: user2.id, likeable_id: comment1.id, likeable_type: Comment)
+like20 = Like.create(user_id: user2.id, likeable_id: comment2.id, likeable_type: Comment)
+like21 = Like.create(user_id: user2.id, likeable_id: comment3.id, likeable_type: Comment)
+like22 = Like.create(user_id: user2.id, likeable_id: comment16.id, likeable_type: Comment)
+like23 = Like.create(user_id: user2.id, likeable_id: comment17.id, likeable_type: Comment)
+like24 = Like.create(user_id: user2.id, likeable_id: comment18.id, likeable_type: Comment)
+#Mary's Liked Artworks 
+like25 = Like.create(user_id: user3.id, likeable_id: artwork1.id, likeable_type: Artwork)
+like26 = Like.create(user_id: user3.id, likeable_id: artwork2.id, likeable_type: Artwork)
+like27 = Like.create(user_id: user3.id, likeable_id: artwork3.id, likeable_type: Artwork)
+like28 = Like.create(user_id: user3.id, likeable_id: artwork4.id, likeable_type: Artwork)
+like29 = Like.create(user_id: user3.id, likeable_id: artwork5.id, likeable_type: Artwork)
+like30 = Like.create(user_id: user3.id, likeable_id: artwork6.id, likeable_type: Artwork)
+#Mary's Liked Comments 
+like31 = Like.create(user_id: user3.id, likeable_id: comment4.id, likeable_type: Comment)
+like32 = Like.create(user_id: user3.id, likeable_id: comment5.id, likeable_type: Comment)
+like33 = Like.create(user_id: user3.id, likeable_id: comment6.id, likeable_type: Comment)
+like34 = Like.create(user_id: user3.id, likeable_id: comment10.id, likeable_type: Comment)
+like35 = Like.create(user_id: user3.id, likeable_id: comment11.id, likeable_type: Comment)
+like36 = Like.create(user_id: user3.id, likeable_id: comment12.id, likeable_type: Comment)

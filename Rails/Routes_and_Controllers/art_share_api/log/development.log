@@ -21162,3 +21162,1163 @@ Processing by CommentsController#index as */*
 Completed 200 OK in 8ms (Views: 5.6ms | ActiveRecord: 1.6ms | Allocations: 2466)
 
 
+  [1m[36mActiveRecord::SchemaMigration Pluck (7.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.7ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (647.6ms)[0m  [1m[35mDROP DATABASE IF EXISTS "art_share_api_development"[0m
+  [1m[35m (172.4ms)[0m  [1m[35mDROP DATABASE IF EXISTS "art_share_api_test"[0m
+  [1m[35m (1136.8ms)[0m  [1m[35mCREATE DATABASE "art_share_api_development" ENCODING = 'unicode'[0m
+  [1m[35m (843.6ms)[0m  [1m[35mCREATE DATABASE "art_share_api_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "artwork_shares" CASCADE[0m
+  [1m[35m (13.4ms)[0m  [1m[35mCREATE TABLE "artwork_shares" ("id" bigserial primary key, "viewer_id" integer NOT NULL, "artwork_id" integer NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_artwork_shares_on_viewer_id_and_artwork_id" ON "artwork_shares" ("viewer_id", "artwork_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "artworks" CASCADE[0m
+  [1m[35m (7.3ms)[0m  [1m[35mCREATE TABLE "artworks" ("id" bigserial primary key, "title" character varying NOT NULL, "image_url" character varying NOT NULL, "artist_id" integer NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_artworks_on_artist_id_and_title" ON "artworks" ("artist_id", "title")[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_artworks_on_image_url" ON "artworks" ("image_url")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "comments" CASCADE[0m
+  [1m[35m (4.7ms)[0m  [1m[35mCREATE TABLE "comments" ("id" bigserial primary key, "author_id" integer NOT NULL, "artwork_id" integer NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, "body" text NOT NULL)[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE INDEX "index_comments_on_artwork_id" ON "comments" ("artwork_id")[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE INDEX "index_comments_on_author_id" ON "comments" ("author_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  [1m[35m (6.0ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_username" ON "users" ("username")[0m
+  [1m[35m (4.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20230215082745)[0m
+  [1m[35m (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20230205003304),
+(20230205003558),
+(20230205005534),
+(20230205013631),
+(20230206220852),
+(20230215082203);
+
+[0m
+  [1m[35m (3.9ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-02-17 02:07:02.436284"], ["updated_at", "2023-02-17 02:07:02.436284"]]
+  [1m[36mTRANSACTION (23.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "239fb762cae888735a301e980008a0e15e5366ad"], ["created_at", "2023-02-17 02:07:02.470257"], ["updated_at", "2023-02-17 02:07:02.470257"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "artwork_shares" CASCADE[0m
+  [1m[35m (50.7ms)[0m  [1m[35mCREATE TABLE "artwork_shares" ("id" bigserial primary key, "viewer_id" integer NOT NULL, "artwork_id" integer NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (4.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_artwork_shares_on_viewer_id_and_artwork_id" ON "artwork_shares" ("viewer_id", "artwork_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "artworks" CASCADE[0m
+  [1m[35m (5.8ms)[0m  [1m[35mCREATE TABLE "artworks" ("id" bigserial primary key, "title" character varying NOT NULL, "image_url" character varying NOT NULL, "artist_id" integer NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_artworks_on_artist_id_and_title" ON "artworks" ("artist_id", "title")[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_artworks_on_image_url" ON "artworks" ("image_url")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "comments" CASCADE[0m
+  [1m[35m (6.2ms)[0m  [1m[35mCREATE TABLE "comments" ("id" bigserial primary key, "author_id" integer NOT NULL, "artwork_id" integer NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, "body" text NOT NULL)[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE INDEX "index_comments_on_artwork_id" ON "comments" ("artwork_id")[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE INDEX "index_comments_on_author_id" ON "comments" ("author_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  [1m[35m (30.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_username" ON "users" ("username")[0m
+  [1m[35m (4.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20230215082745)[0m
+  [1m[35m (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20230205003304),
+(20230205003558),
+(20230205005534),
+(20230205013631),
+(20230206220852),
+(20230215082203);
+
+[0m
+  [1m[35m (4.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-02-17 02:07:02.727069"], ["updated_at", "2023-02-17 02:07:02.727069"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.3ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "test"], ["updated_at", "2023-02-17 02:07:02.732622"], ["key", "environment"]]
+  [1m[36mTRANSACTION (40.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "239fb762cae888735a301e980008a0e15e5366ad"], ["created_at", "2023-02-17 02:07:02.778021"], ["updated_at", "2023-02-17 02:07:02.778021"]]
+  [1m[36mTRANSACTION (1.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Jake"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["username", "Jake"], ["created_at", "2023-02-17 02:07:02.891488"], ["updated_at", "2023-02-17 02:07:02.891488"]]
+  [1m[36mTRANSACTION (33.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Ann"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["username", "Ann"], ["created_at", "2023-02-17 02:07:02.931086"], ["updated_at", "2023-02-17 02:07:02.931086"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Mary"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["username", "Mary"], ["created_at", "2023-02-17 02:07:02.941006"], ["updated_at", "2023-02-17 02:07:02.941006"]]
+  [1m[36mTRANSACTION (2.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mArtwork Load (1.0ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "artworks" WHERE "artworks"."image_url" = $1 LIMIT $2[0m  [["image_url", "Jake Art1 URL"], ["LIMIT", 1]]
+  [1m[36mArtwork Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "artworks" WHERE "artworks"."artist_id" = $1 AND "artworks"."title" = $2 LIMIT $3[0m  [["artist_id", 1], ["title", "Jake Art1"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mArtwork Create (0.7ms)[0m  [1m[32mINSERT INTO "artworks" ("title", "image_url", "artist_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "Jake Art1"], ["image_url", "Jake Art1 URL"], ["artist_id", 1], ["created_at", "2023-02-17 02:07:02.982358"], ["updated_at", "2023-02-17 02:07:02.982358"]]
+  [1m[36mTRANSACTION (40.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "artworks" WHERE "artworks"."image_url" = $1 LIMIT $2[0m  [["image_url", "Jake Art2 URL"], ["LIMIT", 1]]
+  [1m[36mArtwork Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "artworks" WHERE "artworks"."artist_id" = $1 AND "artworks"."title" = $2 LIMIT $3[0m  [["artist_id", 1], ["title", "Jake Art2"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mArtwork Create (0.2ms)[0m  [1m[32mINSERT INTO "artworks" ("title", "image_url", "artist_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "Jake Art2"], ["image_url", "Jake Art2 URL"], ["artist_id", 1], ["created_at", "2023-02-17 02:07:03.032331"], ["updated_at", "2023-02-17 02:07:03.032331"]]
+  [1m[36mTRANSACTION (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "artworks" WHERE "artworks"."image_url" = $1 LIMIT $2[0m  [["image_url", "Jake Art3 URL"], ["LIMIT", 1]]
+  [1m[36mArtwork Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "artworks" WHERE "artworks"."artist_id" = $1 AND "artworks"."title" = $2 LIMIT $3[0m  [["artist_id", 1], ["title", "Jake Art3"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mArtwork Create (0.2ms)[0m  [1m[32mINSERT INTO "artworks" ("title", "image_url", "artist_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "Jake Art3"], ["image_url", "Jake Art3 URL"], ["artist_id", 1], ["created_at", "2023-02-17 02:07:03.041830"], ["updated_at", "2023-02-17 02:07:03.041830"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "artworks" WHERE "artworks"."image_url" = $1 LIMIT $2[0m  [["image_url", "Ann Art1 URL"], ["LIMIT", 1]]
+  [1m[36mArtwork Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "artworks" WHERE "artworks"."artist_id" = $1 AND "artworks"."title" = $2 LIMIT $3[0m  [["artist_id", 2], ["title", "Ann Art1"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mArtwork Create (0.2ms)[0m  [1m[32mINSERT INTO "artworks" ("title", "image_url", "artist_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "Ann Art1"], ["image_url", "Ann Art1 URL"], ["artist_id", 2], ["created_at", "2023-02-17 02:07:03.049063"], ["updated_at", "2023-02-17 02:07:03.049063"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "artworks" WHERE "artworks"."image_url" = $1 LIMIT $2[0m  [["image_url", "Ann Art2 URL"], ["LIMIT", 1]]
+  [1m[36mArtwork Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "artworks" WHERE "artworks"."artist_id" = $1 AND "artworks"."title" = $2 LIMIT $3[0m  [["artist_id", 2], ["title", "Ann Art2"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mArtwork Create (0.2ms)[0m  [1m[32mINSERT INTO "artworks" ("title", "image_url", "artist_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "Ann Art2"], ["image_url", "Ann Art2 URL"], ["artist_id", 2], ["created_at", "2023-02-17 02:07:03.055461"], ["updated_at", "2023-02-17 02:07:03.055461"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "artworks" WHERE "artworks"."image_url" = $1 LIMIT $2[0m  [["image_url", "Ann Art3 URL"], ["LIMIT", 1]]
+  [1m[36mArtwork Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "artworks" WHERE "artworks"."artist_id" = $1 AND "artworks"."title" = $2 LIMIT $3[0m  [["artist_id", 2], ["title", "Ann Art3"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mArtwork Create (0.2ms)[0m  [1m[32mINSERT INTO "artworks" ("title", "image_url", "artist_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "Ann Art3"], ["image_url", "Ann Art3 URL"], ["artist_id", 2], ["created_at", "2023-02-17 02:07:03.061870"], ["updated_at", "2023-02-17 02:07:03.061870"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "artworks" WHERE "artworks"."image_url" = $1 LIMIT $2[0m  [["image_url", "Mary Art1 URL"], ["LIMIT", 1]]
+  [1m[36mArtwork Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "artworks" WHERE "artworks"."artist_id" = $1 AND "artworks"."title" = $2 LIMIT $3[0m  [["artist_id", 3], ["title", "Mary Art1"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mArtwork Create (0.2ms)[0m  [1m[32mINSERT INTO "artworks" ("title", "image_url", "artist_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "Mary Art1"], ["image_url", "Mary Art1 URL"], ["artist_id", 3], ["created_at", "2023-02-17 02:07:03.069687"], ["updated_at", "2023-02-17 02:07:03.069687"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "artworks" WHERE "artworks"."image_url" = $1 LIMIT $2[0m  [["image_url", "Mary Art2 URL"], ["LIMIT", 1]]
+  [1m[36mArtwork Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "artworks" WHERE "artworks"."artist_id" = $1 AND "artworks"."title" = $2 LIMIT $3[0m  [["artist_id", 3], ["title", "Mary Art2"], ["LIMIT", 1]]
+  [1m[36mUser Load (2.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mArtwork Create (0.4ms)[0m  [1m[32mINSERT INTO "artworks" ("title", "image_url", "artist_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "Mary Art2"], ["image_url", "Mary Art2 URL"], ["artist_id", 3], ["created_at", "2023-02-17 02:07:03.079060"], ["updated_at", "2023-02-17 02:07:03.079060"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "artworks" WHERE "artworks"."image_url" = $1 LIMIT $2[0m  [["image_url", "Mary Art3 URL"], ["LIMIT", 1]]
+  [1m[36mArtwork Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "artworks" WHERE "artworks"."artist_id" = $1 AND "artworks"."title" = $2 LIMIT $3[0m  [["artist_id", 3], ["title", "Mary Art3"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mArtwork Create (0.4ms)[0m  [1m[32mINSERT INTO "artworks" ("title", "image_url", "artist_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "Mary Art3"], ["image_url", "Mary Art3 URL"], ["artist_id", 3], ["created_at", "2023-02-17 02:07:03.093123"], ["updated_at", "2023-02-17 02:07:03.093123"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mArtworkShare Load (0.8ms)[0m  [1m[34mSELECT "artwork_shares".* FROM "artwork_shares"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Load (0.2ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mArtworkShare Create (0.6ms)[0m  [1m[32mINSERT INTO "artwork_shares" ("viewer_id", "artwork_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["viewer_id", 2], ["artwork_id", 1], ["created_at", "2023-02-17 02:07:03.121119"], ["updated_at", "2023-02-17 02:07:03.121119"]]
+  [1m[36mTRANSACTION (20.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Load (0.3ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mArtworkShare Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 2], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mArtworkShare Create (0.3ms)[0m  [1m[32mINSERT INTO "artwork_shares" ("viewer_id", "artwork_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["viewer_id", 2], ["artwork_id", 2], ["created_at", "2023-02-17 02:07:03.151712"], ["updated_at", "2023-02-17 02:07:03.151712"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Load (0.5ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mArtworkShare Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 3], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 3], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mArtworkShare Create (0.3ms)[0m  [1m[32mINSERT INTO "artwork_shares" ("viewer_id", "artwork_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["viewer_id", 2], ["artwork_id", 3], ["created_at", "2023-02-17 02:07:03.161989"], ["updated_at", "2023-02-17 02:07:03.161989"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Load (0.2ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mArtworkShare Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 1], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 1], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 1], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mArtworkShare Create (0.3ms)[0m  [1m[32mINSERT INTO "artwork_shares" ("viewer_id", "artwork_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["viewer_id", 3], ["artwork_id", 1], ["created_at", "2023-02-17 02:07:03.173136"], ["updated_at", "2023-02-17 02:07:03.173136"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Load (0.3ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mArtworkShare Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 2], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 2], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 2], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 2], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mArtworkShare Create (0.3ms)[0m  [1m[32mINSERT INTO "artwork_shares" ("viewer_id", "artwork_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["viewer_id", 3], ["artwork_id", 2], ["created_at", "2023-02-17 02:07:03.184820"], ["updated_at", "2023-02-17 02:07:03.184820"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Load (0.2ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mArtworkShare Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 3], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 3], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 3], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 3], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 3], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mArtworkShare Create (0.3ms)[0m  [1m[32mINSERT INTO "artwork_shares" ("viewer_id", "artwork_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["viewer_id", 3], ["artwork_id", 3], ["created_at", "2023-02-17 02:07:03.197145"], ["updated_at", "2023-02-17 02:07:03.197145"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Load (0.2ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mArtworkShare Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 4], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 4], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 4], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 4], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 4], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 4], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mArtworkShare Create (0.3ms)[0m  [1m[32mINSERT INTO "artwork_shares" ("viewer_id", "artwork_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["viewer_id", 1], ["artwork_id", 4], ["created_at", "2023-02-17 02:07:03.213662"], ["updated_at", "2023-02-17 02:07:03.213662"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Load (0.2ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mArtworkShare Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 5], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 5], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 5], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 5], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 5], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 5], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 5], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mArtworkShare Create (0.3ms)[0m  [1m[32mINSERT INTO "artwork_shares" ("viewer_id", "artwork_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["viewer_id", 1], ["artwork_id", 5], ["created_at", "2023-02-17 02:07:03.230096"], ["updated_at", "2023-02-17 02:07:03.230096"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Load (0.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mArtworkShare Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 6], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 6], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 6], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 6], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 6], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 6], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 6], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 6], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mArtworkShare Create (0.3ms)[0m  [1m[32mINSERT INTO "artwork_shares" ("viewer_id", "artwork_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["viewer_id", 1], ["artwork_id", 6], ["created_at", "2023-02-17 02:07:03.244562"], ["updated_at", "2023-02-17 02:07:03.244562"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Load (0.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mArtworkShare Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 4], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 4], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 4], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 4], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 4], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 4], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 4], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 4], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 4], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mArtworkShare Create (0.5ms)[0m  [1m[32mINSERT INTO "artwork_shares" ("viewer_id", "artwork_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["viewer_id", 3], ["artwork_id", 4], ["created_at", "2023-02-17 02:07:03.263996"], ["updated_at", "2023-02-17 02:07:03.263996"]]
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Load (0.2ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mArtworkShare Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 5], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 5], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 5], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 5], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 5], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 5], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 5], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 5], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 5], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 5], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mArtworkShare Create (0.4ms)[0m  [1m[32mINSERT INTO "artwork_shares" ("viewer_id", "artwork_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["viewer_id", 3], ["artwork_id", 5], ["created_at", "2023-02-17 02:07:03.285989"], ["updated_at", "2023-02-17 02:07:03.285989"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Load (0.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mArtworkShare Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 6], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 6], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 6], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 6], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 6], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 6], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 6], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 6], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 6], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 6], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 6], ["viewer_id", 3], ["LIMIT", 1]]
+  [1m[36mArtworkShare Create (0.3ms)[0m  [1m[32mINSERT INTO "artwork_shares" ("viewer_id", "artwork_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["viewer_id", 3], ["artwork_id", 6], ["created_at", "2023-02-17 02:07:03.312550"], ["updated_at", "2023-02-17 02:07:03.312550"]]
+  [1m[36mTRANSACTION (81.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Load (0.2ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mArtworkShare Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mArtworkShare Create (0.3ms)[0m  [1m[32mINSERT INTO "artwork_shares" ("viewer_id", "artwork_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["viewer_id", 1], ["artwork_id", 7], ["created_at", "2023-02-17 02:07:03.412434"], ["updated_at", "2023-02-17 02:07:03.412434"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Load (0.2ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mArtworkShare Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mArtworkShare Create (0.3ms)[0m  [1m[32mINSERT INTO "artwork_shares" ("viewer_id", "artwork_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["viewer_id", 1], ["artwork_id", 8], ["created_at", "2023-02-17 02:07:03.431140"], ["updated_at", "2023-02-17 02:07:03.431140"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Load (0.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mArtworkShare Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 1], ["LIMIT", 1]]
+  [1m[36mArtworkShare Create (0.4ms)[0m  [1m[32mINSERT INTO "artwork_shares" ("viewer_id", "artwork_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["viewer_id", 1], ["artwork_id", 9], ["created_at", "2023-02-17 02:07:03.449691"], ["updated_at", "2023-02-17 02:07:03.449691"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Load (0.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mArtworkShare Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 7], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mArtworkShare Create (0.3ms)[0m  [1m[32mINSERT INTO "artwork_shares" ("viewer_id", "artwork_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["viewer_id", 2], ["artwork_id", 7], ["created_at", "2023-02-17 02:07:03.469331"], ["updated_at", "2023-02-17 02:07:03.469331"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Load (0.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mArtworkShare Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 8], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mArtworkShare Create (0.3ms)[0m  [1m[32mINSERT INTO "artwork_shares" ("viewer_id", "artwork_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["viewer_id", 2], ["artwork_id", 8], ["created_at", "2023-02-17 02:07:03.487937"], ["updated_at", "2023-02-17 02:07:03.487937"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mArtwork Load (0.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mArtworkShare Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE ArtworkShare Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "artwork_shares" WHERE "artwork_shares"."artwork_id" = $1 AND "artwork_shares"."viewer_id" = $2 LIMIT $3[0m  [["artwork_id", 9], ["viewer_id", 2], ["LIMIT", 1]]
+  [1m[36mArtworkShare Create (0.3ms)[0m  [1m[32mINSERT INTO "artwork_shares" ("viewer_id", "artwork_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["viewer_id", 2], ["artwork_id", 9], ["created_at", "2023-02-17 02:07:03.508246"], ["updated_at", "2023-02-17 02:07:03.508246"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mComment Load (1.0ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mArtwork Load (0.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Create (0.5ms)[0m  [1m[32mINSERT INTO "comments" ("author_id", "artwork_id", "created_at", "updated_at", "body") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 1], ["artwork_id", 4], ["created_at", "2023-02-17 02:07:03.526896"], ["updated_at", "2023-02-17 02:07:03.526896"], ["body", "Jake comment on Ann Art1"]]
+  [1m[36mTRANSACTION (40.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mArtwork Load (0.5ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mComment Create (0.3ms)[0m  [1m[32mINSERT INTO "comments" ("author_id", "artwork_id", "created_at", "updated_at", "body") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 1], ["artwork_id", 5], ["created_at", "2023-02-17 02:07:03.576284"], ["updated_at", "2023-02-17 02:07:03.576284"], ["body", "Jake comment on Ann Art2"]]
+  [1m[36mTRANSACTION (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mArtwork Load (0.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mComment Create (0.2ms)[0m  [1m[32mINSERT INTO "comments" ("author_id", "artwork_id", "created_at", "updated_at", "body") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 1], ["artwork_id", 6], ["created_at", "2023-02-17 02:07:03.584361"], ["updated_at", "2023-02-17 02:07:03.584361"], ["body", "Jake comment on Ann Art3"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mArtwork Load (0.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mComment Create (0.2ms)[0m  [1m[32mINSERT INTO "comments" ("author_id", "artwork_id", "created_at", "updated_at", "body") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 1], ["artwork_id", 7], ["created_at", "2023-02-17 02:07:03.590257"], ["updated_at", "2023-02-17 02:07:03.590257"], ["body", "Jake comment on Mary Art1"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mArtwork Load (0.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mComment Create (0.2ms)[0m  [1m[32mINSERT INTO "comments" ("author_id", "artwork_id", "created_at", "updated_at", "body") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 1], ["artwork_id", 8], ["created_at", "2023-02-17 02:07:03.595857"], ["updated_at", "2023-02-17 02:07:03.595857"], ["body", "Jake comment on Mary Art2"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mArtwork Load (0.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mComment Create (0.2ms)[0m  [1m[32mINSERT INTO "comments" ("author_id", "artwork_id", "created_at", "updated_at", "body") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 1], ["artwork_id", 9], ["created_at", "2023-02-17 02:07:03.601464"], ["updated_at", "2023-02-17 02:07:03.601464"], ["body", "Jake comment on Mary Art3"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mArtwork Load (0.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mComment Create (0.2ms)[0m  [1m[32mINSERT INTO "comments" ("author_id", "artwork_id", "created_at", "updated_at", "body") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 2], ["artwork_id", 1], ["created_at", "2023-02-17 02:07:03.607149"], ["updated_at", "2023-02-17 02:07:03.607149"], ["body", "Ann comment on Jake Art1"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mArtwork Load (0.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mComment Create (0.2ms)[0m  [1m[32mINSERT INTO "comments" ("author_id", "artwork_id", "created_at", "updated_at", "body") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 2], ["artwork_id", 2], ["created_at", "2023-02-17 02:07:03.613085"], ["updated_at", "2023-02-17 02:07:03.613085"], ["body", "Ann comment on Jake Art2"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mArtwork Load (0.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Create (0.2ms)[0m  [1m[32mINSERT INTO "comments" ("author_id", "artwork_id", "created_at", "updated_at", "body") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 2], ["artwork_id", 3], ["created_at", "2023-02-17 02:07:03.618709"], ["updated_at", "2023-02-17 02:07:03.618709"], ["body", "Ann comment on Jake Art3"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mArtwork Load (0.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mComment Create (0.2ms)[0m  [1m[32mINSERT INTO "comments" ("author_id", "artwork_id", "created_at", "updated_at", "body") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 2], ["artwork_id", 7], ["created_at", "2023-02-17 02:07:03.624111"], ["updated_at", "2023-02-17 02:07:03.624111"], ["body", "Ann comment on Mary Art1"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mArtwork Load (0.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mComment Create (0.3ms)[0m  [1m[32mINSERT INTO "comments" ("author_id", "artwork_id", "created_at", "updated_at", "body") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 2], ["artwork_id", 8], ["created_at", "2023-02-17 02:07:03.631699"], ["updated_at", "2023-02-17 02:07:03.631699"], ["body", "Ann comment on Mary Art2"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mArtwork Load (0.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mComment Create (0.2ms)[0m  [1m[32mINSERT INTO "comments" ("author_id", "artwork_id", "created_at", "updated_at", "body") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 2], ["artwork_id", 9], ["created_at", "2023-02-17 02:07:03.637924"], ["updated_at", "2023-02-17 02:07:03.637924"], ["body", "Ann comment on Mary Art3"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mArtwork Load (0.2ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mComment Create (0.2ms)[0m  [1m[32mINSERT INTO "comments" ("author_id", "artwork_id", "created_at", "updated_at", "body") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 3], ["artwork_id", 1], ["created_at", "2023-02-17 02:07:03.644479"], ["updated_at", "2023-02-17 02:07:03.644479"], ["body", "Mary comment on Jake Art1"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mArtwork Load (0.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mComment Create (0.2ms)[0m  [1m[32mINSERT INTO "comments" ("author_id", "artwork_id", "created_at", "updated_at", "body") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 3], ["artwork_id", 2], ["created_at", "2023-02-17 02:07:03.651026"], ["updated_at", "2023-02-17 02:07:03.651026"], ["body", "Mary comment on Jake Art2"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mArtwork Load (0.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Create (0.2ms)[0m  [1m[32mINSERT INTO "comments" ("author_id", "artwork_id", "created_at", "updated_at", "body") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 3], ["artwork_id", 3], ["created_at", "2023-02-17 02:07:03.656691"], ["updated_at", "2023-02-17 02:07:03.656691"], ["body", "Mary comment on Jake Art3"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mArtwork Load (0.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Create (0.2ms)[0m  [1m[32mINSERT INTO "comments" ("author_id", "artwork_id", "created_at", "updated_at", "body") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 3], ["artwork_id", 4], ["created_at", "2023-02-17 02:07:03.662264"], ["updated_at", "2023-02-17 02:07:03.662264"], ["body", "Mary comment on Ann Art1"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mArtwork Load (0.4ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mComment Create (0.2ms)[0m  [1m[32mINSERT INTO "comments" ("author_id", "artwork_id", "created_at", "updated_at", "body") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 3], ["artwork_id", 5], ["created_at", "2023-02-17 02:07:03.668022"], ["updated_at", "2023-02-17 02:07:03.668022"], ["body", "Mary comment on Ann Art2"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mArtwork Load (0.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mComment Create (0.2ms)[0m  [1m[32mINSERT INTO "comments" ("author_id", "artwork_id", "created_at", "updated_at", "body") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 3], ["artwork_id", 6], ["created_at", "2023-02-17 02:07:03.673551"], ["updated_at", "2023-02-17 02:07:03.673551"], ["body", "Mary comment on Ann Art3"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5974519626909234765)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(5974519626909234765)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/users" for ::1 at 2023-02-16 18:07:20 -0800
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:5:in `index'
+Completed 200 OK in 23ms (Views: 7.8ms | ActiveRecord: 4.5ms | Allocations: 7477)
+
+
+Started GET "/users" for ::1 at 2023-02-16 18:07:41 -0800
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (11.9ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:5:in `index'
+Completed 200 OK in 17ms (Views: 4.4ms | ActiveRecord: 11.9ms | Allocations: 975)
+
+
+Started GET "/users?username=Jake" for ::1 at 2023-02-16 18:07:49 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"username"=>"Jake"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:5:in `index'
+Completed 200 OK in 3ms (Views: 2.4ms | ActiveRecord: 0.4ms | Allocations: 971)
+
+
+Started GET "/users?username=%27Jake%27" for ::1 at 2023-02-16 18:07:56 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"username"=>"'Jake'"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:5:in `index'
+Completed 200 OK in 5ms (Views: 4.3ms | ActiveRecord: 0.6ms | Allocations: 959)
+
+
+Started GET "/users?username=%27Jake%27" for ::1 at 2023-02-16 18:14:30 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"username"=>"'Jake'"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "'Jake'"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:6:in `index'
+Completed 200 OK in 87ms (Views: 0.5ms | ActiveRecord: 11.7ms | Allocations: 7801)
+
+
+Started GET "/users?username=Jake" for ::1 at 2023-02-16 18:14:39 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"username"=>"Jake"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Jake"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:6:in `index'
+Completed 200 OK in 8ms (Views: 1.0ms | ActiveRecord: 0.5ms | Allocations: 1509)
+
+
+Started GET "/users" for ::1 at 2023-02-16 18:14:49 -0800
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 3ms (Views: 2.9ms | ActiveRecord: 0.3ms | Allocations: 1011)
+
+
+Started GET "/users" for ::1 at 2023-02-16 18:14:58 -0800
+Processing by UsersController#index as */*
+  Parameters: {"username"=>"Jake"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Jake"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:6:in `index'
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.3ms | Allocations: 649)
+
+
+Started GET "/users" for ::1 at 2023-02-16 18:15:06 -0800
+Processing by UsersController#index as */*
+  Parameters: {"username"=>"Ron"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Ron"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:6:in `index'
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 0.6ms | Allocations: 571)
+
+
+Started GET "/users" for ::1 at 2023-02-16 18:19:28 -0800
+Processing by UsersController#index as */*
+  Parameters: {"what"=>"random"}
+  [1m[36mUser Load (13.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 38ms (Views: 19.0ms | ActiveRecord: 13.4ms | Allocations: 984)
+
+
+Started GET "/users" for ::1 at 2023-02-16 18:30:37 -0800
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (40.9ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 329ms (Views: 323.1ms | ActiveRecord: 208.1ms | Allocations: 3753)
+
+
+Started GET "/users" for ::1 at 2023-02-16 19:00:36 -0800
+  [1m[36mActiveRecord::SchemaMigration Pluck (2.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 53ms (Views: 10.7ms | ActiveRecord: 31.2ms | Allocations: 7496)
+
+
+Started GET "/users?username=Jake" for ::1 at 2023-02-16 19:00:42 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"username"=>"Jake"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Jake"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:6:in `index'
+Completed 200 OK in 9ms (Views: 0.4ms | ActiveRecord: 0.9ms | Allocations: 2976)
+
+
+Started GET "/users" for ::1 at 2023-02-16 19:02:23 -0800
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 17ms (Views: 14.0ms | ActiveRecord: 0.9ms | Allocations: 981)
+
+
+Started GET "/users?username=Jake" for ::1 at 2023-02-16 19:02:31 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"username"=>"Jake"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Jake"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:6:in `index'
+Completed 200 OK in 3ms (Views: 0.4ms | ActiveRecord: 0.5ms | Allocations: 657)
+
+
+Started GET "/users?SELECT*FROMusers;" for ::1 at 2023-02-16 19:02:57 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"SELECT*FROMusers"=>nil}
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 11ms (Views: 9.1ms | ActiveRecord: 1.6ms | Allocations: 969)
+
+
+Started GET "/users?SELECT*FROMusers" for ::1 at 2023-02-16 19:03:09 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"SELECT*FROMusers"=>nil}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 4ms (Views: 3.2ms | ActiveRecord: 0.3ms | Allocations: 969)
+
+
+Started GET "/users?SELECT*FROMusers;" for ::1 at 2023-02-16 19:03:19 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"SELECT*FROMusers"=>nil}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 3ms (Views: 2.1ms | ActiveRecord: 0.3ms | Allocations: 981)
+
+
+Started GET "/usersSELECT*FROMusers;" for ::1 at 2023-02-16 19:03:31 -0800
+  
+ActionController::RoutingError (No route matches [GET] "/usersSELECT*FROMusers;"):
+  
+Started GET "/users/SELECT*FROMusers;" for ::1 at 2023-02-16 19:04:00 -0800
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"SELECT*FROMusers;"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:24:in `show'
+Completed 404 Not Found in 5ms (ActiveRecord: 0.2ms | Allocations: 1899)
+
+
+
+ActiveRecord::RecordNotFound - Couldn't find User with 'id'=SELECT*FROMusers;:
+  app/controllers/users_controller.rb:24:in `show'
+
+Started POST "/__better_errors/9974ceefeedf98fb/variables" for ::1 at 2023-02-16 19:04:00 -0800
+Started GET "/users/SELECT*FROMusers;" for ::1 at 2023-02-16 19:04:11 -0800
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"SELECT*FROMusers;"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:24:in `show'
+Completed 404 Not Found in 3ms (ActiveRecord: 0.3ms | Allocations: 1054)
+
+
+
+ActiveRecord::RecordNotFound - Couldn't find User with 'id'=SELECT*FROMusers;:
+  app/controllers/users_controller.rb:24:in `show'
+
+Started POST "/__better_errors/a92dd3df696899f5/variables" for ::1 at 2023-02-16 19:04:11 -0800
+Started GET "/users?SELECT*FROMusers;" for ::1 at 2023-02-16 19:04:21 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"SELECT*FROMusers"=>nil}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 4ms (Views: 3.6ms | ActiveRecord: 0.3ms | Allocations: 970)
+
+
+Started GET "/users?WHERE%20username%20LIKE%20%27J%%27" for ::1 at 2023-02-16 19:20:35 -0800
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+
+ActionController::BadRequest - Invalid query parameters: invalid %-encoding (WHERE%20username%20LIKE%20%27J%%27):
+
+Started POST "/__better_errors/c66b7a72487e9e21/variables" for ::1 at 2023-02-16 19:20:36 -0800
+Started GET "/users" for ::1 at 2023-02-16 19:20:43 -0800
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (3.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 75ms (Views: 36.3ms | ActiveRecord: 12.3ms | Allocations: 7492)
+
+
+Started GET "/users?WHERE%20username%20LIKE%20%27J%%27" for ::1 at 2023-02-16 19:20:48 -0800
+
+ActionController::BadRequest - Invalid query parameters: invalid %-encoding (WHERE%20username%20LIKE%20%27J%%27):
+
+Started POST "/__better_errors/fe8e7948b4af1282/variables" for ::1 at 2023-02-16 19:20:48 -0800
+Started GET "/users?SELECT*FROMusers" for ::1 at 2023-02-16 19:21:25 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"SELECT*FROMusers"=>nil}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 6ms (Views: 5.1ms | ActiveRecord: 0.4ms | Allocations: 969)
+
+
+Started GET "/users?WHEREusernameLIKE%27J%%27" for ::1 at 2023-02-16 19:21:56 -0800
+
+ActionController::BadRequest - Invalid query parameters: invalid %-encoding (WHEREusernameLIKE%27J%%27):
+
+Started POST "/__better_errors/3546556e5719a32f/variables" for ::1 at 2023-02-16 19:21:56 -0800
+Started GET "/users?WHEREusernameLIKEJ%" for ::1 at 2023-02-16 19:22:16 -0800
+
+ActionController::BadRequest - Invalid query parameters: invalid %-encoding (WHEREusernameLIKEJ%):
+
+Started POST "/__better_errors/8edc701843fb4fca/variables" for ::1 at 2023-02-16 19:22:16 -0800
+Started GET "/users?SELECT*FROMusers" for ::1 at 2023-02-16 19:22:28 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"SELECT*FROMusers"=>nil}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 9ms (Views: 8.5ms | ActiveRecord: 0.3ms | Allocations: 969)
+
+
+Started GET "/users?WHEREusernameLIKEJ%" for ::1 at 2023-02-16 19:23:03 -0800
+
+ActionController::BadRequest - Invalid query parameters: invalid %-encoding (WHEREusernameLIKEJ%):
+
+Started POST "/__better_errors/f52b7e5db14c3e39/variables" for ::1 at 2023-02-16 19:23:03 -0800
+Started GET "/users?WHEREusernameLIKEJ%" for ::1 at 2023-02-16 19:23:09 -0800
+
+ActionController::BadRequest - Invalid query parameters: invalid %-encoding (WHEREusernameLIKEJ%):
+
+Started POST "/__better_errors/533c74ccbbbb0b93/variables" for ::1 at 2023-02-16 19:23:10 -0800
+Started GET "/users?WHEREusernameLIKEJ" for ::1 at 2023-02-16 19:23:23 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"WHEREusernameLIKEJ"=>nil}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 5ms (Views: 3.7ms | ActiveRecord: 0.6ms | Allocations: 969)
+
+
+Started GET "/users?WHEREusernameLIKEJ%" for ::1 at 2023-02-16 19:23:30 -0800
+
+ActionController::BadRequest - Invalid query parameters: invalid %-encoding (WHEREusernameLIKEJ%):
+
+Started POST "/__better_errors/fdd2547dd49a962d/variables" for ::1 at 2023-02-16 19:23:30 -0800
+Started GET "/users?WHEREusernameLIKE%27J%%27" for ::1 at 2023-02-16 19:23:46 -0800
+
+ActionController::BadRequest - Invalid query parameters: invalid %-encoding (WHEREusernameLIKE%27J%%27):
+
+Started POST "/__better_errors/27f969dc274e1e1e/variables" for ::1 at 2023-02-16 19:23:46 -0800
+Started GET "/users?SELECT*FROMusers" for ::1 at 2023-02-16 19:24:22 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"SELECT*FROMusers"=>nil}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 4ms (Views: 2.5ms | ActiveRecord: 0.9ms | Allocations: 969)
+
+
+Started GET "/users?SELECT*FROMusersWHEREusernameLIKE%27J%%27" for ::1 at 2023-02-16 19:24:47 -0800
+
+ActionController::BadRequest - Invalid query parameters: invalid %-encoding (SELECT*FROMusersWHEREusernameLIKE%27J%%27):
+
+Started POST "/__better_errors/2bb4da5569f54296/variables" for ::1 at 2023-02-16 19:24:47 -0800
+Started GET "/users?%27J%%27" for ::1 at 2023-02-16 19:25:15 -0800
+
+ActionController::BadRequest - Invalid query parameters: invalid %-encoding (%27J%%27):
+
+Started POST "/__better_errors/56c46a7c02e25613/variables" for ::1 at 2023-02-16 19:25:15 -0800
+Started GET "/users?SELECT*FROMusers" for ::1 at 2023-02-16 19:34:46 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"SELECT*FROMusers"=>nil}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 137ms (Views: 133.7ms | ActiveRecord: 53.2ms | Allocations: 3830)
+
+
+Started GET "/users?SELECT*FROMusersWHEREid=1" for ::1 at 2023-02-16 19:34:56 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"SELECT*FROMusersWHEREid"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 10ms (Views: 9.2ms | ActiveRecord: 0.4ms | Allocations: 978)
+
+
+Started GET "/users?LI" for ::1 at 2023-02-16 19:35:22 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"LI"=>nil}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 25ms (Views: 24.2ms | ActiveRecord: 0.5ms | Allocations: 968)
+
+
+Started GET "/users" for ::1 at 2023-02-16 19:35:33 -0800
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (2.7ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 9ms (Views: 5.7ms | ActiveRecord: 2.7ms | Allocations: 968)
+
+
+Started GET "/users?LIKEJake" for ::1 at 2023-02-16 19:35:44 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"LIKEJake"=>nil}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 4ms (Views: 3.3ms | ActiveRecord: 0.3ms | Allocations: 968)
+
+
+Started GET "/users?LIKE%27Jake%27" for ::1 at 2023-02-16 19:35:58 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"LIKE'Jake'"=>nil}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 15ms (Views: 14.8ms | ActiveRecord: 0.3ms | Allocations: 968)
+
+
+Started GET "/users?LIKE%22Jake%22" for ::1 at 2023-02-16 19:36:11 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"LIKE\"Jake\""=>nil}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 4ms (Views: 3.2ms | ActiveRecord: 0.3ms | Allocations: 968)
+
+
+Started GET "/users?LIKEJake" for ::1 at 2023-02-16 19:36:53 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"LIKEJake"=>nil}
+  [1m[36mUser Load (2.7ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 69ms (Views: 64.3ms | ActiveRecord: 2.7ms | Allocations: 980)
+
+
+Started GET "/users?LIKE%27Jake%27" for ::1 at 2023-02-16 19:37:08 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"LIKE'Jake'"=>nil}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 4ms (Views: 3.1ms | ActiveRecord: 0.9ms | Allocations: 968)
+
+
+Started GET "/users?LIKE%20%27Jake%27" for ::1 at 2023-02-16 19:37:34 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"LIKE 'Jake'"=>nil}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 11ms (Views: 10.7ms | ActiveRecord: 0.3ms | Allocations: 968)
+
+
+Started GET "/users?LIKE%20%27J%%27" for ::1 at 2023-02-16 19:38:10 -0800
+
+ActionController::BadRequest - Invalid query parameters: invalid %-encoding (LIKE%20%27J%%27):
+
+Started POST "/__better_errors/85e6958fd4bd3671/variables" for ::1 at 2023-02-16 19:38:11 -0800
+Started GET "/users?LIKE%27J%%27" for ::1 at 2023-02-16 19:38:46 -0800
+
+ActionController::BadRequest - Invalid query parameters: invalid %-encoding (LIKE%27J%%27):
+
+Started POST "/__better_errors/e67580f2f2020579/variables" for ::1 at 2023-02-16 19:38:47 -0800
+Started GET "/users" for ::1 at 2023-02-16 19:42:19 -0800
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:10:in `index'
+Completed 200 OK in 148ms (Views: 42.6ms | ActiveRecord: 83.7ms | Allocations: 4352)
+
+
+Started GET "/users?username=Jake" for ::1 at 2023-02-16 19:42:24 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"username"=>"Jake"}
+  [1m[36mUser Load (50.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1[0m  [["username", "Jake"]]
+  ↳ app/controllers/users_controller.rb:6:in `index'
+Completed 200 OK in 110ms (Views: 57.8ms | ActiveRecord: 50.8ms | Allocations: 2547)
+
+
+Started GET "/users" for ::1 at 2023-02-16 19:43:56 -0800
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:10:in `index'
+Completed 200 OK in 18ms (Views: 4.4ms | ActiveRecord: 5.0ms | Allocations: 4186)
+
+
+Started GET "/users?username=Jake" for ::1 at 2023-02-16 19:44:02 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"username"=>"Jake"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1[0m  [["username", "Jake"]]
+  ↳ app/controllers/users_controller.rb:6:in `index'
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.3ms | Allocations: 882)
+
+
+Started GET "/users?Jake" for ::1 at 2023-02-16 19:44:09 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Jake"=>nil}
+  [1m[36mUser Load (36.9ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:10:in `index'
+Completed 200 OK in 43ms (Views: 5.8ms | ActiveRecord: 36.9ms | Allocations: 969)
+
+
+Started GET "/users?Jake" for ::1 at 2023-02-16 19:44:13 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Jake"=>nil}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:10:in `index'
+Completed 200 OK in 2ms (Views: 1.9ms | ActiveRecord: 0.3ms | Allocations: 969)
+
+
+Started GET "/users?username=Jake" for ::1 at 2023-02-16 19:45:31 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"username"=>"Jake"}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1[0m  [["username", "Jake"]]
+  ↳ app/controllers/users_controller.rb:6:in `index'
+Completed 200 OK in 19ms (Views: 15.9ms | ActiveRecord: 1.0ms | Allocations: 857)
+
+
+Started GET "/users?Jake" for ::1 at 2023-02-16 19:56:51 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Jake"=>nil}
+Completed 406 Not Acceptable in 61ms (ActiveRecord: 28.8ms | Allocations: 5974)
+
+
+
+ActionController::MissingExactTemplate - UsersController#index is missing a template for request formats: text/html:
+
+Started POST "/__better_errors/231007e21669fddc/variables" for ::1 at 2023-02-16 19:56:51 -0800
+Started GET "/users?Jake" for ::1 at 2023-02-16 19:57:15 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Jake"=>nil}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "Jake"]]
+  ↳ app/controllers/users_controller.rb:9:in `index'
+Completed 200 OK in 25ms (Views: 9.8ms | ActiveRecord: 8.4ms | Allocations: 4202)
+
+
+Started GET "/users?Ron" for ::1 at 2023-02-16 19:58:22 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Ron"=>nil}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "Ron"]]
+  ↳ app/controllers/users_controller.rb:9:in `index'
+Completed 200 OK in 11ms (Views: 1.1ms | ActiveRecord: 2.1ms | Allocations: 3063)
+
+
+Started GET "/users?Jake" for ::1 at 2023-02-16 20:02:35 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Jake"=>nil}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "Jake"]]
+  ↳ app/controllers/users_controller.rb:11:in `index'
+Completed 200 OK in 27ms (Views: 8.2ms | ActiveRecord: 5.1ms | Allocations: 4090)
+
+
+Started GET "/users?Ron" for ::1 at 2023-02-16 20:02:43 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Ron"=>nil}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "Ron"]]
+  ↳ app/controllers/users_controller.rb:11:in `index'
+Completed 200 OK in 4ms (Views: 2.5ms | ActiveRecord: 0.7ms | Allocations: 791)
+
+
+Started GET "/users?Ron" for ::1 at 2023-02-16 20:03:27 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Ron"=>nil}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "Ron"]]
+  ↳ app/controllers/users_controller.rb:10:in `index'
+Completed 200 OK in 11ms (Views: 1.8ms | ActiveRecord: 1.7ms | Allocations: 3064)
+
+
+Started GET "/users?Ron" for ::1 at 2023-02-16 20:03:30 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Ron"=>nil}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "Ron"]]
+  ↳ app/controllers/users_controller.rb:10:in `index'
+Completed 200 OK in 3ms (Views: 2.0ms | ActiveRecord: 0.2ms | Allocations: 791)
+
+
+Started GET "/users?Ron" for ::1 at 2023-02-16 20:03:38 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Ron"=>nil}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "Ron"]]
+  ↳ app/controllers/users_controller.rb:10:in `index'
+Completed 200 OK in 50ms (Views: 2.2ms | ActiveRecord: 1.9ms | Allocations: 3082)
+
+
+Started GET "/users?Ron" for ::1 at 2023-02-16 20:03:41 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Ron"=>nil}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "Ron"]]
+  ↳ app/controllers/users_controller.rb:10:in `index'
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.2ms | Allocations: 792)
+
+
+Started GET "/users?Ron" for ::1 at 2023-02-16 20:03:58 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Ron"=>nil}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "Ron"]]
+  ↳ app/controllers/users_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 1.3ms | ActiveRecord: 1.3ms | Allocations: 3065)
+
+
+Started GET "/users?Ron" for ::1 at 2023-02-16 20:04:12 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Ron"=>nil}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "Ron"]]
+  ↳ app/controllers/users_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 2.7ms | ActiveRecord: 1.1ms | Allocations: 3065)
+
+
+Started GET "/users?Ron" for ::1 at 2023-02-16 20:04:59 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Ron"=>nil}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "Ron"]]
+  ↳ app/controllers/users_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 1.2ms | ActiveRecord: 0.9ms | Allocations: 3066)
+
+
+Started GET "/users?Ron" for ::1 at 2023-02-16 20:05:15 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Ron"=>nil}
+Started GET "/users?Ron" for ::1 at 2023-02-16 20:08:39 -0800
+  [1m[36mActiveRecord::SchemaMigration Pluck (46.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+  Parameters: {"Ron"=>nil}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "Ron"]]
+  ↳ app/controllers/users_controller.rb:10:in `!='
+  Rendering text template
+  Rendered text template (Duration: 0.0ms | Allocations: 10)
+Completed 200 OK in 34ms (Views: 5.8ms | ActiveRecord: 12.7ms | Allocations: 7159)
+
+
+Started GET "/users?Jake" for ::1 at 2023-02-16 20:08:44 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Jake"=>nil}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "Jake"]]
+  ↳ app/controllers/users_controller.rb:10:in `!='
+Completed 200 OK in 13ms (Views: 1.5ms | ActiveRecord: 3.2ms | Allocations: 3650)
+
+
+Started GET "/users?Jake" for ::1 at 2023-02-16 20:09:01 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Jake"=>nil}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users"."id", "users"."username" FROM "users" WHERE "users"."username" = $1[0m  [["username", "Jake"]]
+  ↳ app/controllers/users_controller.rb:10:in `!='
+Completed 200 OK in 14ms (Views: 0.3ms | ActiveRecord: 3.9ms | Allocations: 3956)
+
+
+Started GET "/users?Jake" for ::1 at 2023-02-16 20:09:08 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Jake"=>nil}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "Jake"]]
+  ↳ app/controllers/users_controller.rb:10:in `!='
+Completed 200 OK in 15ms (Views: 0.3ms | ActiveRecord: 5.3ms | Allocations: 3985)
+
+
+Started GET "/users?Ann" for ::1 at 2023-02-16 20:09:12 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Ann"=>nil}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "Ann"]]
+  ↳ app/controllers/users_controller.rb:10:in `!='
+Completed 200 OK in 3ms (Views: 0.7ms | ActiveRecord: 0.3ms | Allocations: 764)
+
+
+Started GET "/users?Laura" for ::1 at 2023-02-16 20:09:20 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Laura"=>nil}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "Laura"]]
+  ↳ app/controllers/users_controller.rb:10:in `!='
+  Rendering text template
+  Rendered text template (Duration: 0.0ms | Allocations: 5)
+Completed 200 OK in 89ms (Views: 0.7ms | ActiveRecord: 1.0ms | Allocations: 916)
+
+
+Started GET "/users" for ::1 at 2023-02-16 20:09:38 -0800
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "controller"]]
+  ↳ app/controllers/users_controller.rb:10:in `!='
+  Rendering text template
+  Rendered text template (Duration: 0.0ms | Allocations: 5)
+Completed 200 OK in 32ms (Views: 0.4ms | ActiveRecord: 0.4ms | Allocations: 749)
+
+
+Started GET "/users" for ::1 at 2023-02-16 20:09:41 -0800
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "controller"]]
+  ↳ app/controllers/users_controller.rb:10:in `!='
+  Rendering text template
+  Rendered text template (Duration: 0.0ms | Allocations: 5)
+Completed 200 OK in 4ms (Views: 0.3ms | ActiveRecord: 0.4ms | Allocations: 748)
+
+
+Started GET "/users" for ::1 at 2023-02-16 20:09:44 -0800
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "controller"]]
+  ↳ app/controllers/users_controller.rb:10:in `!='
+  Rendering text template
+  Rendered text template (Duration: 0.0ms | Allocations: 4)
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.2ms | Allocations: 747)
+
+
+Started GET "/users" for ::1 at 2023-02-16 20:10:51 -0800
+Processing by UsersController#index as HTML
+Started GET "/users" for ::1 at 2023-02-16 20:12:50 -0800
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:16:in `index'
+Completed 200 OK in 24ms (Views: 7.3ms | ActiveRecord: 4.8ms | Allocations: 7517)
+
+
+Started GET "/users" for ::1 at 2023-02-16 20:12:53 -0800
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:16:in `index'
+Completed 200 OK in 5ms (Views: 4.2ms | ActiveRecord: 0.3ms | Allocations: 993)
+
+
+Started GET "/users" for ::1 at 2023-02-16 20:12:55 -0800
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:16:in `index'
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.2ms | Allocations: 991)
+
+
+Started GET "/users?Jake" for ::1 at 2023-02-16 20:12:59 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Jake"=>nil}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "Jake"]]
+  ↳ app/controllers/users_controller.rb:10:in `!='
+Completed 200 OK in 9ms (Views: 0.3ms | ActiveRecord: 0.5ms | Allocations: 2364)
+
+
+Started GET "/users" for ::1 at 2023-02-16 20:13:03 -0800
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:16:in `index'
+Completed 200 OK in 6ms (Views: 5.8ms | ActiveRecord: 0.3ms | Allocations: 991)
+
+
+Started GET "/users?Ann" for ::1 at 2023-02-16 20:13:10 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Ann"=>nil}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "Ann"]]
+  ↳ app/controllers/users_controller.rb:10:in `!='
+Completed 200 OK in 4ms (Views: 0.5ms | ActiveRecord: 0.4ms | Allocations: 767)
+
+
+Started GET "/users?Mary" for ::1 at 2023-02-16 20:13:12 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Mary"=>nil}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "Mary"]]
+  ↳ app/controllers/users_controller.rb:10:in `!='
+Completed 200 OK in 4ms (Views: 0.4ms | ActiveRecord: 0.4ms | Allocations: 767)
+
+
+Started GET "/users?Ron" for ::1 at 2023-02-16 20:13:18 -0800
+Processing by UsersController#index as HTML
+  Parameters: {"Ron"=>nil}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."username", "users"."created_at", "users"."updated_at" FROM "users" WHERE "users"."username" = $1[0m  [["username", "Ron"]]
+  ↳ app/controllers/users_controller.rb:10:in `!='
+  Rendering text template
+  Rendered text template (Duration: 0.0ms | Allocations: 10)
+Completed 200 OK in 14ms (Views: 10.9ms | ActiveRecord: 0.3ms | Allocations: 1983)
+
+
+Started GET "/users" for ::1 at 2023-02-16 20:13:20 -0800
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (4.9ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:16:in `index'
+Completed 200 OK in 8ms (Views: 2.4ms | ActiveRecord: 4.9ms | Allocations: 979)
+
+

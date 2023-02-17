@@ -24,8 +24,14 @@ class User < ApplicationRecord
         inverse_of: :viewer,
         dependent: :destroy
 
+    has_many :comments, 
+        primary_key: :id, 
+        foreign_key: :author_id, #comments table
+        class_name: :Comment, 
+        inverse_of: :author,
+        dependent: :destroy
+
     has_many :shared_artworks, 
         through: :views, 
-        source: :artwork,
-        dependent: :destroy  
+        source: :artwork
 end 

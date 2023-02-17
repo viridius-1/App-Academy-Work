@@ -1,5 +1,5 @@
 class ArtworkSharesController < ApplicationController
-    skip_before_action :verify_authenticity_token
+    self.verify_authenticity_token
 
     def create 
         artwork_share = ArtworkShare.new(artwork_share_params)

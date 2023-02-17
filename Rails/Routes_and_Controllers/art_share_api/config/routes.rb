@@ -28,4 +28,7 @@ Rails.application.routes.draw do
 
   #routes to artwork_shares controller 
   resources :artwork_shares, only: [:create, :destroy]
+
+  #routes to comments controller 
+  resources :comments, only: [:create, :destroy, :index]
 end

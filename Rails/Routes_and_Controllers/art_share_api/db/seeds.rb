@@ -54,3 +54,30 @@ artwork_share15 = ArtworkShare.create(artwork_id: artwork9.id, viewer_id: user1.
 artwork_share16 = ArtworkShare.create(artwork_id: artwork7.id, viewer_id: user2.id)
 artwork_share17 = ArtworkShare.create(artwork_id: artwork8.id, viewer_id: user2.id)
 artwork_share18 = ArtworkShare.create(artwork_id: artwork9.id, viewer_id: user2.id)
+
+puts "Loading Comments..."
+Comment.destroy_all
+#Jake's Comments on Ann's Art
+comment1 = Comment.create(author_id: user1.id, artwork_id: artwork4.id, body: "Jake comment on Ann Art1")
+comment2 = Comment.create(author_id: user1.id, artwork_id: artwork5.id, body: "Jake comment on Ann Art2")
+comment3 = Comment.create(author_id: user1.id, artwork_id: artwork6.id, body: "Jake comment on Ann Art3")
+#Jake's Comments on Mary's Art
+comment4 = Comment.create(author_id: user1.id, artwork_id: artwork7.id, body: "Jake comment on Mary Art1")
+comment5 = Comment.create(author_id: user1.id, artwork_id: artwork8.id, body: "Jake comment on Mary Art2")
+comment6 = Comment.create(author_id: user1.id, artwork_id: artwork9.id, body: "Jake comment on Mary Art3")
+#Ann's Comments on Jake's Art 
+comment7 = Comment.create(author_id: user2.id, artwork_id: artwork1.id, body: "Ann comment on Jake Art1")
+comment8 = Comment.create(author_id: user2.id, artwork_id: artwork2.id, body: "Ann comment on Jake Art2")
+comment9 = Comment.create(author_id: user2.id, artwork_id: artwork3.id, body: "Ann comment on Jake Art3")
+#Ann's Comments on Mary's Art 
+comment10 = Comment.create(author_id: user2.id, artwork_id: artwork7.id, body: "Ann comment on Mary Art1")
+comment11 = Comment.create(author_id: user2.id, artwork_id: artwork8.id, body: "Ann comment on Mary Art2")
+comment12 = Comment.create(author_id: user2.id, artwork_id: artwork9.id, body: "Ann comment on Mary Art3")
+#Mary's Comments on Jake's Art 
+comment13 = Comment.create(author_id: user3.id, artwork_id: artwork1.id, body: "Mary comment on Jake Art1")
+comment14 = Comment.create(author_id: user3.id, artwork_id: artwork2.id, body: "Mary comment on Jake Art2")
+comment15 = Comment.create(author_id: user3.id, artwork_id: artwork3.id, body: "Mary comment on Jake Art3")
+#Mary's Comments on Ann's Art 
+comment16 = Comment.create(author_id: user3.id, artwork_id: artwork4.id, body: "Mary comment on Ann Art1")
+comment17 = Comment.create(author_id: user3.id, artwork_id: artwork5.id, body: "Mary comment on Ann Art2")
+comment18 = Comment.create(author_id: user3.id, artwork_id: artwork6.id, body: "Mary comment on Ann Art3")

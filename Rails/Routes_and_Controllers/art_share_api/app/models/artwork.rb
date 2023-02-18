@@ -25,6 +25,11 @@ class Artwork < ApplicationRecord
         foreign_key: :artist_id, #artworks table
         class_name: :User
 
+    has_many :collections, 
+        primary_key: :id, 
+        foreign_key: :artwork_id, #collections table
+        class_name: :Collection 
+
     has_many :shares, 
         primary_key: :id,  
         foreign_key: :artwork_id, #artwork_shares table  
@@ -47,5 +52,9 @@ class Artwork < ApplicationRecord
     has_many :likers,
         through: :likes, 
         source: :liker
+
+    def collection_list 
+        get_collection_list(collections)
+    end 
 end 
 

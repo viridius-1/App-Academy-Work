@@ -126,3 +126,48 @@ like33 = Like.create(user_id: user3.id, likeable_id: comment6.id, likeable_type:
 like34 = Like.create(user_id: user3.id, likeable_id: comment10.id, likeable_type: Comment)
 like35 = Like.create(user_id: user3.id, likeable_id: comment11.id, likeable_type: Comment)
 like36 = Like.create(user_id: user3.id, likeable_id: comment12.id, likeable_type: Comment)
+
+# puts "Loading Collections..."
+Collection.destroy_all
+#Jake's Collection of Jake's Art 
+# collection1 = Collection.create(user_id: user1.id, artwork_id: artwork1.id, name: "Jake's Art")
+# collection2 = Collection.create(user_id: user1.id, artwork_id: artwork2.id, name: "Jake's Art")
+# collection3 = Collection.create(user_id: user1.id, artwork_id: artwork3.id, name: "Jake's Art")
+#Jake's Collection of All Art 
+# collection4 = Collection.create(user_id: user1.id, artwork_id: artwork1.id, name: "Jake's Collection All Art")
+# collection5 = Collection.create(user_id: user1.id, artwork_id: artwork2.id, name: "Jake's Collection All Art")
+# collection6 = Collection.create(user_id: user1.id, artwork_id: artwork3.id, name: "Jake's Collection All Art")
+# collection7 = Collection.create(user_id: user1.id, artwork_id: artwork4.id, name: "Jake's Collection All Art")
+# collection8 = Collection.create(user_id: user1.id, artwork_id: artwork5.id, name: "Jake's Collection All Art")
+# collection9 = Collection.create(user_id: user1.id, artwork_id: artwork6.id, name: "Jake's Collection All Art")
+# collection10 = Collection.create(user_id: user1.id, artwork_id: artwork7.id, name: "Jake's Collection All Art")
+# collection11 = Collection.create(user_id: user1.id, artwork_id: artwork8.id, name: "Jake's Collection All Art")
+# collection12 = Collection.create(user_id: user1.id, artwork_id: artwork9.id, name: "Jake's Collection All Art")
+#Ann's Collection of Ann's Art 
+# collection13 = Collection.create(user_id: user2.id, artwork_id: artwork4.id, name: "Ann's Art")
+# collection14 = Collection.create(user_id: user2.id, artwork_id: artwork5.id, name: "Ann's Art")
+# collection15 = Collection.create(user_id: user2.id, artwork_id: artwork6.id, name: "Ann's Art")
+#Ann's Collection of All Art 
+# collection16 = Collection.create(user_id: user2.id, artwork_id: artwork1.id, name: "Ann's Collection All Art")
+# collection17 = Collection.create(user_id: user2.id, artwork_id: artwork2.id, name: "Ann's Collection All Art")
+# collection18 = Collection.create(user_id: user2.id, artwork_id: artwork3.id, name: "Ann's Collection All Art")
+# collection19 = Collection.create(user_id: user2.id, artwork_id: artwork4.id, name: "Ann's Collection All Art")
+# collection20 = Collection.create(user_id: user2.id, artwork_id: artwork5.id, name: "Ann's Collection All Art")
+# collection21 = Collection.create(user_id: user2.id, artwork_id: artwork6.id, name: "Ann's Collection All Art")
+# collection22 = Collection.create(user_id: user2.id, artwork_id: artwork7.id, name: "Ann's Collection All Art")
+# collection23 = Collection.create(user_id: user2.id, artwork_id: artwork8.id, name: "Ann's Collection All Art")
+# collection24 = Collection.create(user_id: user2.id, artwork_id: artwork9.id, name: "Ann's Collection All Art")
+#Mary's Collection of Mary's Art 
+# collection25 = Collection.create(user_id: user3.id, artwork_id: artwork7.id, name: "Mary's Art")
+# collection26 = Collection.create(user_id: user3.id, artwork_id: artwork8.id, name: "Mary's Art")
+# collection27 = Collection.create(user_id: user3.id, artwork_id: artwork9.id, name: "Mary's Art")
+#Mary's Collection of All Art 
+# collection28 = Collection.create(user_id: user3.id, artwork_id: artwork1.id, name: "Mary's Collection All Art")
+# collection29 = Collection.create(user_id: user3.id, artwork_id: artwork2.id, name: "Mary's Collection All Art")
+# collection30 = Collection.create(user_id: user3.id, artwork_id: artwork3.id, name: "Mary's Collection All Art")
+# collection31 = Collection.create(user_id: user3.id, artwork_id: artwork4.id, name: "Mary's Collection All Art")
+# collection32 = Collection.create(user_id: user3.id, artwork_id: artwork5.id, name: "Mary's Collection All Art")
+# collection33 = Collection.create(user_id: user3.id, artwork_id: artwork6.id, name: "Mary's Collection All Art")
+# collection34 = Collection.create(user_id: user3.id, artwork_id: artwork7.id, name: "Mary's Collection All Art")
+# collection35 = Collection.create(user_id: user3.id, artwork_id: artwork8.id, name: "Mary's Collection All Art")
+# collection36 = Collection.create(user_id: user3.id, artwork_id: artwork9.id, name: "Mary's Collection All Art")

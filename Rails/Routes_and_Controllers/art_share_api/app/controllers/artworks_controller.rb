@@ -42,6 +42,11 @@ class ArtworksController < ApplicationController
         render json: artwork
     end 
 
+    def collection_list 
+        artwork = Artwork.find(params[:id])
+        get_collection_list(artwork)
+    end 
+
     private 
 
     def artwork_params

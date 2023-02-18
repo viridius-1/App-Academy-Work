@@ -38,6 +38,13 @@ class User < ApplicationRecord
         inverse_of: :liker, 
         dependent: :destroy
 
+    has_many :collections, 
+        primary_key: :id, 
+        foreign_key: :user_id, #collections table 
+        class_name: :Collection,
+        inverse_of: :collector,
+        dependent: :destroy
+
     has_many :shared_artworks, 
         through: :views, 
         source: :artwork
@@ -54,5 +61,9 @@ class User < ApplicationRecord
 
     def liked_artworks
         liked_items("Artwork")
+    end 
+
+    def collection_list 
+        get_collection_list(collections)
     end 
 end 

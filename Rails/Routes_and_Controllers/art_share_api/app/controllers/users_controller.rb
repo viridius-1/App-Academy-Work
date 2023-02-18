@@ -47,6 +47,11 @@ class UsersController < ApplicationController
         render json: user if user.destroy 
     end 
 
+    def collection_list
+        user = User.find(params[:id])
+        get_collection_list(user)
+    end 
+
     private 
 
     def user_params

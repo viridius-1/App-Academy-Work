@@ -1,6 +1,14 @@
 class ArtworkSharesController < ApplicationController
     verify_authenticity_token
 
+    def index
+        render json: ArtworkShare.all
+    end 
+
+    def show 
+        render json: ArtworkShare.find(params[:id]) 
+    end 
+
     def create 
         artwork_share = ArtworkShare.new(artwork_share_params)
 
@@ -15,6 +23,13 @@ class ArtworkSharesController < ApplicationController
     def destroy 
         artwork_share = ArtworkShare.find(params[:id])
         render json: artwork_share if artwork_share.destroy 
+    end 
+
+    def favorite
+        artwork_share = ArtworkShare.find(params[:id])
+        artwork_share.favorite = true 
+        artwork_share.save!
+        render json: artwork_share
     end 
 
     private 

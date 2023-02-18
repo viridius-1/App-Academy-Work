@@ -21,13 +21,23 @@ Rails.application.routes.draw do
   #routes to artworks controller 
   resources :artworks, only: [:show, :create, :update, :destroy]
 
+  #route for a user to mark their artwork as a favorite
+  resources :artworks do 
+    patch 'favorite', on: :member 
+  end 
+
   #route to get all the artworks of a user. this returns all the artworks a user owns and all the artworks that have been shared with that user. this will allow a GET request to /users/:user_id/artworks
   resources :users do 
     resources :artworks, only: [:index]
   end 
 
   #routes to artwork_shares controller 
-  resources :artwork_shares, only: [:create, :destroy]
+  resources :artwork_shares, only: [:index, :show, :create, :destroy]
+
+  #route for a user to mark artwork that has been shared with them as a favorite
+  resources :artwork_shares do 
+    patch 'favorite', on: :member 
+  end 
 
   #routes to comments controller 
   resources :comments, only: [:create, :destroy, :index]

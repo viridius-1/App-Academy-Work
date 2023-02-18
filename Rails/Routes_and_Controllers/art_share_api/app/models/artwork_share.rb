@@ -5,6 +5,7 @@
 #  id         :bigint           not null, primary key
 #  viewer_id  :integer          not null
 #  artwork_id :integer          not null
+#  favorite   :boolean
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 

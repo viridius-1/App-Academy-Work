@@ -35,6 +35,13 @@ class ArtworksController < ApplicationController
         render json: artwork if artwork.destroy
     end 
 
+    def favorite
+        artwork = Artwork.find(params[:id])
+        artwork.favorite = true 
+        artwork.save!
+        render json: artwork
+    end 
+
     private 
 
     def artwork_params

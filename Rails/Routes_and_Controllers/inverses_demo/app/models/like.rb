@@ -3,16 +3,12 @@
 # Table name: likes
 #
 #  id         :bigint           not null, primary key
-#  post_id    :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  user_id    :integer          default(0), not null
+#  user_id    :integer          default(0)
+#  post_id    :integer          default(0)
 
 class Like < ApplicationRecord 
-    after_create do 
-        Like.validates :user_id, :post_id, presence: true 
-    end 
-
     belongs_to :user, 
         inverse_of: :likes 
 

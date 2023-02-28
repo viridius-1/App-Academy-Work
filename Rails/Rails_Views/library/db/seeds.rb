@@ -88,7 +88,7 @@ book11 = Book.create(
 book12 = Book.create(
     title: "Lolita", 
     author: "Vladimir Nabokov", 
-    year: 1955, 
+    year: 1955,
     category: "Novel", 
     description: "The book is internationally famous for its innovative style and infamous for its controversial subject: the protagonist and unreliable narrator, middle aged Humbert Humbert, becomes obsessed and sexually involved with a twelve-year-old girl named Dolores Haze."
 )

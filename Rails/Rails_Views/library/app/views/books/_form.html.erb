@@ -1,0 +1,55 @@
+<!--    
+Things to change: 
+    -action / DONE
+    -hidden input for PATCH / DONE
+    -pre-filled values / DONE 
+    -submit button / DONE
+--> 
+
+<% if action == :edit %>
+    <% action_url = book_url(book) %>
+<% else %>
+    <% action_url = books_url %>
+<% end %>
+
+<form action="<%= action_url %>" method="post">
+    <% if action == :edit %>
+        <input type="hidden" name="_method" value="PATCH">
+    <% end %>
+
+    <label for="title">Title</label>
+    <input id="title" type="text" name="book[title]" value="<%= book.title %>">
+
+    <br>
+
+    <label for="author">Author</label>
+    <input id="author" type="text" name="book[author]" value="<%= book.author %>">
+
+    <br>
+
+    <label for="year">Year</label>
+    <input id="year" type="text" name="book[year]" value="<%= book.year %>">
+
+    <br>
+
+    <label for="category">Category</label>
+    <select id="category" name="book[category]">
+        <option disabled <%= book.category ? "" : "selected" %>>--Please Select--</option>
+        <option value="Novel" <%= book.category == "Novel" ? "selected" : "" %>>Novel</option>
+        <option value="Narrative" <%= book.category == "Narrative" ? "selected" : "" %>>Narrative</option>
+        <option value="Tragedy" <%= book.category == "Tragedy" ? "selected" : "" %>>Tragedy</option>
+        <option value="Poem" <%= book.category == "Poem" ? "selected" : "" %>>Poem</option>
+    </select>
+
+    <br><br>
+
+    <label for="description">Description</label>
+    <textarea name="book[description]">
+        <%= book.description %>
+    </textarea>
+
+    <br>
+
+    <input type="submit" value="<%= action == :edit ? "Update book" : "Add book" %>">
+</form>
+

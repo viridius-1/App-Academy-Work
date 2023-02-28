@@ -1,0 +1,47 @@
+<h1>Edit book in Library!</h1>
+
+<%= render 'form', book: @book, action: :edit %>
+
+
+
+
+<!-- 
+<form action="<%= book_url(@book) %>" method="post">
+    <input type="hidden" name="_method" value="PATCH">
+
+    <label for="title">Title</label>
+    <input id="title" type="text" name="book[title]" value="<%= @book.title %>">
+
+    <br>
+
+    <label for="author">Author</label>
+    <input id="author" type="text" name="book[author]" value="<%= @book.author %>">
+
+    <br>
+
+    <label for="year">Year</label>
+    <input id="year" type="text" name="book[year]" value="<%= @book.year %>">
+
+    <br>
+
+    <label for="category">Category</label>
+    <select id="category" name="book[category]">
+        <option disabled>--Please Select--</option>
+        <option value="Novel" <%= @book.category == "Novel" ? "selected" : ""%>>Novel</option>
+        <option value="Narrative" <%= @book.category == "Narrative" ? "selected" : ""%>>Narrative</option>
+        <option value="Tragedy" <%= @book.category == "Tragedy" ? "selected" : ""%>>Tragedy</option>
+        <option value="Poem" <%= @book.category == "Poem" ? "selected" : ""%>>Poem</option>
+    </select>
+
+    <br><br>
+
+    <label for="description">Description</label>
+    <textarea name="book[description]">
+        <%= @book.description %>
+    </textarea>
+
+    <br>
+
+    <input type="submit" value="Update book">
+</form>
+-->

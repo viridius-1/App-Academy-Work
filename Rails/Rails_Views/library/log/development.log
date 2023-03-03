@@ -5732,3 +5732,46 @@ Processing by BooksController#index as HTML
 Completed 200 OK in 10ms (Views: 7.5ms | ActiveRecord: 2.1ms | Allocations: 4475)
 
 
+Started GET "/1/edit" for ::1 at 2023-02-28 07:12:34 -0800
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActionController::RoutingError (No route matches [GET] "/1/edit"):
+  
+Started GET "/1/edit" for ::1 at 2023-02-28 07:12:40 -0800
+  
+ActionController::RoutingError (No route matches [GET] "/1/edit"):
+  
+Started GET "/books/1/edit" for ::1 at 2023-02-28 07:12:55 -0800
+Processing by BooksController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mBook Load (2.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/books_controller.rb:37:in `edit'
+  Rendering layout layouts/application.html.erb
+  Rendering books/edit.html.erb within layouts/application
+  Rendered books/_form.html.erb (Duration: 2.0ms | Allocations: 598)
+  Rendered books/edit.html.erb within layouts/application (Duration: 4.8ms | Allocations: 1075)
+  Rendered layout layouts/application.html.erb (Duration: 20.7ms | Allocations: 4336)
+Completed 200 OK in 242ms (Views: 23.0ms | ActiveRecord: 155.2ms | Allocations: 14910)
+
+
+Started GET "/books/100/edit" for ::1 at 2023-02-28 07:13:01 -0800
+Processing by BooksController#edit as HTML
+  Parameters: {"id"=>"100"}
+  [1m[36mBook Load (0.3ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = $1 LIMIT $2[0m  [["id", 100], ["LIMIT", 1]]
+  ↳ app/controllers/books_controller.rb:37:in `edit'
+Redirected to http://localhost:3000/books
+Completed 302 Found in 4ms (ActiveRecord: 0.3ms | Allocations: 706)
+
+
+Started GET "/books" for ::1 at 2023-02-28 07:13:01 -0800
+Processing by BooksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering books/index.html.erb within layouts/application
+  [1m[36mBook Load (0.5ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m
+  ↳ app/views/books/index.html.erb:4
+  Rendered collection of books/_book.html.erb [17 times] (Duration: 1.5ms | Allocations: 310)
+  Rendered books/index.html.erb within layouts/application (Duration: 9.4ms | Allocations: 1513)
+  Rendered layout layouts/application.html.erb (Duration: 24.8ms | Allocations: 2674)
+Completed 200 OK in 26ms (Views: 25.7ms | ActiveRecord: 0.5ms | Allocations: 2931)
+
+

@@ -16,11 +16,17 @@ class CatsController < ApplicationController
     end 
 
     def new 
-
+        @cat_colors = Cat.get_cat_colors
     end 
 
     def create 
+        @cat = Cat.new(cat_params)
 
+        if @cat.save
+            redirect_to cat_url(@cat)
+        else 
+            redirect_to new_cat_url
+        end 
     end 
 
     def edit 
@@ -34,7 +40,7 @@ class CatsController < ApplicationController
     private 
 
     def cat_params 
-
+        params.require(:cat).permit(:name, :color, :birth_date, :sex, :description)
     end 
 end 
 

@@ -23,6 +23,10 @@ class Cat < ApplicationRecord
     validates :sex, :inclusion => { :in => %w(M F), :message => "%{value} is not a valid sex. Choose 'M' or 'F'." }
     validate :birth_date_cannot_be_future
 
+    def self.get_cat_colors
+        CAT_COLORS
+    end
+
     def age 
         raise future_birth_date_error if birth_date_in_future?
         

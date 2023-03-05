@@ -16,7 +16,9 @@ class CatsController < ApplicationController
     end 
 
     def new 
+        @cat = Cat.new
         @cat_colors = Cat.get_cat_colors
+        render :new 
     end 
 
     def create 
@@ -30,7 +32,14 @@ class CatsController < ApplicationController
     end 
 
     def edit 
+        @cat = Cat.find_by(id: params[:id])
+        @cat_colors = Cat.get_cat_colors
 
+        if @cat 
+            render :edit 
+        else   
+            redirect_to cats_url
+        end 
     end 
 
     def update 

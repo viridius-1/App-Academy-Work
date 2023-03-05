@@ -3,11 +3,9 @@
 <%= render 'form', book: @book, action: :edit %>
 
 
-
-
 <!-- 
 <form action="<%= book_url(@book) %>" method="post">
-    <input type="hidden" name="_method" value="PATCH">
+    <input type="hidden" name="_method" value="patch">
 
     <label for="title">Title</label>
     <input id="title" type="text" name="book[title]" value="<%= @book.title %>">

@@ -1,38 +1,3 @@
 <h1>Add a cat!</h1>
 
-<form action="/cats" method="post">
-
-    <label for="name">Name</label>
-    <input id="name" type="text" name="cat[name]">
-
-    <br><br>
-
-    <label for="sex" align="left">Sex</label>
-    M<input type="radio" name="cat[sex]" value="M">
-    F<input type="radio" name="cat[sex]" value="F">
-
-    <br><br>
-
-    <label for="color">Color</label>
-    <select name="cat[color]" id="color">
-        <option disabled selected>--Please Select--</option>
-        <% @cat_colors.each do |cat_color| %>
-            <option value="<%= cat_color %>"><%= cat_color %></option>
-        <% end %>
-    </select>
-
-    <br><br>
-
-    <label for="birth_date">Birth Date</label>
-    <input type="date" name="cat[birth_date]">
-
-    <br><br>
-
-    <label for="description">Description</label>
-    <textarea name="cat[description]"></textarea>
-
-    <br><br>
-
-    <input type="submit" value="Add Cat">
-
-</form>
+<%= render 'form', cat: @cat, cat_colors: @cat_colors%>

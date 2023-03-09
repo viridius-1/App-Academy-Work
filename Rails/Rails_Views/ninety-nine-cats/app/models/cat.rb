@@ -39,6 +39,12 @@ class Cat < ApplicationRecord
         compose_age_string(years_old, months_old, years_old_word, months_old_word)
     end 
 
+    has_many :rental_requests, 
+        primary_key: :id, 
+        foreign_key: :cat_id, #cat_rental_requests table
+        class_name: :CatRentalRequest, 
+        dependent: :destroy
+
     private 
 
     def birth_date_cannot_be_future 

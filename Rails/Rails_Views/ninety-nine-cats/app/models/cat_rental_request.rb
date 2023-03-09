@@ -20,4 +20,10 @@ class CatRentalRequest < ApplicationRecord
         primary_key: :id, #cats table 
         foreign_key: :cat_id, 
         class_name: :Cat
+
+    #private 
+
+    def overlapping_requests 
+        CatRentalRequest.where(start_date: self.start_date..self.end_date).where("id != #{self.id} AND cat_id = #{self.cat_id}")
+    end 
 end 
